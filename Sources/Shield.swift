@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public final class Tron {
+public final class Shield {
     private let queue = DispatchQueue(label: "", qos: .utility)
     
     public init() { }

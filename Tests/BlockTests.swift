@@ -3,7 +3,7 @@ import Sleuth
 import Combine
 
 final class BlockTests: XCTestCase {
-    private var tron: Tron!
+    private var shield: Shield!
     private var subs = Set<AnyCancellable>()
     private let list =  [
         "https://sourcepoint.theguardian.com/index.html?message_id=343252&consentUUID=4debba32-1827-4286-b168-cd0a6068f5f5&requestUUID=0a3ee8d3-cc2e-43b1-99ba-ceb02302f3e5&preload_message=true)",
@@ -80,14 +80,14 @@ final class BlockTests: XCTestCase {
     ]
     
     override func setUp() {
-        tron = .init()
+        shield = .init()
     }
     
     func test() {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = list.count
         list.forEach { url in
-            tron.policy(for: URL(string: url)!, shield: true).sink {
+            shield.policy(for: URL(string: url)!, shield: true).sink {
                 if case .block(_) = $0 {
                     expect.fulfill()
                 } else {

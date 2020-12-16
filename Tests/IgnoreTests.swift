@@ -3,7 +3,7 @@ import Sleuth
 import Combine
 
 final class IgnoreTests: XCTestCase {
-    private var tron: Tron!
+    private var shield: Shield!
     private var subs = Set<AnyCancellable>()
     private let list =  [
         "about:blank",
@@ -12,14 +12,14 @@ final class IgnoreTests: XCTestCase {
     ]
     
     override func setUp() {
-        tron = .init()
+        shield = .init()
     }
     
     func test() {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = list.count
         list.forEach { url in
-            tron.policy(for: URL(string: url)!, shield: true).sink {
+            shield.policy(for: URL(string: url)!, shield: true).sink {
                 if case .ignore = $0 {
                     expect.fulfill()
                 } else {

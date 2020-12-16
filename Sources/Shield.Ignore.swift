@@ -1,6 +1,6 @@
 import Foundation
 
-extension Tron {
+extension Shield {
     enum Ignore: String {
         case
         about,

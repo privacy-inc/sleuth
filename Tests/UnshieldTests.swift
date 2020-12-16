@@ -3,7 +3,7 @@ import Sleuth
 import Combine
 
 final class UnshieldTests: XCTestCase {
-    private var tron: Tron!
+    private var shield: Shield!
     private var subs = Set<AnyCancellable>()
     private let listA =  [
         "about:blank",
@@ -24,14 +24,14 @@ final class UnshieldTests: XCTestCase {
     ]
     
     override func setUp() {
-        tron = .init()
+        shield = .init()
     }
     
     func testIgnore() {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = listA.count
         listA.forEach { url in
-            tron.policy(for: URL(string: url)!, shield: false).sink {
+            shield.policy(for: URL(string: url)!, shield: false).sink {
                 if case .ignore = $0 {
                     expect.fulfill()
                 } else {
@@ -46,7 +46,7 @@ final class UnshieldTests: XCTestCase {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = listB.count
         listB.forEach { url in
-            tron.policy(for: URL(string: url)!, shield: false).sink {
+            shield.policy(for: URL(string: url)!, shield: false).sink {
                 if case .allow = $0 {
                     expect.fulfill()
                 } else {
@@ -61,7 +61,7 @@ final class UnshieldTests: XCTestCase {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = listC.count
         listC.forEach { url in
-            tron.policy(for: URL(string: url)!, shield: false).sink {
+            shield.policy(for: URL(string: url)!, shield: false).sink {
                 if case .external = $0 {
                     expect.fulfill()
                 } else {

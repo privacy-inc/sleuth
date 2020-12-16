@@ -1,6 +1,6 @@
 import Foundation
 
-extension Tron {
+extension Shield {
     enum Block: String {
         case
         sourcepoint,
