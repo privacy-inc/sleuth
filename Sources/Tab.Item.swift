@@ -13,7 +13,7 @@ public extension Tab {
         public let previous = PassthroughSubject<Void, Never>()
         public let next = PassthroughSubject<Void, Never>()
         public let reload = PassthroughSubject<Void, Never>()
-        private weak var subscription: AnyCancellable?
+        private var subscription: AnyCancellable?
         
         init() {
             subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
