@@ -2,33 +2,21 @@ import Foundation
 import Combine
 
 public final class Tab {
-    public let items = CurrentValueSubject<[Item], Never>([])
-    public let selected = CurrentValueSubject<Item, Never>(.init())
+    public let page = CurrentValueSubject<Page?, Never>(nil)
+    public let error = CurrentValueSubject<String?, Never>(nil)
+    public let backwards = CurrentValueSubject<Bool, Never>(false)
+    public let forwards = CurrentValueSubject<Bool, Never>(false)
+    public let progress = CurrentValueSubject<Double, Never>(0)
+    public let blocked = CurrentValueSubject<Set<String>, Never>([])
+    public let browse = PassthroughSubject<URL, Never>()
+    public let previous = PassthroughSubject<Void, Never>()
+    public let next = PassthroughSubject<Void, Never>()
+    public let reload = PassthroughSubject<Void, Never>()
+    private var subscription: AnyCancellable?
     
-    public init() {
-        items.value.append(selected.value)
-    }
-    
-    public func new() {
-        selected.value = .init()
-        items.value.append(selected.value)
-    }
-    
-    public func open(_ url: URL) {
-        if selected.value.page.value == nil {
-            selected.value.page.value = .init(url: url)
-        }
-        selected.value.browse.send(url)
-    }
-    
-    public func close(_ item: Item) {
-        items.value.removeAll { $0 === item }
-        if selected.value == item {
-            if let last = items.value.last {
-                selected.value = last
-            } else {
-                new()
-            }
+    init() {
+        subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
+            $0.map(FileManager.save)
         }
     }
 }
