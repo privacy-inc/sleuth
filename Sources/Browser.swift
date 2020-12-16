@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public final class Tab {
+public final class Browser {
     public let page = CurrentValueSubject<Page?, Never>(nil)
     public let error = CurrentValueSubject<String?, Never>(nil)
     public let backwards = CurrentValueSubject<Bool, Never>(false)
