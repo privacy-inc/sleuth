@@ -13,7 +13,7 @@ public extension FileManager {
                                 $0.compactMap {
                                     try? JSONDecoder().decode(Page.self, from: .init(contentsOf: $0))
                                 }
-                            }?.sorted { $0.date < $1.date } ?? []
+                            }?.sorted { $0.date > $1.date } ?? []
                     )
                 )
             }
