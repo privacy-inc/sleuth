@@ -1,6 +1,6 @@
 import XCTest
 import Combine
-import Sleuth
+@testable import Sleuth
 
 final class TabTests: XCTestCase {
     private var tab: Tab!

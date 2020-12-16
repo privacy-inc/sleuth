@@ -13,6 +13,13 @@ public extension Tab {
         public let previous = PassthroughSubject<Void, Never>()
         public let next = PassthroughSubject<Void, Never>()
         public let reload = PassthroughSubject<Void, Never>()
+        private weak var subscription: AnyCancellable?
+        
+        init() {
+            subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
+                $0.map(FileManager.save)
+            }
+        }
         
         public static func == (lhs: Tab.Item, rhs: Tab.Item) -> Bool {
             lhs === rhs

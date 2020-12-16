@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Page: Codable, Identifiable, Hashable {
+public struct Page: Codable, Identifiable, Hashable {
     public var url: URL
     public var date: Date
     public var title: String

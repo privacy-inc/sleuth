@@ -32,19 +32,6 @@ public extension FileManager {
         }
     }
     
-    static func save(_ page: Page) {
-        queue.async {
-            var url = folder
-            if !instance.fileExists(atPath: url.path) {
-                var resources = URLResourceValues()
-                resources.isExcludedFromBackup = true
-                try? url.setResourceValues(resources)
-                try? instance.createDirectory(at: url, withIntermediateDirectories: true)
-            }
-            try? JSONEncoder().encode(page).write(to: url.appendingPathComponent(page.id.uuidString), options: .atomic)
-        }
-    }
-    
     static func delete(_ page: Page) {
         queue.async {
             try? instance.removeItem(at: folder.appendingPathComponent(page.id.uuidString))
@@ -54,6 +41,19 @@ public extension FileManager {
     static func forget() {
         queue.async {
             try? instance.removeItem(at: folder)
+        }
+    }
+    
+    internal static func save(_ page: Page) {
+        queue.async {
+            var url = folder
+            if !instance.fileExists(atPath: url.path) {
+                var resources = URLResourceValues()
+                resources.isExcludedFromBackup = true
+                try? url.setResourceValues(resources)
+                try? instance.createDirectory(at: url, withIntermediateDirectories: true)
+            }
+            try? JSONEncoder().encode(page).write(to: url.appendingPathComponent(page.id.uuidString), options: .atomic)
         }
     }
     
