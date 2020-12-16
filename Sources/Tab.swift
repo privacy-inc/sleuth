@@ -14,7 +14,7 @@ public final class Tab {
     public let reload = PassthroughSubject<Void, Never>()
     private var subscription: AnyCancellable?
     
-    init() {
+    public init() {
         subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
             $0.map(FileManager.save)
         }
