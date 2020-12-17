@@ -57,11 +57,7 @@ public final class Defaults: UserDefaults {
     }
     
     private class subscript(_ key: Key) -> Any? {
-        get {
-            standard.object(forKey: key.rawValue)
-        }
-        set {
-            standard.setValue(newValue, forKey: key.rawValue)
-        }
+        get { standard.object(forKey: key.rawValue) }
+        set { standard.setValue(newValue, forKey: key.rawValue) }
     }
 }
