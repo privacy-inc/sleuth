@@ -1,6 +1,6 @@
 import Foundation
 
-enum Scheme: String {
+public enum Scheme: String {
     case
     https,
     http
