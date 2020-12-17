@@ -47,7 +47,7 @@ public final class Defaults: UserDefaults {
     }
     
     public class var engine: Engine {
-        get { (self[.engine] as? String).flatMap(Engine.init(rawValue:)) ?? .ecosia }
+        get { (self[.engine] as? String).flatMap(Engine.init(rawValue:)) ?? .google }
         set { self[.engine] = newValue.rawValue }
     }
     
