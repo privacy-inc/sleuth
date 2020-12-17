@@ -3,30 +3,51 @@ import Sleuth
 
 final class EngineTests: XCTestCase {
     func testEmpty() {
-        XCTAssertNil(Engine.ecosia.url(""))
-        XCTAssertNil(Engine.ecosia.url(" "))
-        XCTAssertNil(Engine.ecosia.url("\n"))
+        XCTAssertNil(Engine.ecosia.browse(""))
+        XCTAssertNil(Engine.ecosia.browse(" "))
+        XCTAssertNil(Engine.ecosia.browse("\n"))
     }
     
     func testSearch() {
-        XCTAssertEqual("https://www.ecosia.org/search?q=hello%20world", Engine.ecosia.url("hello world")?.absoluteString)
-        XCTAssertEqual("https://www.google.com/search?q=hello%20world", Engine.google.url("hello world")?.absoluteString)
+        if case let .search(url) = Engine.ecosia.browse("hello world") {
+            XCTAssertEqual("https://www.ecosia.org/search?q=hello%20world", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .search(url) = Engine.google.browse("hello world") {
+            XCTAssertEqual("https://www.google.com/search?q=hello%20world", url.absoluteString)
+        } else {
+            XCTFail()
+        }
     }
     
     func testURL() {
-        XCTAssertEqual("https://github.com", Engine.ecosia.url("https://github.com")?.absoluteString)
+        if case let .navigate(url) = Engine.ecosia.browse("https://github.com") {
+            XCTAssertEqual("https://github.com", url.absoluteString)
+        } else {
+            XCTFail()
+        }
     }
     
     func testPartialURL() {
-        XCTAssertEqual("http://github.com", Engine.ecosia.url("github.com")?.absoluteString)
+        if case let .navigate(url) = Engine.ecosia.browse("github.com") {
+            XCTAssertEqual("http://github.com", url.absoluteString)
+        } else {
+            XCTFail()
+        }
     }
     
     func testDeeplinks() {
-        XCTAssertEqual("itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus",
-                       Engine.ecosia.url("itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus")?.absoluteString)
+        if case let .navigate(url) = Engine.ecosia.browse("itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus") {
+            XCTAssertEqual("itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus",
+                           url.absoluteString)
+        } else {
+            XCTFail()
+        }
     }
     
-    func testURLDeeplink() {
+    func testDeeplinkValidation() {
         XCTAssertTrue(URL(string: "itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus")!.deeplink)
         XCTAssertFalse(URL(string: "github.com")!.deeplink)
         XCTAssertFalse(URL(string: "http://github.com")!.deeplink)

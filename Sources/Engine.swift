@@ -5,23 +5,47 @@ public enum Engine: String {
     ecosia,
     google
     
-    var prefix: String {
+    public func browse(_ string: String) -> Browse? {
+        string.trimmed {
+            $0.url(transform: Browse.navigate)
+                ?? $0.partialURL(transform: Browse.navigate)
+                ?? $0.query { URL(string: prefix + $0).map(Browse.search) }
+                ?? nil
+        } ?? nil
+    }
+    
+    private var prefix: String {
         switch self {
         case .ecosia: return "https://www.ecosia.org/search?q="
         case .google: return "https://www.google.com/search?q="
         }
     }
-    
-    public func url(_ string: String) -> URL? {
+}
+
+private extension String {
+    func trimmed<T>(transform: (Self) -> T) -> T? {
         {
-            $0.isEmpty ? nil : URL(string: $0).flatMap {
-                $0.scheme == nil ? nil : $0
-            } ?? URL(string: {
-                $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
-            } ($0.components(separatedBy: ".")) ? "http://" + $0
-            : $0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed).map {
-                prefix + $0
-            } ?? "")
-        } (string.trimmingCharacters(in: .whitespacesAndNewlines))
+            $0.isEmpty ? nil : transform($0)
+        } (trimmingCharacters(in: .whitespacesAndNewlines))
+    }
+    
+    func url<T>(transform: (URL) -> T) -> T? {
+        isEmpty ? nil : URL(string: self).flatMap {
+            $0.scheme == nil ? nil : transform($0)
+        }
+    }
+    
+    func partialURL<T>(transform: (URL) -> T) -> T? {
+        separated {
+            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 ? URL(string: "http://" + self).map(transform) : nil
+        }
+    }
+    
+    func query<T>(transform: (Self) -> T) -> T? {
+        addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed).map(transform)
+    }
+    
+    private func separated<T>(transform: ([Self]) -> T) -> T {
+        transform(components(separatedBy: "."))
     }
 }
