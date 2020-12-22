@@ -7,7 +7,6 @@ public final class Browser {
     public let backwards = CurrentValueSubject<Bool, Never>(false)
     public let forwards = CurrentValueSubject<Bool, Never>(false)
     public let progress = CurrentValueSubject<Double, Never>(0)
-    public let blocked = CurrentValueSubject<Set<String>, Never>([])
     public let browse = PassthroughSubject<URL, Never>()
     public let previous = PassthroughSubject<Void, Never>()
     public let next = PassthroughSubject<Void, Never>()
