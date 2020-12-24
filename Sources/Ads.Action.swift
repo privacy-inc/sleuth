@@ -3,7 +3,7 @@ import Foundation
 extension Ads {
     enum Action: CustomStringConvertible, Hashable {
         case
-        css(Selector),
+        css(String),
         block
         
         var description: String {
@@ -11,9 +11,9 @@ extension Ads {
 "action": {
 \({
     switch self {
-    case .css(let selector): return """
+    case let .css(selector): return """
 "type": "css-display-none",
-"selector": "div[\(selector.serialise)]"
+"selector": "\(selector)"
 """
     case .block: return """
 "type": "block"

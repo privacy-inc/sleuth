@@ -9,21 +9,21 @@ final class AdsTests: XCTestCase {
     }
     
     func testEcosia() {
-        XCTAssertTrue(contains("css-display-none", "div[class*='card-ad']", "https://www.ecosia.org"))
-        XCTAssertTrue(contains("css-display-none", "div[class*='card-productads']", "https://www.ecosia.org"))
+        XCTAssertTrue(contains("css-display-none", ".card-ad", "https://www.ecosia.org"))
+        XCTAssertTrue(contains("css-display-none", ".card-productads", "https://www.ecosia.org"))
     }
     
     func testGoogle() {
-        XCTAssertTrue(contains("css-display-none", "div[id='taw']", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "div[id='rhs']", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "div[class*='commercial']", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "div[id='tadsb']", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "div[id='lb']", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#taw", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#rhs", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", ".commercial", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#tadsb", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#lb", "https://www.google.com"))
     }
     
     func testYouTube() {
-        XCTAssertTrue(contains("css-display-none", "div[id='consent-bump']", "https://www.youtube.com"))
-        XCTAssertTrue(contains("css-display-none", "div[class='opened']", "https://www.youtube.com"))
+        XCTAssertTrue(contains("css-display-none", "#consent-bump", "https://www.youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".opened", "https://www.youtube.com"))
     }
     
     func testBlock() {
