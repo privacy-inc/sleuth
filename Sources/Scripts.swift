@@ -24,11 +24,7 @@ if (!dark()) {
     style.innerHTML = ":root, img, [style*=background-image], [class*=video-thumbnail-img], #player-container-id { filter: invert(1) hue-rotate(.5turn); }";
     document.head.appendChild(style);
 }
-if true {
-    var style = document.createElement('style');
-    style.innerHTML = ":root, img, [style*=background-image], [class*=video-thumbnail-img], #player-container-id { filter: invert(1) hue-rotate(.5turn); }";
-    document.head.appendChild(style);
-}
+
 """
     
     public static let scroll = """
@@ -37,5 +33,6 @@ if true {
         style.innerHTML = ":root { overflow-y: visible !important; }";
         document.head.appendChild(style);
     }
+
 """
 }
