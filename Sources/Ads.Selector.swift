@@ -1,25 +1,18 @@
 import Foundation
 
 extension Ads {
-    class Selector: CustomStringConvertible {
-        let value: String
+    enum Selector {
+        case
+        id(String),
+        contains(String),
+        equals(String)
         
-        init(_ value: String) {
-            self.value = value
-        }
-        
-        final class Id: Selector {
-            override var description: String {
-                "id='\(value)'"
+        var serialise: String {
+            switch self {
+            case let .id(value): return "id='\(value)'"
+            case let .contains(value): return "class*='\(value)'"
+            case let .equals(value): return "class='\(value)'"
             }
         }
-        
-        final class Class: Selector {
-            override var description: String {
-                "class*='\(value)'"
-            }
-        }
-        
-        var description: String { fatalError() }
     }
 }

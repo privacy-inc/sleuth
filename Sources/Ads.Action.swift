@@ -13,7 +13,7 @@ extension Ads {
     switch self {
     case .css(let selector): return """
 "type": "css-display-none",
-"selector": "div[\(String(describing: selector))]"
+"selector": "div[\(selector.serialise)]"
 """
     case .block: return """
 "type": "block"

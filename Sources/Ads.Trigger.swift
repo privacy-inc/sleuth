@@ -5,6 +5,7 @@ extension Ads {
         case
         ecosia = "https://www.ecosia.org",
         google = "https://www.google.com",
+        youtube = "https://www.youtube.com",
         pubmatic = "https://ads.pubmatic.com",
         googlesyndication = ".*googlesyndication.com",
         dianomi = "https://www.dianomi.com",

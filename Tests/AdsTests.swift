@@ -21,6 +21,11 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "div[id='lb']", "https://www.google.com"))
     }
     
+    func testYouTube() {
+        XCTAssertTrue(contains("css-display-none", "div[id='consent-bump']", "https://www.youtube.com"))
+        XCTAssertTrue(contains("css-display-none", "div[class='opened']", "https://www.youtube.com"))
+    }
+    
     func testBlock() {
         XCTAssertTrue(contains("block", nil, "https://ads.pubmatic.com"))
         XCTAssertTrue(contains("block", nil, ".*googlesyndication.com"))

@@ -3,13 +3,15 @@ import Foundation
 extension Ads {
     struct Rule: Hashable {
         static let all = Set([
-                                Self(.css(.Class("card-ad")), .ecosia),
-                                .init(.css(.Class("card-productads")), .ecosia),
-                                .init(.css(.Id("taw")), .google),
-                                .init(.css(.Id("rhs")), .google),
-                                .init(.css(.Id("tadsb")), .google),
-                                .init(.css(.Id("lb")), .google),
-                                .init(.css(.Class("commercial")), .google),
+                                Self(.css(.contains("card-ad")), .ecosia),
+                                .init(.css(.contains("card-productads")), .ecosia),
+                                .init(.css(.id("taw")), .google),
+                                .init(.css(.id("rhs")), .google),
+                                .init(.css(.id("tadsb")), .google),
+                                .init(.css(.id("lb")), .google),
+                                .init(.css(.contains("commercial")), .google),
+                                .init(.css(.id("consent-bump")), .youtube),
+                                .init(.css(.equals("opened")), .youtube),
                                 .init(.block, .pubmatic),
                                 .init(.block, .googlesyndication),
                                 .init(.block, .dianomi),
