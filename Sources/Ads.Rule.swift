@@ -12,6 +12,7 @@ extension Ads {
                                 .init(.css(".commercial"), .google),
                                 .init(.css("#consent-bump"), .youtube),
                                 .init(.css(".opened"), .youtube),
+                                .init(.css(".ytd-popup-container"), .youtube),
                                 .init(.block, .pubmatic),
                                 .init(.block, .googlesyndication),
                                 .init(.block, .dianomi),
