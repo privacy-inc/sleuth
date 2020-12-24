@@ -18,6 +18,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "div[id='rhs']", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "div[class*='commercial']", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "div[id='tadsb']", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "div[id='lb']", "https://www.google.com"))
     }
     
     func testBlock() {

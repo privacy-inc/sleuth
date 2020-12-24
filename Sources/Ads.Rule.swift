@@ -8,6 +8,7 @@ extension Ads {
                                 .init(.css(.Id("taw")), .google),
                                 .init(.css(.Id("rhs")), .google),
                                 .init(.css(.Id("tadsb")), .google),
+                                .init(.css(.Id("lb")), .google),
                                 .init(.css(.Class("commercial")), .google),
                                 .init(.block, .pubmatic),
                                 .init(.block, .googlesyndication),
