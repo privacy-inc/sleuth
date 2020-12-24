@@ -9,7 +9,7 @@ function dark() {
                 for (var j = 0; j < document.styleSheets[i].cssRules.length; j++) {
                     if (document.styleSheets[i].cssRules[j] instanceof CSSMediaRule &&
                         document.styleSheets[i].cssRules[j].media.mediaText.indexOf('dark') > 0) {
-                         /Users/vaux/dev/Sleuth/Sources/Dark.swift   return true;
+                            return true;
                     }
                 }
             }
