@@ -62,7 +62,8 @@ extension Ads {
                                 .init(.block, .fgfgnbmeieorr910),
                                 .init(.block, .dexpredict),
                                 .init(.block, .hornsgrid),
-                                .init(.block, .zap)])
+                                .init(.block, .zap),
+                                .init(.block, .google_consent)])
         
         let action: Action
         let trigger: Trigger

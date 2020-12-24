@@ -74,6 +74,7 @@ extension Shield {
         ahojer,
         impactserving,
         f853150605ccb,
+        consent,
         the_ozone_project = "the-ozone-project",
         amazon_adsystem = "amazon-adsystem",
         google_analytics = "google-analytics",

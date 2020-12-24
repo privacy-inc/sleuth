@@ -58,7 +58,8 @@ extension Ads {
         fgfgnbmeieorr910 = "https://fgfgnbmeieorr910.com",
         dexpredict = "https://www.dexpredict.com",
         hornsgrid = "https://hornsgrid.com",
-        zap = "https://zap.buzz"
+        zap = "https://zap.buzz",
+        google_consent = "https://consent.google.com"
         
         var description: String {
             """
