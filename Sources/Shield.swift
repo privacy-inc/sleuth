@@ -23,7 +23,7 @@ public final class Shield {
                             }
                             return .allow
                         }
-                        ?? .external))
+                        ?? (url.scheme == "data" ? .allow : .external)))
             }
         }
     }

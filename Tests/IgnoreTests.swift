@@ -7,8 +7,7 @@ final class IgnoreTests: XCTestCase {
     private var subs = Set<AnyCancellable>()
     private let list =  [
         "about:blank",
-        "about:srcdoc",
-        "data:text/html;charset=utf-8;base64,PGltZyBzcmM9Imh0dHBzOi8vd3d3LmJldDM2NS5jb20vZmF2aWNvbi5pY28iPg=="
+        "about:srcdoc"
     ]
     
     override func setUp() {
