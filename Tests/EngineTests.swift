@@ -46,11 +46,4 @@ final class EngineTests: XCTestCase {
             XCTFail()
         }
     }
-    
-    func testDeeplinkValidation() {
-        XCTAssertTrue(URL(string: "itms-services://?action=purchaseIntent&bundleId=incognit&productIdentifier=incognit.plus")!.deeplink)
-        XCTAssertFalse(URL(string: "github.com")!.deeplink)
-        XCTAssertFalse(URL(string: "http://github.com")!.deeplink)
-        XCTAssertFalse(URL(string: "https://github.com")!.deeplink)
-    }
 }
