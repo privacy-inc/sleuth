@@ -3,18 +3,14 @@ import Foundation
 public enum Scheme: String {
     case
     https,
-    http
+    http,
+    data,
+    file
     
-    static func schemeless(_ url: URL) -> String? {
-        url.scheme.flatMap(Self.init(rawValue:)).map {
-            .init(url.absoluteString.dropFirst($0.drop))
-        }
-    }
-    
-    private var drop: Int {
+    func web(_ url: URL) -> String? {
         switch self {
-        case .https: return 8
-        case .http: return 7
+        case .http, .https: return .init(url.absoluteString.dropFirst(rawValue.count + 3))
+        default: return nil
         }
     }
 }

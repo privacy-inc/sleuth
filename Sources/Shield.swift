@@ -10,20 +10,24 @@ public final class Shield {
         .init { [weak self] result in
             self?.queue.async {
                 result(.success(
-                        url.scheme.flatMap(Ignore.init(rawValue:)).map { _ in
-                            .ignore
-                        }
-                        ?? Scheme.schemeless(url).map {
-                            if shield {
-                                let domain = $0.components(separatedBy: "/").first!
-                                for item in domain.components(separatedBy: ".") {
-                                    guard Block(rawValue: item) == nil else { return .block(domain) }
-                                    continue
-                                }
-                            }
-                            return .allow
-                        }
-                        ?? (url.scheme == "data" ? .allow : .external)))
+                        url.scheme.flatMap {
+                            Ignore(rawValue: $0)
+                                .map { _ in
+                                    .ignore
+                                } ?? Scheme(rawValue: $0)
+                                    .map {
+                                        if shield {
+                                            if let web = $0.web(url) {
+                                                let domain = web.components(separatedBy: "/").first!
+                                                for item in domain.components(separatedBy: ".") {
+                                                    guard Block(rawValue: item) == nil else { return .block(domain) }
+                                                    continue
+                                                }
+                                            }
+                                        }
+                                        return .allow
+                                    }
+                        } ?? .external))
             }
         }
     }
