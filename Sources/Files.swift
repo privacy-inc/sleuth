@@ -43,7 +43,7 @@ public extension FileManager {
         }
     }
     
-    internal static func save(_ page: Page) {
+    static func save(_ page: Page) {
         queue.async {
             var url = folder
             if !instance.fileExists(atPath: url.path) {
