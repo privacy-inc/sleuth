@@ -8,14 +8,14 @@ public protocol Browser {
     var reload: PassthroughSubject<Void, Never> { get }
     var stop: PassthroughSubject<Void, Never> { get }
     
-    func progress(_ value: Double)
-    func loading(_ value: Bool)
-    func title(_ value: String)
-    func url(_ value: URL)
-    func backwards(_ value: Bool)
-    func forwards(_ value: Bool)
-    func error(_ value: String?)
-    func popup(_ url: URL)
-    func external(_ url: URL)
-    func blocked(_ domain: String)
+    mutating func progress(_ value: Double)
+    mutating func loading(_ value: Bool)
+    mutating func title(_ value: String)
+    mutating func url(_ value: URL)
+    mutating func backwards(_ value: Bool)
+    mutating func forwards(_ value: Bool)
+    mutating func error(_ value: String?)
+    mutating func popup(_ url: URL)
+    mutating func external(_ url: URL)
+    mutating func blocked(_ domain: String)
 }
