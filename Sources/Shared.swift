@@ -19,6 +19,11 @@ public final class Shared: UserDefaults {
         set { self[.chart] = newValue }
     }
     
+    public class var blocked: [String] {
+        get { self[.blocked] as? [String] ?? [] }
+        set { self[.blocked] = newValue }
+    }
+    
     private class subscript(_ key: Key) -> Any? {
         get { defaults.object(forKey: key.rawValue) }
         set { defaults.setValue(newValue, forKey: key.rawValue) }

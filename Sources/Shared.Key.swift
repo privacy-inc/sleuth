@@ -5,6 +5,7 @@ public extension Shared {
         case
         history,
         chart,
+        blocked,
         forget
     }
 }
