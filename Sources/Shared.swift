@@ -1,7 +1,7 @@
 import Foundation
 
 public final class Shared: UserDefaults {
-    private static let defaults = UserDefaults(suiteName: "group.incognit.share")!
+    public static let store = UserDefaults(suiteName: "group.incognit.share")!
     
     public class var history: [Item] {
         get {
@@ -25,7 +25,7 @@ public final class Shared: UserDefaults {
     }
     
     private class subscript(_ key: Key) -> Any? {
-        get { defaults.object(forKey: key.rawValue) }
-        set { defaults.setValue(newValue, forKey: key.rawValue) }
+        get { store.object(forKey: key.rawValue) }
+        set { store.setValue(newValue, forKey: key.rawValue) }
     }
 }
