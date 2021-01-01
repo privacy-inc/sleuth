@@ -15,9 +15,15 @@ public struct Page: Codable, Identifiable, Hashable {
     
     public func hash(into: inout Hasher) {
         into.combine(id)
+        into.combine(url)
+        into.combine(title)
+        into.combine(date)
     }
     
     public static func == (lhs: Page, rhs: Page) -> Bool {
         lhs.id == rhs.id
+            && lhs.url == rhs.url
+            && lhs.title == rhs.title
+            && lhs.date == rhs.date
     }
 }
