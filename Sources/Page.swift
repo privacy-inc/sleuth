@@ -7,7 +7,7 @@ public struct Page: Codable, Identifiable, Hashable {
     public let id: UUID
     
     public var shared: Share.Page {
-        .init(url: URL(string: Scheme.privacy_id.rawValue + "://" + id.uuidString)!, title: title, subtitle: url.absoluteString)
+        .init(url: URL(string: Scheme.privacy_id.url + id.uuidString)!, title: title, subtitle: url.absoluteString)
     }
     
     public init(url: URL) {
