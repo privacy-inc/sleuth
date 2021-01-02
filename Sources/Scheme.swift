@@ -7,9 +7,9 @@ public enum Scheme: String {
     data,
     file,
     privacy,
-    privacy_id,
-    privacy_search,
-    privacy_forget
+    privacy_id = "privacy-id",
+    privacy_search = "privacy-search",
+    privacy_forget = "privacy-forget"
     
     public var url: String {
         rawValue + "://"
