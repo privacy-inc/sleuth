@@ -5,7 +5,10 @@ public enum Scheme: String {
     https,
     http,
     data,
-    file
+    file,
+    privacy,
+    privacy_id,
+    privacy_search
     
     func web(_ url: URL) -> String? {
         switch self {

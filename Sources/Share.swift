@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Shared: UserDefaults {
+public final class Share: UserDefaults {
     public static let store = UserDefaults(suiteName: "group.incognit.share")!
     
     public class var history: [Item] {

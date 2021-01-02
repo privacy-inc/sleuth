@@ -18,7 +18,7 @@ final class AllowTests: XCTestCase {
         shield = .init()
     }
     
-    func test() {
+    func testAllow() {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = list.count
         list.forEach { url in

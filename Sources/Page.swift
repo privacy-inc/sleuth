@@ -6,6 +6,10 @@ public struct Page: Codable, Identifiable, Hashable {
     public var title: String
     public let id: UUID
     
+    public var item: Share.Item {
+        .init(url: URL(string: Scheme.privacy_id.rawValue + "://" + id.uuidString)!, title: title, subtitle: url.absoluteString)
+    }
+    
     public init(url: URL) {
         id = .init()
         date = .init()
