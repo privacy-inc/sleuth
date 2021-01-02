@@ -3,9 +3,9 @@ import Foundation
 public final class Share: UserDefaults {
     public static let store = UserDefaults(suiteName: "group.incognit.share")!
     
-    public class var history: [Item] {
+    public class var history: [Page] {
         get {
-            (self[.history] as? Data).flatMap { try? JSONDecoder().decode([Item].self, from: $0) } ?? []
+            (self[.history] as? Data).flatMap { try? JSONDecoder().decode([Page].self, from: $0) } ?? []
         }
         set {
             (try? JSONEncoder().encode(newValue)).map {

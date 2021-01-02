@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Share {
-    struct Item: Codable {
+    struct Page: Codable {
         public let url: URL
         public let title: String
         public let subtitle: String
