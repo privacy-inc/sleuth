@@ -20,7 +20,7 @@ public final class Shield {
                                             if let web = $0.web(url) {
                                                 let domain = web.components(separatedBy: "/").first!
                                                 for item in domain.components(separatedBy: ".") {
-                                                    guard Block(rawValue: item) == nil else { return .block(domain) }
+                                                    guard Component(rawValue: item) == nil else { return .block(domain) }
                                                     continue
                                                 }
                                             }
