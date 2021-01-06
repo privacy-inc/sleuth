@@ -19,6 +19,12 @@ public final class Shield {
                                         if shield {
                                             if let web = $0.web(url) {
                                                 let domain = web.components(separatedBy: "/").first!
+                                                
+                                                guard
+                                                    Blacklist.Https(rawValue: domain) == nil,
+                                                    Blacklist.Http(rawValue: domain) == nil
+                                                else { return .block(domain) }
+                                                
                                                 for item in domain.components(separatedBy: ".") {
                                                     guard Component(rawValue: item) == nil else { return .block(domain) }
                                                     continue
