@@ -5,7 +5,19 @@ extension Ads {
         let domain: String
         
         init(whitelist: Whitelist) {
-            domain = "https" + whitelist.rawValue
+            domain = "https://" + whitelist.rawValue
+        }
+        
+        init(wildcard: Wildcard) {
+            domain = wildcard.rawValue
+        }
+        
+        init(https: Blacklist.Https) {
+            domain = "https://" + https.rawValue
+        }
+        
+        init(http: Blacklist.Http) {
+            domain = "http://" + http.rawValue
         }
         
         var description: String {
