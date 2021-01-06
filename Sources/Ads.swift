@@ -13,8 +13,8 @@ public struct Ads {
             .init(.css("#consent-bump"), .init(whitelist: .youtube)),
             .init(.css(".opened"), .init(whitelist: .youtube)),
             .init(.css(".ytd-popup-container"), .init(whitelist: .youtube))
-        ] + Wildcard.allCases.map {
-            .init(.block, .init(wildcard: $0))
+        ] + Wildcard.End.allCases.map {
+            .init(.block, .init(end: $0))
         } + Blacklist.Https.allCases.map {
             .init(.block, .init(https: $0))
         } + Blacklist.Http.allCases.map {

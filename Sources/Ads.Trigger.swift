@@ -8,8 +8,8 @@ extension Ads {
             domain = "https://" + whitelist.rawValue
         }
         
-        init(wildcard: Wildcard) {
-            domain = wildcard.rawValue
+        init(end: Wildcard.End) {
+            domain = ".*" + end.rawValue
         }
         
         init(https: Blacklist.Https) {

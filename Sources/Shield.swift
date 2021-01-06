@@ -25,6 +25,11 @@ public final class Shield {
                                                     Blacklist.Http(rawValue: domain) == nil
                                                 else { return .block(domain) }
                                                 
+                                                for card in Wildcard.End.allCases {
+                                                    guard domain.hasSuffix(card.rawValue) else { continue }
+                                                    return .block(domain)
+                                                }
+                                                
                                                 for item in domain.components(separatedBy: ".") {
                                                     guard Component(rawValue: item) == nil else { return .block(domain) }
                                                     continue
