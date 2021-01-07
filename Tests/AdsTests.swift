@@ -17,6 +17,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "#taw", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#rhs", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", ".commercial", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#consent-bump", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#tadsb", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#lb", "https://www.google.com"))
     }

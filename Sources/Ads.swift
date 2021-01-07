@@ -9,6 +9,7 @@ public struct Ads {
             .init(.css("#rhs"), .init(whitelist: .google)),
             .init(.css("#tadsb"), .init(whitelist: .google)),
             .init(.css("#lb"), .init(whitelist: .google)),
+            .init(.css("#consent-bump"), .init(whitelist: .google)),
             .init(.css(".commercial"), .init(whitelist: .google)),
             .init(.css("#consent-bump"), .init(whitelist: .youtube)),
             .init(.css(".opened"), .init(whitelist: .youtube)),
