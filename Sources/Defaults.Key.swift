@@ -13,6 +13,7 @@ public extension Defaults {
         cookies,
         dark,
         engine,
-        created
+        created,
+        location
     }
 }

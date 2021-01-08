@@ -46,6 +46,11 @@ public final class Defaults: UserDefaults {
         set { self[.dark] = newValue }
     }
     
+    public class var location: Bool {
+        get { self[.location] as? Bool ?? false }
+        set { self[.location] = newValue }
+    }
+    
     public class var engine: Engine {
         get { (self[.engine] as? String).flatMap(Engine.init(rawValue:)) ?? .google }
         set { self[.engine] = newValue.rawValue }
