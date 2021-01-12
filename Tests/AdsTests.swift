@@ -21,6 +21,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "#tadsb", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#lb", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", ".Rn1jbe", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", ".kxhcC", "https://www.google.com"))
     }
     
     func testYouTube() {
