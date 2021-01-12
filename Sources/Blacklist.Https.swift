@@ -36,6 +36,7 @@ extension Blacklist {
         snapchat = "tr.snapchat.com",
         linkedin = "platform.linkedin.com",
         google_analytics = "www.google-analytics.com",
+        google_accounts = "accounts.google.com",
         ufpcdn = "ufpcdn.com",
         onclickgenius = "onclickgenius.com",
         appsflyer = "app.appsflyer.com",
