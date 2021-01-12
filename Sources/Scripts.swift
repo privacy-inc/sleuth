@@ -40,7 +40,7 @@ if (!supports_dark()) {
 """
     
     public static let scroll = """
-    if (location.host.includes("google.com")) {
+    if (location.host.includes("google.com") || location.host.includes("yahoo.com")) {
         var style = document.createElement('style');
         style.innerHTML = ":root { overflow-y: visible !important; }";
         document.head.appendChild(style);
