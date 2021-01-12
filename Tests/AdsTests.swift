@@ -9,27 +9,27 @@ final class AdsTests: XCTestCase {
     }
     
     func testEcosia() {
-        XCTAssertTrue(contains("css-display-none", ".card-ad", "https://www.ecosia.org"))
-        XCTAssertTrue(contains("css-display-none", ".card-productads", "https://www.ecosia.org"))
+        XCTAssertTrue(contains("css-display-none", ".card-ad", ".*ecosia.org"))
+        XCTAssertTrue(contains("css-display-none", ".card-productads", ".*ecosia.org"))
     }
     
     func testGoogle() {
-        XCTAssertTrue(contains("css-display-none", "#taw", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "#rhs", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", ".commercial", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "#consent-bump", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "#tadsb", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", "#lb", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", ".Rn1jbe", "https://www.google.com"))
-        XCTAssertTrue(contains("css-display-none", ".kxhcC", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", "#taw", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", "#rhs", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", ".commercial", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", "#consent-bump", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", "#tadsb", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", "#lb", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", ".Rn1jbe", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", ".kxhcC", ".*google.com"))
     }
     
     func testYouTube() {
-        XCTAssertTrue(contains("css-display-none", "#consent-bump", "https://www.youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".opened", "https://www.youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".ytd-popup-container", "https://www.youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".upsell-dialog-lightbox", "https://www.youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".consent-bump-lightbox", "https://www.youtube.com"))
+        XCTAssertTrue(contains("css-display-none", "#consent-bump", ".*youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".opened", ".*youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".ytd-popup-container", ".*youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".upsell-dialog-lightbox", ".*youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".consent-bump-lightbox", ".*youtube.com"))
     }
     
     func testBlock() {
