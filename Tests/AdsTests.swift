@@ -63,7 +63,6 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("block", nil, "https://tr.snapchat.com"))
         XCTAssertTrue(contains("block", nil, "https://platform.linkedin.com"))
         XCTAssertTrue(contains("block", nil, "https://www.google-analytics.com"))
-        XCTAssertTrue(contains("block", nil, "https://accounts.google.com"))
         XCTAssertTrue(contains("block", nil, "https://ufpcdn.com"))
         XCTAssertTrue(contains("block", nil, "https://onclickgenius.com"))
         XCTAssertTrue(contains("block", nil, "https://app.appsflyer.com"))
