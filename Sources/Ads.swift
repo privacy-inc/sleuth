@@ -15,7 +15,8 @@ public struct Ads {
             .init(.css(".kxhcC"), .init(whitelist: .google)),
             .init(.css("#consent-bump"), .init(whitelist: .youtube)),
             .init(.css(".opened"), .init(whitelist: .youtube)),
-            .init(.css(".ytd-popup-container"), .init(whitelist: .youtube))
+            .init(.css(".ytd-popup-container"), .init(whitelist: .youtube)),
+            .init(.css(".upsell-dialog-lightbox"), .init(whitelist: .youtube))
         ] + Wildcard.End.allCases.map {
             .init(.block, .init(end: $0))
         } + Blacklist.Https.allCases.map {
