@@ -28,8 +28,10 @@ if (!supports_dark()) {
     var google_images_square = ".c7cjWc, ";
     var google_images_circle = ".Qjibbc, ";
     var google_videos = ".N3nEGc *, ";
-    var youtube = "#player *";
-    var exclude = google_related_searches + google_related_top + google_result_images + google_result_video_big + google_result_video_small + google_images_square + google_images_circle + google_videos + youtube;
+    var youtube_desktop = "#player *, ";
+    var youtube_mobile = "#player-container-id *";
+    
+    var exclude = google_related_searches + google_related_top + google_result_images + google_result_video_big + google_result_video_small + google_images_square + google_images_circle + google_videos + youtube_desktop + youtube_mobile;
     var style = document.createElement('style');
     style.innerHTML = "*:not(" + exclude + ") { background-color: #252228 !important; color: #cecccf !important; border-color: #454248 !important ; }";
     document.head.appendChild(style);
