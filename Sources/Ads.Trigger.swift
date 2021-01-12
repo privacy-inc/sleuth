@@ -5,7 +5,7 @@ extension Ads {
         let domain: String
         
         init(whitelist: Whitelist) {
-            domain = "https://" + whitelist.rawValue
+            domain = ".*" + whitelist.rawValue
         }
         
         init(end: Wildcard.End) {

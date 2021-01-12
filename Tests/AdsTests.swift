@@ -29,6 +29,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", ".opened", "https://www.youtube.com"))
         XCTAssertTrue(contains("css-display-none", ".ytd-popup-container", "https://www.youtube.com"))
         XCTAssertTrue(contains("css-display-none", ".upsell-dialog-lightbox", "https://www.youtube.com"))
+        XCTAssertTrue(contains("css-display-none", ".consent-bump-lightbox", "https://www.youtube.com"))
     }
     
     func testBlock() {
