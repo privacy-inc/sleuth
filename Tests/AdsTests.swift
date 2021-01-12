@@ -20,6 +20,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "#consent-bump", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#tadsb", "https://www.google.com"))
         XCTAssertTrue(contains("css-display-none", "#lb", "https://www.google.com"))
+        XCTAssertTrue(contains("css-display-none", ".Rn1jbe", "https://www.google.com"))
     }
     
     func testYouTube() {

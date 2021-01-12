@@ -11,6 +11,7 @@ public struct Ads {
             .init(.css("#lb"), .init(whitelist: .google)),
             .init(.css("#consent-bump"), .init(whitelist: .google)),
             .init(.css(".commercial"), .init(whitelist: .google)),
+            .init(.css(".Rn1jbe"), .init(whitelist: .google)),
             .init(.css("#consent-bump"), .init(whitelist: .youtube)),
             .init(.css(".opened"), .init(whitelist: .youtube)),
             .init(.css(".ytd-popup-container"), .init(whitelist: .youtube))
