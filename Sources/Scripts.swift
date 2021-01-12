@@ -2,7 +2,7 @@ import Foundation
 
 public struct Scripts {
     public static let dark = """
-function dark() {
+function supports_dark() {
     if (document.styleSheets && document.styleSheets.length > 0) {
         for (var i = 0; i < document.styleSheets.length; i++) {
             if (document.styleSheets[i].cssRules) {
@@ -19,9 +19,19 @@ function dark() {
     return true;
 }
 
-if (!dark()) {
+if (!supports_dark()) {
+    var google_related_searches = ".JAC8bd *, ";
+    var google_related_top = ".keP9hb, .XAOBve *, ";
+    var google_result_images = "#media_result_group *, ";
+    var google_result_video_big = ".twQ0Be *, ";
+    var google_result_video_small = ".JWCxk *, .pP3ABc *, ";
+    var google_images_square = ".c7cjWc, ";
+    var google_images_circle = ".Qjibbc, ";
+    var google_videos = ".N3nEGc *, ";
+    var youtube = "#player *";
+    var exclude = google_related_searches + google_related_top + google_result_images + google_result_video_big + google_result_video_small + google_images_square + google_images_circle + google_videos + youtube;
     var style = document.createElement('style');
-    style.innerHTML = ":root, img, [style*=background-image], [class*=video-thumbnail-img], #player-container-id { filter: invert(1) hue-rotate(.5turn); }";
+    style.innerHTML = "*:not(" + exclude + ") { background-color: #252228 !important; color: #cecccf !important; border-color: #454248 !important ; }";
     document.head.appendChild(style);
 }
 
