@@ -10,6 +10,7 @@ final class ScreenBlockTests: XCTestCase {
     
     func testGoogle() {
         XCTAssertTrue(contains("css-display-none", "#consent-bump", ".*google.com"))
+        XCTAssertTrue(contains("css-display-none", "#lb", ".*google.com"))
     }
     
     func testYouTube() {
@@ -18,6 +19,16 @@ final class ScreenBlockTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", ".ytd-popup-container", ".*youtube.com"))
         XCTAssertTrue(contains("css-display-none", ".upsell-dialog-lightbox", ".*youtube.com"))
         XCTAssertTrue(contains("css-display-none", ".consent-bump-lightbox", ".*youtube.com"))
+    }
+    
+    func testInstagram() {
+        XCTAssertTrue(contains("css-display-none", ".RnEpo", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", ".Yx5HN", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", "._Yhr4", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", ".R361B", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", ".NXc7H", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", ".f11OC", ".*instagram.com"))
+        XCTAssertTrue(contains("css-display-none", ".X6gVd", ".*instagram.com"))
     }
 
     private func contains(_ type: String, _ selector: String?, _ filter: String) -> Bool {

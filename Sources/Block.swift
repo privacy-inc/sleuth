@@ -7,7 +7,6 @@ public struct Block {
         .init(.css("#taw"), .init(whitelist: .google)),
         .init(.css("#rhs"), .init(whitelist: .google)),
         .init(.css("#tadsb"), .init(whitelist: .google)),
-        .init(.css("#lb"), .init(whitelist: .google)),
         .init(.css(".commercial"), .init(whitelist: .google)),
         .init(.css(".Rn1jbe"), .init(whitelist: .google)),
         .init(.css(".kxhcC"), .init(whitelist: .google))
@@ -21,11 +20,19 @@ public struct Block {
     
     public static let blockers = serialise(rules: [
         .init(.css("#consent-bump"), .init(whitelist: .google)),
+        .init(.css("#lb"), .init(whitelist: .google)),
         .init(.css("#consent-bump"), .init(whitelist: .youtube)),
         .init(.css(".opened"), .init(whitelist: .youtube)),
         .init(.css(".ytd-popup-container"), .init(whitelist: .youtube)),
         .init(.css(".upsell-dialog-lightbox"), .init(whitelist: .youtube)),
-        .init(.css(".consent-bump-lightbox"), .init(whitelist: .youtube))
+        .init(.css(".consent-bump-lightbox"), .init(whitelist: .youtube)),
+        .init(.css(".RnEpo"), .init(whitelist: .instagram)),
+        .init(.css(".Yx5HN"), .init(whitelist: .instagram)),
+        .init(.css("._Yhr4"), .init(whitelist: .instagram)),
+        .init(.css(".R361B"), .init(whitelist: .instagram)),
+        .init(.css(".NXc7H"), .init(whitelist: .instagram)),
+        .init(.css(".f11OC"), .init(whitelist: .instagram)),
+        .init(.css(".X6gVd"), .init(whitelist: .instagram))
     ])
     
     private static func serialise(rules: [Rule]) -> String {

@@ -48,6 +48,11 @@ if (!supports_dark()) {
         document.head.appendChild(style);
     }
 
+    if (location.host.includes("instagram.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = "body { overflow: unset !important; }";
+        document.head.appendChild(style);
+    }
 """
     
     public static let location = """
