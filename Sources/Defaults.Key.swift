@@ -8,7 +8,7 @@ public extension Defaults {
         popups,
         javascript,
         ads,
-        blocker,
+        blockers,
         secure,
         trackers,
         cookies,

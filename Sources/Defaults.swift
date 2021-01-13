@@ -26,9 +26,9 @@ public final class Defaults: UserDefaults {
         set { self[.ads] = newValue }
     }
     
-    public class var blocker: Bool {
-        get { self[.blocker] as? Bool ?? true }
-        set { self[.blocker] = newValue }
+    public class var blockers: Bool {
+        get { self[.blockers] as? Bool ?? true }
+        set { self[.blockers] = newValue }
     }
     
     public class var trackers: Bool {
