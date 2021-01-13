@@ -1,6 +1,6 @@
 import Foundation
 
-extension Ads {
+extension Block {
     struct Rule: Hashable {
         let action: Action
         let trigger: Trigger

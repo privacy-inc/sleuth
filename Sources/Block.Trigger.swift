@@ -1,6 +1,6 @@
 import Foundation
 
-extension Ads {
+extension Block {
     struct Trigger: CustomStringConvertible, Hashable, Equatable {
         let domain: String
         

@@ -5,7 +5,7 @@ final class AdsTests: XCTestCase {
     private var dictonary: [[String : [String : String]]]!
     
     override func setUp() {
-        dictonary = (try! JSONSerialization.jsonObject(with: .init(Ads.serialise.utf8))) as? [[String : [String : String]]]
+        dictonary = (try! JSONSerialization.jsonObject(with: .init(Block.ads.utf8))) as? [[String : [String : String]]]
     }
     
     func testEcosia() {
@@ -17,19 +17,10 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(contains("css-display-none", "#taw", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", "#rhs", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", ".commercial", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", "#consent-bump", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", "#tadsb", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", "#lb", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", ".Rn1jbe", ".*google.com"))
         XCTAssertTrue(contains("css-display-none", ".kxhcC", ".*google.com"))
-    }
-    
-    func testYouTube() {
-        XCTAssertTrue(contains("css-display-none", "#consent-bump", ".*youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".opened", ".*youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".ytd-popup-container", ".*youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".upsell-dialog-lightbox", ".*youtube.com"))
-        XCTAssertTrue(contains("css-display-none", ".consent-bump-lightbox", ".*youtube.com"))
     }
     
     func testBlock() {

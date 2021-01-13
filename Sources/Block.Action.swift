@@ -1,6 +1,6 @@
 import Foundation
 
-extension Ads {
+extension Block {
     enum Action: CustomStringConvertible, Hashable {
         case
         css(String),
