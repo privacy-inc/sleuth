@@ -30,12 +30,15 @@ if (!supports_dark()) {
         "#media_result_group *",            //// result images
         ".twQ0Be *",                        //// result video big
         ".JWCxk *, .pP3ABc *",              //// result video small
+        ".AldPpe *",                        //// result youtube video
         ".c7cjWc",                          //// images square
         ".Qjibbc",                          //// images circle
-        ".N3nEGc *"                         //// videos
+        ".N3nEGc *",                        //// videos
+                                            // Wikipedia
+        ".ext-related-articles-card a"      //// related articles
     ];
     var style = document.createElement('style');
-    style.innerHTML = "*:not(" + exclude.join(", ") + ") { background-color: #252228 !important; color: #cecccf !important; border-color: #454248 !important ; }";
+    style.innerHTML = "*:not(" + exclude.join(", ") + ") { background-color: #252228 !important; border-color: #454248 !important ; outline-color: #454248 !important ; box-shadow: none !important; } *:not(a) { color: #cecccf !important; } a, a *, a:link *, a:visited *, a:hover *, a:active * { color: #7caadf !important; }";
     document.head.appendChild(style);
 }
 

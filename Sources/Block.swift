@@ -35,6 +35,10 @@ public struct Block {
         .init(.css(".X6gVd"), .init(whitelist: .instagram))
     ])
     
+    public static let dark = serialise(rules: [
+        .init(.css(".P1Ycoe"), .init(whitelist: .google))
+    ])
+    
     private static func serialise(rules: [Rule]) -> String {
         rules.reduce(into: "[") {
             $0 += $0.count > 1 ? "," : ""
