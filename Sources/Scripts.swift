@@ -35,7 +35,9 @@ if (!supports_dark()) {
         ".Qjibbc",                          //// images circle
         ".N3nEGc *",                        //// videos
                                             // Wikipedia
-        ".ext-related-articles-card a"      //// related articles
+        ".ext-related-articles-card a",     //// related articles
+                                            // Instagram
+        "._9AhH0"                           //// image
     ];
     var style = document.createElement('style');
     style.innerHTML = "*:not(" + exclude.join(", ") + ") { background-color: #252228 !important; border-color: #454248 !important ; outline-color: #454248 !important ; box-shadow: none !important; } *:not(a) { color: #cecccf !important; } a, a *, a:link *, a:visited *, a:hover *, a:active * { color: #7caadf !important; }";
