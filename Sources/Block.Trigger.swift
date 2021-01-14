@@ -5,25 +5,25 @@ extension Block {
         let domain: String
         
         init(whitelist: Whitelist) {
-            domain = ".*" + whitelist.rawValue
+            domain = whitelist.rawValue
         }
         
         init(end: Wildcard.End) {
-            domain = ".*" + end.rawValue
+            domain = end.rawValue
         }
         
         init(https: Blacklist.Https) {
-            domain = "https://" + https.rawValue
+            domain = https.rawValue
         }
         
         init(http: Blacklist.Http) {
-            domain = "http://" + http.rawValue
+            domain = http.rawValue
         }
         
         var description: String {
             """
 "trigger": {
-"url-filter": "\(domain)"
+    "if-domain": "\(domain)"
 }
 """
         }
