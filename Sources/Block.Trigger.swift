@@ -22,7 +22,10 @@ extension Block {
         
         var description: String {
             """
-"trigger": {"url-filter": ".*","if-domain": "\(domain)"}
+"trigger": {
+    "url-filter": ".*",
+    "if-domain": ["\(domain)"]
+}
 """
         }
         
