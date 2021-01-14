@@ -1,6 +1,19 @@
 import Foundation
 
 public struct Block {
+    public static let cookies = """
+[
+{
+    "action": {
+        "type": "block-cookies"
+    },
+    "trigger": {
+        "url-filter": ".*"
+    }
+}
+]
+"""
+    
     public static let ads = serialise(rules: [
         .init(.css(".card-ad"), .init(whitelist: .ecosia)),
         .init(.css(".card-productads"), .init(whitelist: .ecosia)),
