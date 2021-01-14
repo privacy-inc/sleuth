@@ -20,17 +20,12 @@ public final class Shield {
                                             if let web = $0.web(url) {
                                                 let domain = web.components(separatedBy: "/").first!
                                                 
-                                                guard
-                                                    Blacklist.Https(rawValue: domain) == nil,
-                                                    Blacklist.Http(rawValue: domain) == nil
-                                                else { return .block(domain) }
-                                                
-                                                for card in Wildcard.End.allCases {
-                                                    guard domain.hasSuffix(card.rawValue) else { continue }
+                                                for site in Sites.Blacklist.allCases {
+                                                    guard domain.hasSuffix(site.rawValue) else { continue }
                                                     return .block(domain)
                                                 }
                                                 
-                                                for item in domain.components(separatedBy: ".") {
+                                                for item in domain.components(separatedBy: ".").dropLast() {
                                                     guard Component(rawValue: item) == nil else { return .block(domain) }
                                                     continue
                                                 }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum Whitelist: String, CaseIterable {
+enum Sites: String, CaseIterable {
     case
     ecosia = "ecosia.org",
     google = "google.com",

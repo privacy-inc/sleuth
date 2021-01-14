@@ -1,7 +1,7 @@
 import Foundation
 
-extension Blacklist {
-    enum Https: String, CaseIterable {
+extension Sites {
+    enum Blacklist: String, CaseIterable {
         case
         pubmatic = "ads.pubmatic.com",
         dianomi = "www.dianomi.com",
@@ -53,6 +53,10 @@ extension Blacklist {
         dexpredict = "www.dexpredict.com",
         hornsgrid = "hornsgrid.com",
         zap = "zap.buzz",
-        google_consent = "consent.google.com"
+        google_consent = "consent.google.com",
+        apostropheemailcompetence = "apostropheemailcompetence.com",
+        googlesyndication = "googlesyndication.com",
+        doubleclick = "doubleclick.net",
+        cloudfront = "cloudfront.net"
     }
 }

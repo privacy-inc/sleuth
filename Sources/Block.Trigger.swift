@@ -2,28 +2,23 @@ import Foundation
 
 extension Block {
     struct Trigger: CustomStringConvertible, Hashable, Equatable {
+        let url: String
         let domain: String
         
-        init(whitelist: Whitelist) {
-            domain = "*" + whitelist.rawValue
+        init(site: Sites, component: String = ".*") {
+            url = component
+            domain = "*" + site.rawValue
         }
         
-        init(end: Wildcard.End) {
-            domain = "*" + end.rawValue
-        }
-        
-        init(https: Blacklist.Https) {
-            domain = "*" + https.rawValue
-        }
-        
-        init(http: Blacklist.Http) {
-            domain = "*" + http.rawValue
+        init(site: Sites.Blacklist) {
+            url = ".*"
+            domain = site.rawValue.components(separatedBy: ".").count > 1 ? "*" + site.rawValue : site.rawValue
         }
         
         var description: String {
             """
 "trigger": {
-    "url-filter": ".*",
+    "url-filter": "\(url)",
     "if-domain": ["\(domain)"]
 }
 """
