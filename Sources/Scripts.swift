@@ -3,7 +3,7 @@ import Foundation
 public struct Scripts {
     public static let dark = """
 function supports_dark() {
-    if (document.documentElement.getAttribute("dark") == "true") { // youtube
+    if (location.host.includes("youtube.com") || document.documentElement.getAttribute("dark") == "true") {
         return true;
     }
     if (document.styleSheets && document.styleSheets.length > 0) {
@@ -23,26 +23,40 @@ function supports_dark() {
 }
 
 if (!supports_dark()) {
-    var exclude = [
-                                            // Google
-        ".JAC8bd *",                        //// related searches
-        ".keP9hb, .XAOBve *",               //// related top
-        "#media_result_group *",            //// result images
-        ".twQ0Be *",                        //// result video big
-        ".JWCxk *, .pP3ABc *",              //// result video small
-        ".AldPpe *",                        //// result youtube video
-        ".c7cjWc",                          //// images square
-        ".Qjibbc",                          //// images circle
-        ".fWhgmd",                          //// images group
-        ".N3nEGc *",                        //// videos
-                                            // Wikipedia
-        ".ext-related-articles-card a",     //// related articles
-                                            // Instagram
-        "._9AhH0",                          //// image
-        ".v1Nh3 *, .kIKUG *, ._bz0w *"      //// thumbnail
-    ];
-    var style = document.createElement('style');
-    style.innerHTML = "*:not(" + exclude.join(", ") + ") { background-color: #252228 !important; border-color: #454248 !important ; outline-color: #454248 !important ; box-shadow: none !important; } *:not(a) { color: #cecccf !important; } a, a *, a:link *, a:visited *, a:hover *, a:active * { color: #7caadf !important; }";
+    [...document.body.getElementsByTagName("*")].forEach(element => {
+        const color = getComputedStyle(element).getPropertyValue("background-color");
+        const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
+        const parts = color.match(/[\\d.]+/g);
+    
+        if (gradient) {
+            element.style.background = "none";
+        }
+        
+        if (parts.length > 3) {
+            if (parts[3] > 0) {
+                element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
+            }
+        } else {
+            element.style.backgroundColor = "rgba(37, 34, 40)";
+        }
+    });
+    
+    const style = document.createElement('style');
+    style.innerHTML = "\
+    :root, html, body {\
+        background-color: #252228 !important ;\
+    }\
+    *:not(a) {\
+        color: #cecccf !important;\
+    }\
+    a, a *, a:link *, a:visited *, a:hover *, a:active * {\
+        color: #7caadf !important ;\
+    }\
+    * {\
+        border-color: #454248 !important ;\
+        outline-color: #454248 !important ;\
+        box-shadow: none !important ;\
+    }";
     document.head.appendChild(style);
 }
 
