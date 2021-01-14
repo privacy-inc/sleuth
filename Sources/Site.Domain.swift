@@ -1,7 +1,7 @@
 import Foundation
 
-extension Sites {
-    enum Blacklist: String, CaseIterable {
+extension Site {
+    enum Domain: String, CaseIterable {
         case
         pubmatic = "ads.pubmatic.com",
         dianomi = "www.dianomi.com",
@@ -16,8 +16,6 @@ extension Sites {
         criteo = "gum.criteo.com",
         adition = "imagesrv.adition.com",
         openx = "us-u.openx.net",
-        google_pagead = "www.google.com/pagead/",
-        google_recaptcha = "www.google.com/recaptcha/",
         guim = "interactive.guim.co.uk",
         spiegel = "interactive.spiegel.de",
         indexww = "js-sec.indexww.com",
@@ -31,7 +29,6 @@ extension Sites {
         rubiconproject_assets = "secure-assets.rubiconproject.com",
         rubiconproject_eus = "eus.rubiconproject.com",
         creativecdn = "ams.creativecdn.com",
-        youtube_embed = "www.youtube.com/embed",
         medtargetsystem = "www.medtargetsystem.com",
         snapchat = "tr.snapchat.com",
         linkedin = "platform.linkedin.com",

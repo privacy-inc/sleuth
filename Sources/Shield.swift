@@ -17,10 +17,15 @@ public final class Shield {
                                 } ?? Scheme(rawValue: $0)
                                     .map {
                                         if shield {
-                                            if let web = $0.web(url) {
-                                                let domain = web.components(separatedBy: "/").first!
+                                            if let schemeless = $0.schemeless(url) {
+                                                for site in Site.Partial.allCases {
+                                                    guard schemeless.contains(site.url) else { continue }
+                                                    return .block(site.rawValue)
+                                                }
                                                 
-                                                for site in Sites.Blacklist.allCases {
+                                                let domain = schemeless.components(separatedBy: "/").first!
+                                                
+                                                for site in Site.Domain.allCases {
                                                     guard domain.hasSuffix(site.rawValue) else { continue }
                                                     return .block(domain)
                                                 }

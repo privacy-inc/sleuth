@@ -16,7 +16,7 @@ public enum Scheme: String {
         rawValue + "://"
     }
     
-    func web(_ url: URL) -> String? {
+    func schemeless(_ url: URL) -> String? {
         switch self {
         case .http, .https: return .init(url.absoluteString.dropFirst(self.url.count))
         default: return nil

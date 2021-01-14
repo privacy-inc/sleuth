@@ -5,12 +5,17 @@ extension Block {
         let url: String
         let domain: String
         
-        init(site: Sites, component: String = ".*") {
+        init(site: Site.Allow, component: String = ".*") {
             url = component
             domain = "*" + site.rawValue
         }
         
-        init(site: Sites.Blacklist) {
+        init(site: Site.Partial) {
+            url = ".*" + site.url + ".*"
+            domain = "*" + site.domain.rawValue
+        }
+        
+        init(site: Site.Domain) {
             url = ".*"
             domain = site.rawValue.components(separatedBy: ".").count > 1 ? "*" + site.rawValue : site.rawValue
         }
