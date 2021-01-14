@@ -12,11 +12,11 @@ extension Block {
 \({
     switch self {
     case let .css(selector): return """
-"type": "css-display-none",
-"selector": "\(selector)"
+    "type": "css-display-none",
+    "selector": "\(selector)"
 """
     case .block: return """
-"type": "block"
+    "type": "block"
 """
     }
 } () as String)
