@@ -38,7 +38,8 @@ if (!supports_dark()) {
                                             // Wikipedia
         ".ext-related-articles-card a",     //// related articles
                                             // Instagram
-        "._9AhH0"                           //// image
+        "._9AhH0",                          //// image
+        ".v1Nh3 *, .kIKUG *, ._bz0w *"      //// thumbnail
     ];
     var style = document.createElement('style');
     style.innerHTML = "*:not(" + exclude.join(", ") + ") { background-color: #252228 !important; border-color: #454248 !important ; outline-color: #454248 !important ; box-shadow: none !important; } *:not(a) { color: #cecccf !important; } a, a *, a:link *, a:visited *, a:hover *, a:active * { color: #7caadf !important; }";
