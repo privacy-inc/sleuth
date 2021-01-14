@@ -33,6 +33,7 @@ if (!supports_dark()) {
         ".AldPpe *",                        //// result youtube video
         ".c7cjWc",                          //// images square
         ".Qjibbc",                          //// images circle
+        ".fWhgmd",                          //// images group
         ".N3nEGc *",                        //// videos
                                             // Wikipedia
         ".ext-related-articles-card a",     //// related articles
