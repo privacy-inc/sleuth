@@ -5,8 +5,8 @@ extension Block {
         let url: String
         let domain: String
         
-        init(site: Site.Allow, component: String = ".*") {
-            url = component
+        init(site: Site.Allow) {
+            url = ".*"
             domain = "*" + site.rawValue
         }
         
@@ -17,7 +17,8 @@ extension Block {
         
         init(site: Site.Domain) {
             url = ".*"
-            domain = site.rawValue.components(separatedBy: ".").count > 1 ? "*" + site.rawValue : site.rawValue
+            domain = site.rawValue.components(separatedBy: ".").count > 2 ? "*" + site.rawValue : site.rawValue
+            print(description)
         }
         
         var description: String {
