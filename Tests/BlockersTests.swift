@@ -22,13 +22,11 @@ final class BlockersTests: XCTestCase {
     }
     
     func testInstagram() {
-        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".RnEpo"))
-        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".Yx5HN"))
+        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".RnEpo.Yx5HN"))
         XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: "._Yhr4"))
         XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".R361B"))
-        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".NXc7H"))
+        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".NXc7H.jLuN9.X6gVd"))
         XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".f11OC"))
-        XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".X6gVd"))
     }
     
     func testTwitter() {
