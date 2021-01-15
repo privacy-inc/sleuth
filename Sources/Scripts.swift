@@ -2,7 +2,7 @@ import Foundation
 
 public struct Scripts {
     public static let dark = """
-function supports_dark() {
+function privacy_supports_dark() {
     if (location.host.includes("youtube.com") || document.documentElement.getAttribute("dark") == "true") {
         return true;
     }
@@ -22,7 +22,9 @@ function supports_dark() {
     return true;
 }
 
-if (!supports_dark()) {
+
+    
+function privacy_make_dark() {
     [...document.body.getElementsByTagName("*")].forEach(element => {
         const color = getComputedStyle(element).getPropertyValue("background-color");
         const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
@@ -58,6 +60,10 @@ if (!supports_dark()) {
         box-shadow: none !important ;\
     }";
     document.head.appendChild(style);
+}
+    
+if (!privacy_supports_dark()) {
+    privacy_make_dark();
 }
 
 """
