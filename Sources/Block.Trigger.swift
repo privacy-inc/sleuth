@@ -12,7 +12,7 @@ extension Block {
         
         init(site: Site.Partial) {
             url = ".*" + site.url + ".*"
-            domain = "*" + site.domain.rawValue
+            domain = site.domain.rawValue
         }
         
         init(site: Site.Domain) {
