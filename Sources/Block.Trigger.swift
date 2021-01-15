@@ -7,7 +7,7 @@ extension Block {
         
         init(site: Site.Allow) {
             url = ".*"
-            domain = "*" + site.rawValue
+            domain = site.rawValue
         }
         
         init(site: Site.Partial) {

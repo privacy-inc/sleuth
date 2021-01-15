@@ -9,17 +9,17 @@ final class AdsTests: XCTestCase {
     }
     
     func testEcosia() {
-        XCTAssertTrue(contains("css-display-none", ".card-ad", ".*ecosia.org"))
-        XCTAssertTrue(contains("css-display-none", ".card-productads", ".*ecosia.org"))
+        XCTAssertTrue(rules.remove(domain: "ecosia.org", selector: ".card-ad"))
+        XCTAssertTrue(rules.remove(domain: "ecosia.org", selector: ".card-productads"))
     }
     
     func testGoogle() {
-        XCTAssertTrue(contains("css-display-none", "#taw", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", "#rhs", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", ".commercial", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", "#tadsb", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", ".Rn1jbe", ".*google.com"))
-        XCTAssertTrue(contains("css-display-none", ".kxhcC", ".*google.com"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#taw"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#rhs"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#tadsb"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".commercial"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".Rn1jbe"))
+        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".kxhcC"))
     }
     
     func testBlock() {
@@ -76,11 +76,5 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(rules.block(domain: "https://hornsgrid.com"))
         XCTAssertTrue(rules.block(domain: "https://zap.buzz"))
         XCTAssertTrue(rules.block(domain: "https://consent.google.com"))
-    }
-    
-    private func contains(_ type: String, _ selector: String?, _ filter: String) -> Bool {
-        dictonary.contains { $0["action"]!["type"] == type
-            && $0["trigger"]!["url-filter"] == filter
-            && $0["action"]!["selector"] == selector }
     }
 }

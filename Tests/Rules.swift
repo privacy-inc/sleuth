@@ -14,4 +14,13 @@ final class Rules {
             && ($0["trigger"]!["if-domain"] as! [String]).first == domain
         }
     }
+    
+    func remove(domain: String, selector: String) -> Bool {
+        dictionary.contains {
+            ($0["action"]!["type"] as! String) == "css-display-none"
+            && ($0["action"]!["selector"] as! String) == selector
+            && ($0["trigger"]!["url-filter"] as! String) == ".*"
+            && ($0["trigger"]!["if-domain"] as! [String]).first == domain
+        }
+    }
 }
