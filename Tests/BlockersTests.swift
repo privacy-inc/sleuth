@@ -32,12 +32,6 @@ final class BlockersTests: XCTestCase {
     }
     
     func testTwitter() {
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".css-1dbjc4n"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-aqfbo4"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-1p0dtai"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-1d2f490"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-12vffkv"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-1xcajam"))
-        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".r-zchlnj"))
+        XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"))
     }
 }

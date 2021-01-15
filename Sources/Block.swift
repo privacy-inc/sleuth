@@ -50,6 +50,13 @@ public struct Block {
         .init(.css(".ytd-popup-container"), .init(site: .youtube)),
         .init(.css(".upsell-dialog-lightbox"), .init(site: .youtube)),
         .init(.css(".consent-bump-lightbox"), .init(site: .youtube)),
+        .init(.css(".RnEpo"), .init(site: .instagram)),
+        .init(.css(".Yx5HN"), .init(site: .instagram)),
+        .init(.css("._Yhr4"), .init(site: .instagram)),
+        .init(.css(".R361B"), .init(site: .instagram)),
+        .init(.css(".NXc7H"), .init(site: .instagram)),
+        .init(.css(".f11OC"), .init(site: .instagram)),
+        .init(.css(".X6gVd"), .init(site: .instagram)),
         .init(.css(".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"), .init(site: .twitter))
     ])
     
