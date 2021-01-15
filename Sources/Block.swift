@@ -14,7 +14,7 @@ public struct Block {
 ]
 """
     
-    public static let safe = """
+    public static let secure = """
 [
 {
     "action": {
