@@ -18,7 +18,6 @@ extension Block {
         init(site: Site.Domain) {
             url = ".*"
             domain = site.rawValue.components(separatedBy: ".").count > 2 ? "*" + site.rawValue : site.rawValue
-            print(description)
         }
         
         var description: String {
