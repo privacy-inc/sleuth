@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 public final class Shield {
-    private let queue = DispatchQueue(label: "", qos: .utility)
+    private let queue = DispatchQueue(label: "", qos: .utility, attributes: .concurrent)
     
     public init() { }
     
