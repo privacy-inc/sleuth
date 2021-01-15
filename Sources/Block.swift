@@ -50,7 +50,7 @@ public struct Block {
         .init(.css(".ytd-popup-container"), .init(site: .youtube)),
         .init(.css(".upsell-dialog-lightbox"), .init(site: .youtube)),
         .init(.css(".consent-bump-lightbox"), .init(site: .youtube)),
-        .init(.css(".css-1dbjc4n .r-aqfbo4 .r-1p0dtai .r-1d2f490 .r-12vffkv .r-1xcajam .r-zchlnj"), .init(site: .twitter))
+        .init(.css(".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"), .init(site: .twitter))
     ])
     
     public static let dark = serialise(rules: [
