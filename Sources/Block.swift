@@ -14,6 +14,19 @@ public struct Block {
 ]
 """
     
+    public static let safe = """
+[
+{
+    "action": {
+        "type": "make-https"
+    },
+    "trigger": {
+        "url-filter": ".*"
+    }
+}
+]
+"""
+    
     public static let ads = serialise(rules: [
         .init(.css(".card-ad"), .init(site: .ecosia)),
         .init(.css(".card-productads"), .init(site: .ecosia)),
