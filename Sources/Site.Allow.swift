@@ -6,6 +6,7 @@ extension Site {
         ecosia = "ecosia.org",
         google = "google.com",
         youtube = "youtube.com",
-        instagram = "instagram.com"
+        instagram = "instagram.com",
+        twitter = "twitter.com"
     }
 }

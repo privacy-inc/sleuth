@@ -8,7 +8,7 @@ extension Site {
         hotjar = "hotjar.com",
         media = "media.net",
         googleapis = "googleapis.com",
-        twitter = "platform.twitter.com",
+        twitter_platform = "platform.twitter.com",
         adalliance = "adalliance.io",
         yieldlab = "yieldlab.net",
         emsservice = "emsservice.de",

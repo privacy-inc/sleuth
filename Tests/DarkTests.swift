@@ -9,6 +9,6 @@ final class DarkTests: XCTestCase {
     }
     
     func testGoogle() {
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".P1Ycoe"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".P1Ycoe"))
     }
 }

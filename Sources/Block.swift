@@ -56,7 +56,14 @@ public struct Block {
         .init(.css(".R361B"), .init(site: .instagram)),
         .init(.css(".NXc7H"), .init(site: .instagram)),
         .init(.css(".f11OC"), .init(site: .instagram)),
-        .init(.css(".X6gVd"), .init(site: .instagram))
+        .init(.css(".X6gVd"), .init(site: .instagram)),
+        .init(.css(".css-1dbjc4n"), .init(site: .twitter)),
+        .init(.css(".r-aqfbo4"), .init(site: .twitter)),
+        .init(.css(".r-1p0dtai"), .init(site: .twitter)),
+        .init(.css(".r-1d2f490"), .init(site: .twitter)),
+        .init(.css(".r-12vffkv"), .init(site: .twitter)),
+        .init(.css(".r-1xcajam"), .init(site: .twitter)),
+        .init(.css(".r-zchlnj"), .init(site: .twitter))
     ])
     
     public static let dark = serialise(rules: [

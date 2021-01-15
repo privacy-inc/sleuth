@@ -9,17 +9,17 @@ final class AdsTests: XCTestCase {
     }
     
     func testEcosia() {
-        XCTAssertTrue(rules.remove(domain: "ecosia.org", selector: ".card-ad"))
-        XCTAssertTrue(rules.remove(domain: "ecosia.org", selector: ".card-productads"))
+        XCTAssertTrue(rules.remove(domain: "*ecosia.org", selector: ".card-ad"))
+        XCTAssertTrue(rules.remove(domain: "*ecosia.org", selector: ".card-productads"))
     }
     
     func testGoogle() {
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#taw"))
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#rhs"))
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: "#tadsb"))
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".commercial"))
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".Rn1jbe"))
-        XCTAssertTrue(rules.remove(domain: "google.com", selector: ".kxhcC"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#taw"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#rhs"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#tadsb"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".commercial"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".Rn1jbe"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".kxhcC"))
     }
     
     func testDomains() {
@@ -75,8 +75,8 @@ final class AdsTests: XCTestCase {
     }
     
     func testPartial() {
-        XCTAssertTrue(rules.block(domain: "google.com", url: ".*google.com/pagead/.*"))
-        XCTAssertTrue(rules.block(domain: "google.com", url: ".*google.com/recaptcha/.*"))
-        XCTAssertTrue(rules.block(domain: "youtube.com", url: ".*youtube.com/embed.*"))
+        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/pagead/"))
+        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/recaptcha/"))
+        XCTAssertTrue(rules.block(domain: "youtube.com", url: "youtube.com/embed"))
     }
 }
