@@ -51,7 +51,7 @@ public struct Block {
         .init(.css(".upsell-dialog-lightbox"), .init(site: .youtube)),
         .init(.css(".consent-bump-lightbox"), .init(site: .youtube)),
         .init(.css(".RnEpo.Yx5HN"), .init(site: .instagram)),
-        .init(.css("._Yhr4"), .init(site: .instagram)),
+        .init(.css(".RnEpo._Yhr4"), .init(site: .instagram)),
         .init(.css(".R361B"), .init(site: .instagram)),
         .init(.css(".NXc7H.jLuN9.X6gVd"), .init(site: .instagram)),
         .init(.css(".f11OC"), .init(site: .instagram)),

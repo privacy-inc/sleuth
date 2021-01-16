@@ -32,9 +32,8 @@ function privacy_make_dark() {
     
         if (gradient) {
             element.style.background = "none";
-        }
-        
-        if (parts.length > 3) {
+            element.style.backgroundColor = "rgba(37, 34, 40)";
+        } else if (parts.length > 3) {
             if (parts[3] > 0) {
                 element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
             }
@@ -72,12 +71,6 @@ if (!privacy_supports_dark()) {
     if (location.host.includes("google.com")) {
         var style = document.createElement('style');
         style.innerHTML = ":root { overflow-y: visible !important; }";
-        document.head.appendChild(style);
-    }
-
-    if (location.host.includes("instagram.com")) {
-        var style = document.createElement('style');
-        style.innerHTML = "body { overflow: unset !important; }";
         document.head.appendChild(style);
     }
 """
