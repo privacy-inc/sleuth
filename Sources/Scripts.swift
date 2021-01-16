@@ -21,8 +21,6 @@ function privacy_supports_dark() {
     }
     return true;
 }
-
-
     
 function privacy_make_dark() {
     [...document.body.getElementsByTagName("*")].forEach(element => {
