@@ -37,7 +37,7 @@ private extension String {
     
     func partialURL<T>(transform: (URL) -> T) -> T? {
         separated {
-            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 ? URL(string: Scheme.http.url + self).map(transform) : nil
+            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 ? URL(string: Scheme.https.url + self).map(transform) : nil
         }
     }
     

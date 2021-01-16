@@ -32,7 +32,7 @@ final class EngineTests: XCTestCase {
     
     func testPartialURL() {
         if case let .navigate(url) = Engine.ecosia.browse("github.com") {
-            XCTAssertEqual("http://github.com", url.absoluteString)
+            XCTAssertEqual("https://github.com", url.absoluteString)
         } else {
             XCTFail()
         }
