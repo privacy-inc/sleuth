@@ -20,7 +20,7 @@ public final class Shield {
                                             if let schemeless = $0.schemeless(url) {
                                                 for site in Site.Partial.allCases {
                                                     guard schemeless.contains(site.url) else { continue }
-                                                    return .block(site.rawValue)
+                                                    return .block(site.url)
                                                 }
                                                 
                                                 let domain = schemeless.components(separatedBy: "/").first!

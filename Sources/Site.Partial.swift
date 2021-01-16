@@ -5,7 +5,7 @@ extension Site {
         case
         google_pagead = "/pagead/",
         google_recaptcha = "/recaptcha/",
-        youtube_embed = "/embed"
+        youtube_embed = "/embed/"
         
         var domain: Allow {
             switch self {
