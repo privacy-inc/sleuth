@@ -53,6 +53,7 @@ extension Site {
         apostropheemailcompetence = "apostropheemailcompetence.com",
         googlesyndication = "googlesyndication.com",
         doubleclick = "doubleclick.net",
-        cloudfront = "cloudfront.net"
+        cloudfront = "cloudfront.net",
+        adnxs = "adnxs.com"
     }
 }

@@ -72,6 +72,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(rules.block(domain: "hornsgrid.com"))
         XCTAssertTrue(rules.block(domain: "zap.buzz"))
         XCTAssertTrue(rules.block(domain: "*consent.google.com"))
+        XCTAssertTrue(rules.block(domain: "adnxs.com"))
     }
     
     func testPartial() {
