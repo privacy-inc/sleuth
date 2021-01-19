@@ -26,7 +26,11 @@ function privacy_make_dark() {
     [...document.body.getElementsByTagName("*")].forEach(element => {
         const color = getComputedStyle(element).getPropertyValue("background-color");
         const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
-        const parts = color.match(/[\\d.]+/g);
+        const parts = color.match(/[\d.]+/g);
+    
+        if (element.tagName != "A") {
+            element.style.setProperty("color", "#cecccf", "important");
+        }
     
         if (gradient) {
             element.style.background = "none";
@@ -44,9 +48,6 @@ function privacy_make_dark() {
     style.innerHTML = "\
     :root, html, body {\
         background-color: #252228 !important ;\
-    }\
-    *:not(a) {\
-        color: #cecccf !important;\
     }\
     a, a *, a:link *, a:visited *, a:hover *, a:active * {\
         color: #7caadf !important ;\
