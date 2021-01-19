@@ -71,6 +71,12 @@ if (!privacy_supports_dark()) {
         style.innerHTML = ":root { overflow-y: visible !important; }";
         document.head.appendChild(style);
     }
+
+    if (location.host.includes("instagram.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = "body, .E3X2T { overflow: unset !important; }";
+        document.head.appendChild(style);
+    }
 """
     
     public static let location = """
