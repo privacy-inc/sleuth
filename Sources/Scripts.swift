@@ -26,7 +26,7 @@ function privacy_make_dark() {
     [...document.body.getElementsByTagName("*")].forEach(element => {
         const color = getComputedStyle(element).getPropertyValue("background-color");
         const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
-        const parts = color.match(/[\d.]+/g);
+        const parts = color.match(/[\\d.]+/g);
     
         if (element.tagName != "A") {
             element.style.setProperty("color", "#cecccf", "important");
