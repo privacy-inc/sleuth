@@ -25,11 +25,16 @@ function privacy_supports_dark() {
 function privacy_make_dark() {
     [...document.body.getElementsByTagName("*")].forEach(element => {
         const color = getComputedStyle(element).getPropertyValue("background-color");
-        const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
         const parts = color.match(/[\\d.]+/g);
+        const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
+        const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
     
         if (element.tagName != "A") {
             element.style.setProperty("color", "#cecccf", "important");
+        }
+    
+        if (shadow != "none") {
+            element.style.setProperty("box-shadow", "none", "important");
         }
     
         if (gradient) {
