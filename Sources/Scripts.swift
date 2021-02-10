@@ -72,13 +72,15 @@ if (!privacy_supports_dark()) {
 """
     
     public static let scroll = """
-    if (location.host.includes("google.com") || location.host.includes("youtube.com")) {
+    if (location.host.includes("google.com")) {
         var style = document.createElement('style');
         style.innerHTML = ":root { overflow-y: visible !important; }";
         document.head.appendChild(style);
-    }
-
-    if (location.host.includes("instagram.com")) {
+    } else if (location.host.includes("youtube.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = "body { position: unset !important; }";
+        document.head.appendChild(style);
+    } else if (location.host.includes("instagram.com")) {
         var style = document.createElement('style');
         style.innerHTML = "body, .E3X2T { overflow: unset !important; }";
         document.head.appendChild(style);
