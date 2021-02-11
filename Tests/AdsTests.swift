@@ -20,6 +20,7 @@ final class AdsTests: XCTestCase {
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".commercial"))
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".Rn1jbe"))
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".kxhcC"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".isv-r.PNCib.BC7Tfc"))
     }
     
     func testDomains() {

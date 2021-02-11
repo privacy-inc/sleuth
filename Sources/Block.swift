@@ -35,7 +35,8 @@ public struct Block {
         .init(.css("#tadsb"), .init(site: .google)),
         .init(.css(".commercial"), .init(site: .google)),
         .init(.css(".Rn1jbe"), .init(site: .google)),
-        .init(.css(".kxhcC"), .init(site: .google))
+        .init(.css(".kxhcC"), .init(site: .google)),
+        .init(.css(".isv-r.PNCib.BC7Tfc"), .init(site: .google))
     ] + Site.Domain.allCases.map {
         .init(.block, .init(site: $0))
     } + Site.Partial.allCases.map {
