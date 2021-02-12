@@ -32,12 +32,8 @@ public extension FileManager {
     }
     
     static func delete(_ page: Page) {
-        delete(page.id)
-    }
-    
-    static func delete(_ id: UUID) {
         queue.async {
-            try? instance.removeItem(at: folder.appendingPathComponent(id.uuidString))
+            try? instance.removeItem(at: folder.appendingPathComponent(page.id.uuidString))
         }
     }
     
