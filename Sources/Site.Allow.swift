@@ -7,6 +7,7 @@ extension Site {
         google = "google.com",
         youtube = "youtube.com",
         instagram = "instagram.com",
-        twitter = "twitter.com"
+        twitter = "twitter.com",
+        reuters = "reuters.com"
     }
 }

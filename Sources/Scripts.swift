@@ -88,6 +88,10 @@ if (!privacy_supports_dark()) {
         var style = document.createElement('style');
         style.innerHTML = "body, .E3X2T { overflow: unset !important; }";
         document.head.appendChild(style);
+    } else if (location.host.includes("reuters.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = ":root, html, body { overflow: unset !important; }";
+        document.head.appendChild(style);
     }
 """
     

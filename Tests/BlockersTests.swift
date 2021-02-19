@@ -30,6 +30,10 @@ final class BlockersTests: XCTestCase {
         XCTAssertTrue(rules.remove(domain: "*instagram.com", selector: ".f11OC"))
     }
     
+    func testReuters() {
+        XCTAssertTrue(rules.remove(domain: "*reuters.com", selector: "#onetrust-consent-sdk"))
+    }
+    
     func testTwitter() {
         XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"))
     }
