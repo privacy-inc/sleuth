@@ -7,7 +7,12 @@ public struct Page: Codable, Identifiable, Hashable {
     public let id: UUID
     
     public var shared: Share.Page {
-        .init(url: URL(string: Scheme.privacy_id.url + id.uuidString)!, title: title, subtitle: url.absoluteString)
+        .init(url: URL(string: Scheme.privacy_id.url + id.uuidString)!,
+              title: title,
+              subtitle: url.absoluteString
+                .replacingOccurrences(of: "https://", with: "")
+                .replacingOccurrences(of: "http://", with: "")
+                .replacingOccurrences(of: "www.", with: ""))
     }
     
     public init(url: URL) {
