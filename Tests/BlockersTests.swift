@@ -12,6 +12,7 @@ final class BlockersTests: XCTestCase {
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#consent-bump"))
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#lb"))
         XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".hww53CMqxtL__mobile-promo.hww53CMqxtL__visible"))
+        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#Sx9Kwc"))
     }
     
     func testYouTube() {

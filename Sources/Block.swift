@@ -48,6 +48,7 @@ public struct Block {
         .init(.css("#consent-bump"), .init(site: .google)),
         .init(.css("#lb"), .init(site: .google)),
         .init(.css(".hww53CMqxtL__mobile-promo.hww53CMqxtL__visible"), .init(site: .google)),
+        .init(.css("#Sx9Kwc"), .init(site: .google)),
         .init(.css("#consent-bump"), .init(site: .youtube)),
         .init(.css(".opened"), .init(site: .youtube)),
         .init(.css(".ytd-popup-container"), .init(site: .youtube)),
