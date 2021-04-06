@@ -9,31 +9,16 @@ public enum Engine: String {
         string.trimmed {
             $0.url(transform: Browse.navigate)
                 ?? $0.partialURL(transform: Browse.navigate)
-                ?? query(string)
-                        .map(Browse.search)
+                ?? $0.query { URL(string: prefix + $0).map(Browse.search) }
+                ?? nil
         } ?? nil
     }
     
     private var prefix: String {
         switch self {
-        case .ecosia: return "https://www.ecosia.org"
-        case .google: return "https://www.google.com"
+        case .ecosia: return "https://www.ecosia.org/search?q="
+        case .google: return "https://www.google.com/search?q="
         }
-    }
-    
-    private var path: String {
-        "/search"
-    }
-    
-    private var query: String {
-        "q"
-    }
-    
-    private func query(_ value: String) -> URL? {
-        var components = URLComponents(string: prefix)!
-        components.path = path
-        components.queryItems = [.init(name: query, value: value)]
-        return components.url
     }
 }
 
@@ -54,6 +39,13 @@ private extension String {
         separated {
             $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 ? URL(string: Scheme.https.url + self).map(transform) : nil
         }
+    }
+    
+    func query<T>(transform: (Self) -> T) -> T? {
+        addingPercentEncoding(
+            withAllowedCharacters:
+                CharacterSet.urlQueryAllowed.subtracting(.init(arrayLiteral: "&", "+")))
+            .map(transform)
     }
     
     private func separated<T>(transform: ([Self]) -> T) -> T {
