@@ -70,4 +70,52 @@ final class EngineTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testSemiColon() {
+        if case let .search(url) = Engine.google.browse("hello:world") {
+            XCTAssertEqual("https://www.google.com/search?q=hello%3Aworld", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testHttp() {
+        if case let .search(url) = Engine.google.browse("http") {
+            XCTAssertEqual("https://www.google.com/search?q=http", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .search(url) = Engine.google.browse("https") {
+            XCTAssertEqual("https://www.google.com/search?q=https", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .search(url) = Engine.google.browse("https:") {
+            XCTAssertEqual("https://www.google.com/search?q=https%3A", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .search(url) = Engine.google.browse("https:/") {
+            XCTAssertEqual("https://www.google.com/search?q=https%3A/", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .search(url) = Engine.google.browse("https://") {
+            XCTAssertEqual("https://www.google.com/search?q=https%3A//", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testDeeplink() {
+        if case let .navigate(url) = Engine.google.browse("macappstores://apps.apple.com/us/app/avocado-kanban/id1549855022?app=mac-app&extRefUrl2=https%3A%2F%2Favoca-do.github.io") {
+            XCTAssertEqual("macappstores://apps.apple.com/us/app/avocado-kanban/id1549855022?app=mac-app&extRefUrl2=https%3A%2F%2Favoca-do.github.io", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+    }
 }

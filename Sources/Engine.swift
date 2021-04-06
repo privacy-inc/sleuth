@@ -30,9 +30,16 @@ private extension String {
     }
     
     func url<T>(transform: (URL) -> T) -> T? {
-        isEmpty ? nil : URL(string: self).flatMap {
-            $0.scheme == nil ? nil : transform($0)
-        }
+        isEmpty
+            ? nil
+            : URL(string: self)
+                .flatMap {
+                    $0.scheme == nil || ($0.host == nil && $0.query == nil)
+                        ? nil
+                        : contains(Scheme.joiner)
+                            ? transform($0)
+                            : nil
+                }
     }
     
     func partialURL<T>(transform: (URL) -> T) -> T? {
@@ -44,7 +51,7 @@ private extension String {
     func query<T>(transform: (Self) -> T) -> T? {
         addingPercentEncoding(
             withAllowedCharacters:
-                CharacterSet.urlQueryAllowed.subtracting(.init(arrayLiteral: "&", "+")))
+                CharacterSet.urlQueryAllowed.subtracting(.init(arrayLiteral: "&", "+", ":")))
             .map(transform)
     }
     

@@ -12,8 +12,10 @@ public enum Scheme: String {
     privacy_forget = "privacy-forget",
     privacy_trackers = "privacy-trackers"
     
+    static let joiner = "://"
+    
     public var url: String {
-        rawValue + "://"
+        rawValue + Self.joiner
     }
     
     func schemeless(_ url: URL) -> String? {
