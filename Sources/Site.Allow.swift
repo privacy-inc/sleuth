@@ -10,6 +10,7 @@ extension Site {
         twitter = "twitter.com",
         reuters = "reuters.com",
         thelocal = "thelocal.de",
-        pinterest = "pinterest.com"
+        pinterest = "pinterest.com",
+        facebook = "facebook.com"
     }
 }

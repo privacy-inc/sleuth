@@ -82,7 +82,8 @@ final class BlockTests: XCTestCase {
         "https://buy.tinypass.com/checkout/offer/show?displayMode=inline&containerSelector=.login-box&templateId=OTU6M3FSD4MZ&templateVariantId=OTVN7R7RXGJUZ&offerId=OF5GTA24P5VH&formNameByTermId=%7B%7D&showCloseButton=false&experienceId=EX8P88MXOZPZ&widget=offer&iframeId=offer-0-tay0l&url=https%3A%2F%2Fwww.thelocal.de%2F20210406%2Fcould-a-bridge-lockdown-be-the-answer-to-germanys-spiralling-covid-cases%2F&parentDualScreenLeft=0&parentDualScreenTop=1120&parentWidth=1391&parentHeight=952&parentOuterHeight=0&gaClientId=1513133894.1617707433&aid=lGr3ciYmC7&pianoIdUrl=https%3A%2F%2Fid.tinypass.com%2Fid%2F&userProvider=piano_id&userToken=&customCookies=%7B%7D&hasLoginRequiredCallback=true&width=350&_qh=63f5169ba6",
         "https://gslbeacon.lijit.com/beacon?viewId=a_423415_eb9ea5f998ca4f1c922106abdb91aca3&rand=8596&informer=13194752&type=fpads&loc=https%3A%2F%2Fwww.thelocal.de%2F20210406%2Fcould-a-bridge-lockdown-be-the-answer-to-germanys-spiralling-covid-cases%2F&v=1.2",
         "https://api-esp.piano.io/publisher/bekose/162?wv=97&v=vd.1.62.6-454b540",
-        "https://z.moatads.com/hd09824092/iframe.html#header=1"
+        "https://z.moatads.com/hd09824092/iframe.html#header=1",
+        "https://www.facebook.com/v2.2/plugins/login_button.php?app_id=274266067164&button_type=continue_with&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df128a66805b8d8a%26domain%3Dwww.pinterest.com%26origin%3Dhttps%253A%252F%252Fwww.pinterest.com%252Ff3e4c8a1fc181f%26relation%3Dparent.parent&container_width=268&layout=rounded&locale=en_GB&login_text=&scope=public_profile%2Cemail%2Cuser_likes%2Cuser_birthday%2Cuser_friends&sdk=joey&size=large&use_continue_as=true&width=268px"
     ]
     
     override func setUp() {
