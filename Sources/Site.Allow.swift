@@ -8,6 +8,7 @@ extension Site {
         youtube = "youtube.com",
         instagram = "instagram.com",
         twitter = "twitter.com",
-        reuters = "reuters.com"
+        reuters = "reuters.com",
+        thelocal = "thelocal.de"
     }
 }

@@ -38,4 +38,8 @@ final class BlockersTests: XCTestCase {
     func testTwitter() {
         XCTAssertTrue(rules.remove(domain: "*twitter.com", selector: ".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"))
     }
+    
+    func testTheLocal() {
+        XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: "#qc-cmp2-container"))
+    }
 }
