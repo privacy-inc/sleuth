@@ -100,6 +100,7 @@ if (!privacy_supports_dark()) {
         var style = document.createElement('style');
         style.innerHTML = "body { overflow: visible !important; }";
         document.head.appendChild(style);
+console.log("pinterest")
     }
 """
     
