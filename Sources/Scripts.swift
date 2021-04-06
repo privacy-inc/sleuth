@@ -98,7 +98,7 @@ if (!privacy_supports_dark()) {
         document.head.appendChild(style);
     } else if (location.host.includes("pinterest.com")) {
         var style = document.createElement('style');
-        style.innerHTML = "body { position: unset !important; }";
+        style.innerHTML = "body { overflow: unset !important; }";
         document.head.appendChild(style);
     }
 """
