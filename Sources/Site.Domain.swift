@@ -57,6 +57,7 @@ extension Site {
         adnxs = "adnxs.com",
         tinypass = "tinypass.com",
         lijit = "lijit.com",
-        piano = "piano.io"
+        piano = "piano.io",
+        moatads = "moatads.com"
     }
 }
