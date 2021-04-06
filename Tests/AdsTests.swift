@@ -80,6 +80,7 @@ final class AdsTests: XCTestCase {
     func testPartial() {
         XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/pagead/"))
         XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/recaptcha/"))
+        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/swg/"))
         XCTAssertTrue(rules.block(domain: "youtube.com", url: "youtube.com/embed/"))
     }
 }

@@ -78,7 +78,10 @@ final class BlockTests: XCTestCase {
         "https://impactserving.com/link.engine?z=16121&guid=fe89a1e1-ef4a-4953-b915-7e5e3ea14d77",
         "https://f853150605ccb.com/go.xml",
         "https://consent.google.com/?hl=en&origin=https://www.google.com&continue=https://www.google.com/search?q%3Dweather%2Bberlin&if=1&m=0&pc=s&wp=-1&gl=GR",
-        "https://acdn.adnxs.com/dmp/async_usersync.html"
+        "https://acdn.adnxs.com/dmp/async_usersync.html",
+        "https://buy.tinypass.com/checkout/offer/show?displayMode=inline&containerSelector=.login-box&templateId=OTU6M3FSD4MZ&templateVariantId=OTVN7R7RXGJUZ&offerId=OF5GTA24P5VH&formNameByTermId=%7B%7D&showCloseButton=false&experienceId=EX8P88MXOZPZ&widget=offer&iframeId=offer-0-tay0l&url=https%3A%2F%2Fwww.thelocal.de%2F20210406%2Fcould-a-bridge-lockdown-be-the-answer-to-germanys-spiralling-covid-cases%2F&parentDualScreenLeft=0&parentDualScreenTop=1120&parentWidth=1391&parentHeight=952&parentOuterHeight=0&gaClientId=1513133894.1617707433&aid=lGr3ciYmC7&pianoIdUrl=https%3A%2F%2Fid.tinypass.com%2Fid%2F&userProvider=piano_id&userToken=&customCookies=%7B%7D&hasLoginRequiredCallback=true&width=350&_qh=63f5169ba6",
+        "https://gslbeacon.lijit.com/beacon?viewId=a_423415_eb9ea5f998ca4f1c922106abdb91aca3&rand=8596&informer=13194752&type=fpads&loc=https%3A%2F%2Fwww.thelocal.de%2F20210406%2Fcould-a-bridge-lockdown-be-the-answer-to-germanys-spiralling-covid-cases%2F&v=1.2",
+        "https://api-esp.piano.io/publisher/bekose/162?wv=97&v=vd.1.62.6-454b540"
     ]
     
     override func setUp() {

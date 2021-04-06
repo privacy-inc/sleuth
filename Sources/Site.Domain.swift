@@ -54,6 +54,9 @@ extension Site {
         googlesyndication = "googlesyndication.com",
         doubleclick = "doubleclick.net",
         cloudfront = "cloudfront.net",
-        adnxs = "adnxs.com"
+        adnxs = "adnxs.com",
+        tinypass = "tinypass.com",
+        lijit = "lijit.com",
+        piano = "piano.io"
     }
 }
