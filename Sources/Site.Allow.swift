@@ -9,6 +9,7 @@ extension Site {
         instagram = "instagram.com",
         twitter = "twitter.com",
         reuters = "reuters.com",
-        thelocal = "thelocal.de"
+        thelocal = "thelocal.de",
+        pinterest = "pinterest.com"
     }
 }

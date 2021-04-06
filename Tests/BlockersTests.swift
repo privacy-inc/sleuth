@@ -44,4 +44,9 @@ final class BlockersTests: XCTestCase {
         XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: ".tp-modal"))
         XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: ".tp-backdrop"))
     }
+    
+    func testPinterest() {
+        XCTAssertTrue(rules.remove(domain: "*pinterest.com", selector: ".Jea.LCN.Lej.PKX._he.dxm.fev.fte.gjz.jzS.ojN.p6V.qJc.zI7.iyn.Hsu"))
+        XCTAssertTrue(rules.remove(domain: "*pinterest.com", selector: ".zI7.iyn.Hsu"))
+    }
 }
