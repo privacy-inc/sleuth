@@ -97,10 +97,7 @@ if (!privacy_supports_dark()) {
         style.innerHTML = ".tp-modal-open { overflow: unset !important; }";
         document.head.appendChild(style);
     } else if (location.host.includes("pinterest.com")) {
-        var style = document.createElement('style');
-        style.innerHTML = "body { overflow: visible !important; }";
-        document.head.appendChild(style);
-console.log("pinterest")
+        document.body.setAttribute("style", "overflow-y: visible !important");
     }
 """
     
