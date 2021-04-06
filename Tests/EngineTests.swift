@@ -46,4 +46,20 @@ final class EngineTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testAmpersand() {
+        if case let .search(url) = Engine.google.browse("hello&world") {
+            XCTAssertEqual("https://www.google.com/search?q=hello%26world", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testPlus() {
+        if case let .search(url) = Engine.google.browse("hello+world") {
+            XCTAssertEqual("https://www.google.com/search?q=hello%2Bworld", url.absoluteString)
+        } else {
+            XCTFail()
+        }
+    }
 }
