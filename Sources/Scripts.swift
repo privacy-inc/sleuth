@@ -92,6 +92,10 @@ if (!privacy_supports_dark()) {
         var style = document.createElement('style');
         style.innerHTML = ":root, html, body { overflow: unset !important; }";
         document.head.appendChild(style);
+    } else if (location.host.includes("thelocal.de")) {
+        var style = document.createElement('style');
+        style.innerHTML = ".tp-modal-open { overflow: unset !important; }";
+        document.head.appendChild(style);
     }
 """
     

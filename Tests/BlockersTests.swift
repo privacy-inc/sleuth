@@ -41,5 +41,7 @@ final class BlockersTests: XCTestCase {
     
     func testTheLocal() {
         XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: "#qc-cmp2-container"))
+        XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: ".tp-modal"))
+        XCTAssertTrue(rules.remove(domain: "*thelocal.de", selector: ".tp-backdrop"))
     }
 }
