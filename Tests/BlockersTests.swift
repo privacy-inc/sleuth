@@ -33,6 +33,7 @@ final class BlockersTests: XCTestCase {
     
     func testReuters() {
         XCTAssertTrue(rules.remove(domain: "*reuters.com", selector: "#onetrust-consent-sdk"))
+        XCTAssertTrue(rules.remove(domain: "*reuters.com", selector: "#newReutersModal"))
     }
     
     func testTwitter() {
