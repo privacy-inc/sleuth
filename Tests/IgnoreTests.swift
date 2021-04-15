@@ -2,15 +2,20 @@ import XCTest
 import Sleuth
 
 final class IgnoreTests: XCTestCase {
+    private var protection: Protection!
     private let list =  [
         "about:blank",
         "about:srcdoc"
     ]
     
+    override func setUp() {
+        protection = Antitracker()
+    }
+    
     func test() {
         list
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: true))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .ignore = $0.1 { } else {

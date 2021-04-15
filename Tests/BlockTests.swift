@@ -2,6 +2,7 @@ import XCTest
 import Sleuth
 
 final class BlockTests: XCTestCase {
+    private var protection: Protection!
     private let list =  [
         "https://sourcepoint.theguardian.com/index.html?message_id=343252&consentUUID=4debba32-1827-4286-b168-cd0a6068f5f5&requestUUID=0a3ee8d3-cc2e-43b1-99ba-ceb02302f3e5&preload_message=true)",
         "https://tags.crwdcntrl.net/lt/shared/1/lt.iframe.html",
@@ -83,10 +84,14 @@ final class BlockTests: XCTestCase {
         "https://www.facebook.com/v2.2/plugins/login_button.php?app_id=274266067164&button_type=continue_with&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df128a66805b8d8a%26domain%3Dwww.pinterest.com%26origin%3Dhttps%253A%252F%252Fwww.pinterest.com%252Ff3e4c8a1fc181f%26relation%3Dparent.parent&container_width=268&layout=rounded&locale=en_GB&login_text=&scope=public_profile%2Cemail%2Cuser_likes%2Cuser_birthday%2Cuser_friends&sdk=joey&size=large&use_continue_as=true&width=268px"
     ]
     
+    override func setUp() {
+        protection = Antitracker()
+    }
+    
     func test() {
         list
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: true))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .block(_) = $0.1 { } else {

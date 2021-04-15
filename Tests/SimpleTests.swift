@@ -1,7 +1,9 @@
 import XCTest
 import Sleuth
 
-final class UnshieldTests: XCTestCase {
+final class SimpleTests: XCTestCase {
+    private var protection: Protection!
+    
     private let listA =  [
         "about:blank",
         "about:srcdoc"
@@ -20,10 +22,14 @@ final class UnshieldTests: XCTestCase {
         "sms://uk.reuters.com/"
     ]
     
+    override func setUp() {
+        protection = Simple()
+    }
+    
     func testIgnore() {
         listA
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .ignore = $0.1 { } else {
@@ -35,7 +41,7 @@ final class UnshieldTests: XCTestCase {
     func testAllow() {
         listB
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .allow = $0.1 { } else {
@@ -47,7 +53,7 @@ final class UnshieldTests: XCTestCase {
     func testExternal() {
         listC
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .external = $0.1 { } else {

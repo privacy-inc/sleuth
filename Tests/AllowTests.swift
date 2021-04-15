@@ -2,6 +2,7 @@ import XCTest
 import Sleuth
 
 final class AllowTests: XCTestCase {
+    private var protection: Protection!
     private let list = [
         "https://www.ecosia.org",
         "https://www.theguardian.com/email/form/footer/today-uk",
@@ -12,10 +13,14 @@ final class AllowTests: XCTestCase {
         "https://consent.yahoo.com/v2/collectConsent?sessionId=3_cc-session_d5551c9f-5d07-4428-b0f9-6e92b1c3ca4e"
     ]
     
+    override func setUp() {
+        protection = Antitracker()
+    }
+    
     func testAllow() {
         list
             .map {
-                ($0, Shield.policy(for: URL(string: $0)!, shield: true))
+                ($0, protection.policy(for: URL(string: $0)!))
             }
             .forEach {
                 if case .allow = $0.1 { } else {
