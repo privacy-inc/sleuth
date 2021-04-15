@@ -1,10 +1,7 @@
 import XCTest
 import Sleuth
-import Combine
 
 final class UnshieldTests: XCTestCase {
-    private var shield: Shield!
-    private var subs = Set<AnyCancellable>()
     private let listA =  [
         "about:blank",
         "about:srcdoc"
@@ -23,52 +20,39 @@ final class UnshieldTests: XCTestCase {
         "sms://uk.reuters.com/"
     ]
     
-    override func setUp() {
-        shield = .init()
-    }
-    
     func testIgnore() {
-        let expect = expectation(description: "")
-        expect.expectedFulfillmentCount = listA.count
-        listA.forEach { url in
-            shield.policy(for: URL(string: url)!, shield: false).sink {
-                if case .ignore = $0 {
-                    expect.fulfill()
-                } else {
-                    XCTFail(url)
+        listA
+            .map {
+                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+            }
+            .forEach {
+                if case .ignore = $0.1 { } else {
+                    XCTFail("\($0.1): \($0.0)")
                 }
-            }.store(in: &subs)
-        }
-        waitForExpectations(timeout: 1)
+            }
     }
     
     func testAllow() {
-        let expect = expectation(description: "")
-        expect.expectedFulfillmentCount = listB.count
-        listB.forEach { url in
-            shield.policy(for: URL(string: url)!, shield: false).sink {
-                if case .allow = $0 {
-                    expect.fulfill()
-                } else {
-                    XCTFail(url)
+        listB
+            .map {
+                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+            }
+            .forEach {
+                if case .allow = $0.1 { } else {
+                    XCTFail("\($0.1): \($0.0)")
                 }
-            }.store(in: &subs)
-        }
-        waitForExpectations(timeout: 1)
+            }
     }
     
     func testExternal() {
-        let expect = expectation(description: "")
-        expect.expectedFulfillmentCount = listC.count
-        listC.forEach { url in
-            shield.policy(for: URL(string: url)!, shield: false).sink {
-                if case .external = $0 {
-                    expect.fulfill()
-                } else {
-                    XCTFail(url)
+        listC
+            .map {
+                ($0, Shield.policy(for: URL(string: $0)!, shield: false))
+            }
+            .forEach {
+                if case .external = $0.1 { } else {
+                    XCTFail("\($0.1): \($0.0)")
                 }
-            }.store(in: &subs)
-        }
-        waitForExpectations(timeout: 1)
+            }
     }
 }

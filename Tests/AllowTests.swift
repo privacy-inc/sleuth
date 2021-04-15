@@ -1,10 +1,7 @@
 import XCTest
 import Sleuth
-import Combine
 
 final class AllowTests: XCTestCase {
-    private var shield: Shield!
-    private var subs = Set<AnyCancellable>()
     private let list = [
         "https://www.ecosia.org",
         "https://www.theguardian.com/email/form/footer/today-uk",
@@ -15,22 +12,15 @@ final class AllowTests: XCTestCase {
         "https://consent.yahoo.com/v2/collectConsent?sessionId=3_cc-session_d5551c9f-5d07-4428-b0f9-6e92b1c3ca4e"
     ]
     
-    override func setUp() {
-        shield = .init()
-    }
-    
     func testAllow() {
-        let expect = expectation(description: "")
-        expect.expectedFulfillmentCount = list.count
-        list.forEach { url in
-            shield.policy(for: URL(string: url)!, shield: true).sink {
-                if case .allow = $0 {
-                    expect.fulfill()
-                } else {
-                    XCTFail(url)
+        list
+            .map {
+                ($0, Shield.policy(for: URL(string: $0)!, shield: true))
+            }
+            .forEach {
+                if case .allow = $0.1 { } else {
+                    XCTFail("\($0.1): \($0.0)")
                 }
-            }.store(in: &subs)
-        }
-        waitForExpectations(timeout: 1)
+            }
     }
 }

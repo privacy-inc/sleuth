@@ -1,31 +1,21 @@
 import XCTest
 import Sleuth
-import Combine
 
 final class IgnoreTests: XCTestCase {
-    private var shield: Shield!
-    private var subs = Set<AnyCancellable>()
     private let list =  [
         "about:blank",
         "about:srcdoc"
     ]
     
-    override func setUp() {
-        shield = .init()
-    }
-    
     func test() {
-        let expect = expectation(description: "")
-        expect.expectedFulfillmentCount = list.count
-        list.forEach { url in
-            shield.policy(for: URL(string: url)!, shield: true).sink {
-                if case .ignore = $0 {
-                    expect.fulfill()
-                } else {
-                    XCTFail("\($0): \(url)")
+        list
+            .map {
+                ($0, Shield.policy(for: URL(string: $0)!, shield: true))
+            }
+            .forEach {
+                if case .ignore = $0.1 { } else {
+                    XCTFail("\($0.1): \($0.0)")
                 }
-            }.store(in: &subs)
-        }
-        waitForExpectations(timeout: 1)
+            }
     }
 }
