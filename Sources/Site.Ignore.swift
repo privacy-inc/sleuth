@@ -1,6 +1,6 @@
 import Foundation
 
-extension Shield {
+extension Site {
     enum Ignore: String {
         case
         about

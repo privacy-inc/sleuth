@@ -3,7 +3,7 @@ import Foundation
 public struct Shield {
     public static func policy(for url: URL, shield: Bool) -> Policy {
         url.scheme.flatMap {
-            Ignore(rawValue: $0)
+            Site.Ignore(rawValue: $0)
                 .map { _ in
                     .ignore
                 } ?? Scheme(rawValue: $0)
@@ -23,7 +23,7 @@ public struct Shield {
                                 }
                                 
                                 for item in domain.components(separatedBy: ".").dropLast() {
-                                    guard Component(rawValue: item) == nil else { return .block(domain) }
+                                    guard Site.Component(rawValue: item) == nil else { return .block(domain) }
                                     continue
                                 }
                             }

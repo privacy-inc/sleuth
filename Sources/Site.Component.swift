@@ -1,6 +1,6 @@
 import Foundation
 
-extension Shield {
+extension Site {
     enum Component: String {
         case
         sourcepoint,
