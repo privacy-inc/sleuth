@@ -2,7 +2,7 @@ import Foundation
 
 public struct Scripts {
     public static let dark = """
-function privacy_supports_dark() {
+function _privacy_incognit_supports_dark() {
     if (location.host.includes("youtube.com") || document.documentElement.getAttribute("dark") == "true") {
         return true;
     }
@@ -17,60 +17,79 @@ function privacy_supports_dark() {
                 }
             }
         }
-        return false;
     }
-    return true;
+    return false;
+}
+
+function _privacy_incognit_make_dark(element) {
+    const background_color = getComputedStyle(element).getPropertyValue("background-color");
+    const parts = background_color.match(/[\\d.]+/g);
+    const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
+    const text_color = element.style.color;
+    const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
+
+    if (element.tagName != "A" && text_color != "") {
+        element.style.setProperty("color", "#cecccf", "important");
+    }
+
+    if (shadow != "none") {
+        element.style.setProperty("box-shadow", "none", "important");
+    }
+
+    if (gradient) {
+        element.style.background = "none";
+        element.style.backgroundColor = "rgba(37, 34, 40)";
+    } else if (parts.length > 3) {
+        if (parts[3] > 0) {
+            element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
+        }
+    } else {
+        element.style.backgroundColor = "rgba(37, 34, 40)";
+    }
 }
     
-function privacy_make_dark() {
-    [...document.body.getElementsByTagName("*")].forEach(element => {
-        const background_color = getComputedStyle(element).getPropertyValue("background-color");
-        const parts = background_color.match(/[\\d.]+/g);
-        const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
-        const text_color = element.style.color;
-        const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
-    
-        if (element.tagName != "A" && text_color != "") {
-            element.style.setProperty("color", "#cecccf", "important");
+function _privacy_incognit_dark() {
+    const _privacy_incognit_event = function(_privacy_incognit_event) {
+        if (_privacy_incognit_event.animationName == '_privacy_incognit_node') {
+            _privacy_incognit_make_dark(_privacy_incognit_event.target);
         }
-    
-        if (shadow != "none") {
-            element.style.setProperty("box-shadow", "none", "important");
-        }
-    
-        if (gradient) {
-            element.style.background = "none";
-            element.style.backgroundColor = "rgba(37, 34, 40)";
-        } else if (parts.length > 3) {
-            if (parts[3] > 0) {
-                element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
-            }
-        } else {
-            element.style.backgroundColor = "rgba(37, 34, 40)";
-        }
-    });
-    
-    const style = document.createElement('style');
-    style.innerHTML = "\
+    }
+            
+    document.addEventListener('webkitAnimationStart', _privacy_incognit_event, false);
+
+    const _privacy_incognit_style = document.createElement('style');
+    _privacy_incognit_style.innerHTML = "\
+    \
     :root, html, body {\
-        background-color: #252228 !important ;\
+        background-color: #252228 !important;\
     }\
     a, a *, a:link *, a:visited *, a:hover *, a:active * {\
-        color: #7caadf !important ;\
+        color: #7caadf !important;\
     }\
     body :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
-        color: #cecccf !important ;\
+        color: #cecccf !important;\
     }\
     * {\
-        border-color: #454248 !important ;\
-        outline-color: #454248 !important ;\
-        box-shadow: none !important ;\
+        -webkit-animation-duration: 0.01s;\
+        -webkit-animation-name: _privacy_incognit_node;\
+        border-color: #454248 !important;\
+        outline-color: #454248 !important;\
+        box-shadow: none !important;\
+    }\
+    @-webkit-keyframes _privacy_incognit_node {\
+        from {\
+            outline-color: #fff;\
+        }\
+        to {\
+            outline-color: #000;\
+        }\
     }";
-    document.head.appendChild(style);
+
+    setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 10);
 }
-    
-if (!privacy_supports_dark()) {
-    privacy_make_dark();
+
+if (!_privacy_incognit_supports_dark()) {
+    _privacy_incognit_dark();
 }
 
 """
