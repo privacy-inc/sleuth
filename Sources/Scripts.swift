@@ -97,7 +97,7 @@ if (!_privacy_incognit_supports_dark()) {
     public static let scroll = """
     if (location.host.includes("google.com")) {
         var style = document.createElement('style');
-        style.innerHTML = ":root { overflow-y: visible !important; }";
+        style.innerHTML = ":root, body { overflow-y: visible !important; }";
         document.head.appendChild(style);
     } else if (location.host.includes("youtube.com")) {
         var style = document.createElement('style');
