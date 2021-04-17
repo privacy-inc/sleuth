@@ -11,7 +11,8 @@ function _privacy_incognit_supports_dark() {
             if (document.styleSheets[i].cssRules) {
                 for (var j = 0; j < document.styleSheets[i].cssRules.length; j++) {
                     if (document.styleSheets[i].cssRules[j] instanceof CSSMediaRule &&
-                        document.styleSheets[i].cssRules[j].media.mediaText.indexOf('dark') > 0) {
+                        (document.styleSheets[i].cssRules[j].media.mediaText.indexOf('prefers-color') > 0) ||
+                        (document.styleSheets[i].cssRules[j].media.mediaText.indexOf('prefers-dark') > 0)) {
                             return true;
                     }
                 }
