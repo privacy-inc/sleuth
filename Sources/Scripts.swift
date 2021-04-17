@@ -2,26 +2,6 @@ import Foundation
 
 public struct Scripts {
     public static let dark = """
-function _privacy_incognit_supports_dark() {
-    if (location.host.includes("youtube.com") || document.documentElement.getAttribute("dark") == "true") {
-        return true;
-    }
-    if (document.styleSheets && document.styleSheets.length > 0) {
-        for (var i = 0; i < document.styleSheets.length; i++) {
-            if (document.styleSheets[i].cssRules) {
-                for (var j = 0; j < document.styleSheets[i].cssRules.length; j++) {
-                    if (document.styleSheets[i].cssRules[j] instanceof CSSMediaRule &&
-                        (document.styleSheets[i].cssRules[j].media.mediaText.indexOf('prefers-color') > 0) ||
-                        (document.styleSheets[i].cssRules[j].media.mediaText.indexOf('prefers-dark') > 0)) {
-                            return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
 function _privacy_incognit_make_dark(element) {
     const background_color = getComputedStyle(element).getPropertyValue("background-color");
     const parts = background_color.match(/[\\d.]+/g);
@@ -48,51 +28,44 @@ function _privacy_incognit_make_dark(element) {
         element.style.backgroundColor = "rgba(37, 34, 40)";
     }
 }
-    
-function _privacy_incognit_dark() {
-    const _privacy_incognit_event = function(_privacy_incognit_event) {
-        if (_privacy_incognit_event.animationName == '_privacy_incognit_node') {
-            _privacy_incognit_make_dark(_privacy_incognit_event.target);
-        }
+
+const _privacy_incognit_event = function(_privacy_incognit_event) {
+    if (_privacy_incognit_event.animationName == '_privacy_incognit_node') {
+        _privacy_incognit_make_dark(_privacy_incognit_event.target);
     }
-            
-    document.addEventListener('webkitAnimationStart', _privacy_incognit_event, false);
-
-    const _privacy_incognit_style = document.createElement('style');
-    _privacy_incognit_style.innerHTML = "\
-    \
-    :root, html, body {\
-        background-color: #252228 !important;\
-    }\
-    a, a *, a:link *, a:visited *, a:hover *, a:active * {\
-        color: #7caadf !important;\
-    }\
-    body :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
-        color: #cecccf !important;\
-    }\
-    * {\
-        -webkit-animation-duration: 0.01s;\
-        -webkit-animation-name: _privacy_incognit_node;\
-        border-color: #454248 !important;\
-        outline-color: #454248 !important;\
-        box-shadow: none !important;\
-    }\
-    @-webkit-keyframes _privacy_incognit_node {\
-        from {\
-            outline-color: #fff;\
-        }\
-        to {\
-            outline-color: #000;\
-        }\
-    }";
-
-    setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 10);
 }
+        
+document.addEventListener('webkitAnimationStart', _privacy_incognit_event, false);
 
-if (!_privacy_incognit_supports_dark()) {
-    _privacy_incognit_dark();
-}
+const _privacy_incognit_style = document.createElement('style');
+_privacy_incognit_style.innerHTML = "\
+\
+:root, html, body {\
+    background-color: #252228 !important;\
+}\
+a, a *, a:link *, a:visited *, a:hover *, a:active * {\
+    color: #7caadf !important;\
+}\
+body :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
+    color: #cecccf !important;\
+}\
+* {\
+    -webkit-animation-duration: 0.01s;\
+    -webkit-animation-name: _privacy_incognit_node;\
+    border-color: #454248 !important;\
+    outline-color: #454248 !important;\
+    box-shadow: none !important;\
+}\
+@-webkit-keyframes _privacy_incognit_node {\
+    from {\
+        outline-color: #fff;\
+    }\
+    to {\
+        outline-color: #000;\
+    }\
+}";
 
+setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 5);
 """
     
     public static let scroll = """
