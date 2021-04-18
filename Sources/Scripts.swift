@@ -47,7 +47,7 @@ _privacy_incognit_style.innerHTML = "\
 a, a *, a:link *, a:visited *, a:hover *, a:active * {\
     color: #7caadf !important;\
 }\
-body :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
+:root :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
     color: #cecccf !important;\
 }\
 * {\
