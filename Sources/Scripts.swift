@@ -18,14 +18,15 @@ function _privacy_incognit_make_dark(element) {
     }
 
     if (gradient) {
-        element.style.background = "none";
-        element.style.backgroundColor = "rgba(37, 34, 40)";
+        element.style.setProperty("background", "none", "important");
+        element.style.setProperty("background-color", "rgba(37, 34, 40)", "important");
+        console.log("gradient");
     } else if (parts.length > 3) {
         if (parts[3] > 0) {
-            element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
+            element.style.setProperty("background-color", "rgba(37, 34, 40, ${ parts[3] })", "important");
         }
     } else {
-        element.style.backgroundColor = "rgba(37, 34, 40)";
+        element.style.setProperty("background-color", "rgba(37, 34, 40)", "important");
     }
 }
 
@@ -55,6 +56,9 @@ body :not(a, a *, a:link *, a:visited *, a:hover *, a:active *) {\
     border-color: #454248 !important;\
     outline-color: #454248 !important;\
     box-shadow: none !important;\
+}\
+::before, ::after {\
+    display: none !important;\
 }\
 @-webkit-keyframes _privacy_incognit_node {\
     from {\
