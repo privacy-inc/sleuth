@@ -60,6 +60,6 @@ final class BlockersTests: XCTestCase {
     func testReddit() {
         XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: "._3q-XSJ2vokDQrvdG6mR__k"))
         XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: ".EUCookieNotice"))
-        XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: ".XPromoPopup.m-active"))
+        XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: ".XPromoPopup"))
     }
 }
