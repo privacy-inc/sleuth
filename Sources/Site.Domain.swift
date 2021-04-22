@@ -58,7 +58,6 @@ extension Site {
         tinypass = "tinypass.com",
         lijit = "lijit.com",
         piano = "piano.io",
-        moatads = "moatads.com",
-        youtube_consent = "consent.youtube.com"
+        moatads = "moatads.com"
     }
 }
