@@ -12,7 +12,7 @@ extension Scripts {
         document.head.appendChild(style);
     } else if (location.hostname.endsWith("instagram.com")) {
         var style = document.createElement('style');
-        style.innerHTML = "body, .E3X2T { overflow: unset !important; }";
+        style.innerHTML = ":root, html, body, .E3X2T { overflow: unset !important; }";
         document.head.appendChild(style);
     } else if (location.hostname.endsWith("reuters.com")) {
         var style = document.createElement('style');
