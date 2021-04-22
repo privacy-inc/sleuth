@@ -50,4 +50,8 @@ final class BlockersTests: XCTestCase {
         XCTAssertTrue(rules.remove(domain: "*pinterest.com", selector: ".Jea.LCN.Lej.PKX._he.dxm.fev.fte.gjz.jzS.ojN.p6V.qJc.zI7.iyn.Hsu"))
         XCTAssertTrue(rules.remove(domain: "*pinterest.com", selector: ".QLY.Rym.ZZS._he.ojN.p6V.zI7.iyn.Hsu"))
     }
+    
+    func testBbc() {
+        XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: ".fc-consent-root"))
+    }
 }

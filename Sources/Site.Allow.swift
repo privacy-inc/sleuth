@@ -11,6 +11,7 @@ extension Site {
         reuters = "reuters.com",
         thelocal = "thelocal.de",
         pinterest = "pinterest.com",
-        facebook = "facebook.com"
+        facebook = "facebook.com",
+        bbc = "bbc.com"
     }
 }
