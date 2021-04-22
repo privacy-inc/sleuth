@@ -67,7 +67,8 @@ public struct Block {
         .init(.css(".tp-backdrop"), .init(site: .thelocal)),
         .init(.css(".Jea.LCN.Lej.PKX._he.dxm.fev.fte.gjz.jzS.ojN.p6V.qJc.zI7.iyn.Hsu"), .init(site: .pinterest)),
         .init(.css(".QLY.Rym.ZZS._he.ojN.p6V.zI7.iyn.Hsu"), .init(site: .pinterest)),
-        .init(.css(".fc-consent-root"), .init(site: .bbc))
+        .init(.css(".fc-consent-root"), .init(site: .bbc)),
+        .init(.css(".ssrcss-u3tmht-ConsentBanner.exhqgzu6"), .init(site: .bbc))
     ])
     
     public static let dark = serialise(rules: [

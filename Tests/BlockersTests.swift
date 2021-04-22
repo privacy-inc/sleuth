@@ -53,5 +53,6 @@ final class BlockersTests: XCTestCase {
     
     func testBbc() {
         XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: ".fc-consent-root"))
+        XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: ".ssrcss-u3tmht-ConsentBanner.exhqgzu6"))
     }
 }
