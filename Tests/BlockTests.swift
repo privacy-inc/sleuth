@@ -81,7 +81,8 @@ final class BlockTests: XCTestCase {
         "https://gslbeacon.lijit.com/beacon?viewId=a_423415_eb9ea5f998ca4f1c922106abdb91aca3&rand=8596&informer=13194752&type=fpads&loc=https%3A%2F%2Fwww.thelocal.de%2F20210406%2Fcould-a-bridge-lockdown-be-the-answer-to-germanys-spiralling-covid-cases%2F&v=1.2",
         "https://api-esp.piano.io/publisher/bekose/162?wv=97&v=vd.1.62.6-454b540",
         "https://z.moatads.com/hd09824092/iframe.html#header=1",
-        "https://www.facebook.com/v2.2/plugins/login_button.php?app_id=274266067164&button_type=continue_with&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df128a66805b8d8a%26domain%3Dwww.pinterest.com%26origin%3Dhttps%253A%252F%252Fwww.pinterest.com%252Ff3e4c8a1fc181f%26relation%3Dparent.parent&container_width=268&layout=rounded&locale=en_GB&login_text=&scope=public_profile%2Cemail%2Cuser_likes%2Cuser_birthday%2Cuser_friends&sdk=joey&size=large&use_continue_as=true&width=268px"
+        "https://www.facebook.com/v2.2/plugins/login_button.php?app_id=274266067164&button_type=continue_with&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df128a66805b8d8a%26domain%3Dwww.pinterest.com%26origin%3Dhttps%253A%252F%252Fwww.pinterest.com%252Ff3e4c8a1fc181f%26relation%3Dparent.parent&container_width=268&layout=rounded&locale=en_GB&login_text=&scope=public_profile%2Cemail%2Cuser_likes%2Cuser_birthday%2Cuser_friends&sdk=joey&size=large&use_continue_as=true&width=268px",
+        "https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2F&gl=DE&m=0&pc=yt&uxe=23983172&hl=en-GB&src=1"
     ]
     
     override func setUp() {
