@@ -58,6 +58,7 @@ extension Site {
         tinypass = "tinypass.com",
         lijit = "lijit.com",
         piano = "piano.io",
-        moatads = "moatads.com"
+        moatads = "moatads.com",
+        redditmedia = "redditmedia.com"
     }
 }

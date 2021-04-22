@@ -68,7 +68,11 @@ public struct Block {
         .init(.css(".Jea.LCN.Lej.PKX._he.dxm.fev.fte.gjz.jzS.ojN.p6V.qJc.zI7.iyn.Hsu"), .init(site: .pinterest)),
         .init(.css(".QLY.Rym.ZZS._he.ojN.p6V.zI7.iyn.Hsu"), .init(site: .pinterest)),
         .init(.css(".fc-consent-root"), .init(site: .bbc)),
-        .init(.css(".ssrcss-u3tmht-ConsentBanner.exhqgzu6"), .init(site: .bbc))
+        .init(.css(".ssrcss-u3tmht-ConsentBanner.exhqgzu6"), .init(site: .bbc)),
+        .init(.css("#cookiePrompt"), .init(site: .bbc)),
+        .init(.css("._3q-XSJ2vokDQrvdG6mR__k"), .init(site: .reddit)),
+        .init(.css(".EUCookieNotice"), .init(site: .reddit)),
+        .init(.css(".XPromoPopup.m-active"), .init(site: .reddit))
     ])
     
     public static let dark = serialise(rules: [

@@ -28,6 +28,10 @@ extension Scripts {
         var style = document.createElement('style');
         style.innerHTML = "body { overflow: unset !important; }";
         document.head.appendChild(style);
+    } else if (location.hostname.endsWith("reddit.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = "body, .scroll-disabled { overflow: unset !important; }";
+        document.head.appendChild(style);
     }
 """
 }

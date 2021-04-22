@@ -12,6 +12,7 @@ extension Site {
         thelocal = "thelocal.de",
         pinterest = "pinterest.com",
         facebook = "facebook.com",
-        bbc = "bbc.com"
+        bbc = "bbc.com",
+        reddit = "reddit.com"
     }
 }

@@ -53,6 +53,13 @@ final class BlockersTests: XCTestCase {
     
     func testBbc() {
         XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: ".fc-consent-root"))
+        XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: "#cookiePrompt"))
         XCTAssertTrue(rules.remove(domain: "*bbc.com", selector: ".ssrcss-u3tmht-ConsentBanner.exhqgzu6"))
+    }
+    
+    func testReddit() {
+        XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: "._3q-XSJ2vokDQrvdG6mR__k"))
+        XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: ".EUCookieNotice"))
+        XCTAssertTrue(rules.remove(domain: "*reddit.com", selector: ".XPromoPopup.m-active"))
     }
 }
