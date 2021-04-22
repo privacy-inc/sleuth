@@ -72,7 +72,7 @@ public struct Block {
         .init(.css("#cookiePrompt"), .init(site: .bbc)),
         .init(.css("._3q-XSJ2vokDQrvdG6mR__k"), .init(site: .reddit)),
         .init(.css(".EUCookieNotice"), .init(site: .reddit)),
-        .init(.css(".XPromoPopup.m-active"), .init(site: .reddit))
+        .init(.css(".XPromoPopup"), .init(site: .reddit))
     ])
     
     public static let dark = serialise(rules: [
