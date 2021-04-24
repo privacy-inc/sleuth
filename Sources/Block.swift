@@ -56,9 +56,6 @@ public struct Block {
         .init(.css(".consent-bump-lightbox"), .init(site: .youtube)),
         .init(.css(".RnEpo.Yx5HN"), .init(site: .instagram)),
         .init(.css(".RnEpo._Yhr4"), .init(site: .instagram)),
-        .init(.css("._3q-XSJ2vokDQrvdG6mR__k"), .init(site: .reddit)),
-        .init(.css(".EUCookieNotice"), .init(site: .reddit)),
-        .init(.css(".XPromoPopup"), .init(site: .reddit)),
         .init(.css(".R361B"), .init(site: .instagram)),
         .init(.css(".NXc7H.jLuN9.X6gVd"), .init(site: .instagram)),
         .init(.css(".f11OC"), .init(site: .instagram)),
@@ -73,6 +70,9 @@ public struct Block {
         .init(.css(".fc-consent-root"), .init(site: .bbc)),
         .init(.css(".ssrcss-u3tmht-ConsentBanner.exhqgzu6"), .init(site: .bbc)),
         .init(.css("#cookiePrompt"), .init(site: .bbc)),
+        .init(.css("._3q-XSJ2vokDQrvdG6mR__k"), .init(site: .reddit)),
+        .init(.css(".EUCookieNotice"), .init(site: .reddit)),
+        .init(.css(".XPromoPopup"), .init(site: .reddit))
     ])
     
     public static let dark = serialise(rules: [
