@@ -8,18 +8,19 @@ public struct Antitracker: Protection {
     public init() { }
     
     public func policy(for url: URL) -> Policy {
-        scheme(for: url) {
-            if let schemeless = $0.schemeless(url) {
-                for site in Site.Partial.allCases {
-                    guard schemeless.contains(site.url) else { continue }
-                    return .block(site.url)
-                }
-                
-                let domain = schemeless.components(separatedBy: "/").first!
-                
+        scheme(for: url) { _ in
+            if let domain = url.host {
                 for site in Site.Domain.allCases {
                     guard domain.hasSuffix(site.rawValue) else { continue }
                     return .block(domain)
+                }
+                
+                for site in Site.Partial.allCases {
+                    guard
+                        domain.hasSuffix(site.domain.rawValue),
+                        url.path.hasPrefix(site.rawValue)
+                    else { continue }
+                    return .block(site.url)
                 }
                 
                 for item in domain.components(separatedBy: ".").dropLast() {
@@ -27,6 +28,7 @@ public struct Antitracker: Protection {
                     continue
                 }
             }
+            
             return .allow
         }
     }

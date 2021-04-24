@@ -3,12 +3,12 @@ import Foundation
 extension Site {
     enum Partial: String, CaseIterable {
         case
-        google_pagead = "/pagead/",
-        google_recaptcha = "/recaptcha/",
-        google_swg = "/swg/",
-        youtube_embed = "/embed/",
-        facebook_plugins = "/v2.2/",
-        reddit_account = "/account/"
+        google_pagead = "/pagead",
+        google_recaptcha = "/recaptcha",
+        google_swg = "/swg",
+        youtube_embed = "/embed",
+        facebook_plugins = "/v2.2",
+        reddit_account = "/account"
         
         var domain: Allow {
             switch self {
