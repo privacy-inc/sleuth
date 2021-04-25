@@ -4,7 +4,7 @@ import Archivable
 public struct Page: Hashable, Identifiable, Property {
     public var url: String
     public var title: String
-    public let date: Date
+    public internal(set) var date: Date
     public let id: UUID
     
     public var data: Data {
