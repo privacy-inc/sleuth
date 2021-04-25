@@ -9,7 +9,8 @@ public enum Engine: String {
         string.trimmed {
             $0.url(transform: Browse.navigate)
                 ?? $0.partialURL(transform: Browse.navigate)
-                ?? $0.query { URL(string: prefix + $0).map(Browse.search) }
+                ?? $0.query { URL(string: prefix + $0)
+                                .map(Browse.search) }
                 ?? nil
         } ?? nil
     }

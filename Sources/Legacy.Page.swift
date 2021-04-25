@@ -37,5 +37,4 @@ extension Legacy {
                 && lhs.date == rhs.date
         }
     }
-
 }
