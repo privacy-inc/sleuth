@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 public extension FileManager {
-    static var pages: Future<[Page], Never> {
+    static var pages: Future<[Legacy.Page], Never> {
         .init { result in
             queue.async {
                 guard instance.fileExists(atPath: folder.path) else { return result(.success([])) }
@@ -11,7 +11,7 @@ public extension FileManager {
                         (try? instance.contentsOfDirectory(at: folder, includingPropertiesForKeys: [], options: .skipsHiddenFiles))
                             .map {
                                 $0.compactMap {
-                                    try? JSONDecoder().decode(Page.self, from: .init(contentsOf: $0))
+                                    try? JSONDecoder().decode(Legacy.Page.self, from: .init(contentsOf: $0))
                                 }
                             }?.sorted { $0.date > $1.date } ?? []
                     )
@@ -20,10 +20,10 @@ public extension FileManager {
         }
     }
     
-    static func page(_ id: String) -> Future<Page, Never> {
+    static func page(_ id: String) -> Future<Legacy.Page, Never> {
         .init { result in
             queue.async {
-                (try? JSONDecoder().decode(Page.self, from: .init(contentsOf: folder.appendingPathComponent(id))))
+                (try? JSONDecoder().decode(Legacy.Page.self, from: .init(contentsOf: folder.appendingPathComponent(id))))
                     .map {
                         result(.success($0))
                     }
@@ -31,7 +31,7 @@ public extension FileManager {
         }
     }
     
-    static func delete(_ page: Page) {
+    static func delete(_ page: Legacy.Page) {
         queue.async {
             try? instance.removeItem(at: folder.appendingPathComponent(page.id.uuidString))
         }
@@ -43,7 +43,7 @@ public extension FileManager {
         }
     }
     
-    static func save(_ page: Page) {
+    static func save(_ page: Legacy.Page) {
         queue.async {
             var url = folder
             if !instance.fileExists(atPath: url.path) {
