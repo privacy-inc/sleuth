@@ -5,6 +5,8 @@ public struct Archive: Archived {
     public static let new = Self()
     public internal(set) var date: Date
     public internal(set) var pages: [Page]
+    public internal(set) var activity: [Date]
+    public internal(set) var
     
     public var data: Data {
         Data()
