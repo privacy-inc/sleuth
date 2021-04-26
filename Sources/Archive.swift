@@ -7,17 +7,15 @@ public struct Archive: Archived {
     public internal(set) var pages: [Page]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: Date]
+    private let queue = DispatchQueue(label: "", qos: .utility)
     
     public var data: Data {
         Data()
-            .adding(date.timestamp)
+            .adding(date)
             .adding(UInt16(pages.count))
             .adding(pages.flatMap(\.data))
             .adding(UInt32(activity.count))
-            .adding(activity.flatMap {
-                Data()
-                    .adding($0.timestamp)
-            })
+            .adding(activity.flatMap(\.data))
     }
     
     public init(data: inout Data) {
@@ -41,7 +39,7 @@ public struct Archive: Archived {
     public mutating func add(_ page: inout Page) {
         page.date = .init()
         pages.removeAll { $0.id == page.id }
-        pages.insert(page, at: 0)
+        pages.append(page)
         save()
     }
     

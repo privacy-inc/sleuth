@@ -2,8 +2,8 @@ import Foundation
 import Archivable
 
 public struct Page: Hashable, Identifiable, Property {
-    public var url: String
-    public var title: String
+    public internal(set) var url: String
+    public internal(set) var title: String
     public internal(set) var date: Date
     public let id: UUID
     
