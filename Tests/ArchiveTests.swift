@@ -21,9 +21,14 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testPages() {
-        archive = .new
         archive.pages = [.init(url: "aguacate.com")]
         XCTAssertEqual("aguacate.com", archive.data.mutating(transform: Archive.init(data:)).pages.first?.url)
+    }
+    
+    func testActivity() {
+        let date = Date(timeIntervalSince1970: 10)
+        archive.activity = [date]
+        XCTAssertEqual(date.timestamp, archive.data.mutating(transform: Archive.init(data:)).activity.first?.timestamp)
     }
     
     func testAdd() {
