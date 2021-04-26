@@ -6,6 +6,13 @@ public enum Entry: Equatable, Property {
     remote(Int, Info),
     local(Int, Info, Bookmark)
     
+    public var id: Int {
+        switch self {
+        case let .local(id, _, _), let .remote(id, _):
+            return id
+        }
+    }
+    
     public var url: String {
         info.url
     }
@@ -26,15 +33,16 @@ public enum Entry: Equatable, Property {
     }
     
     public var data: Data {
-        .init()
+        Data()
+            .adding(UInt16(id))
     }
     
     public init(data: inout Data) {
-        fatalError()
+        self = .remote(.init(data.uInt16()), .init(url: "", title: ""))
     }
     
-    init(url: String) {
-        fatalError()
+    init(id: Int, url: String) {
+        self = .remote(id, .init(url: "", title: ""))
     }
     
     func with(title: String) -> Self {
