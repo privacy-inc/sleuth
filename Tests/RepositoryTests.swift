@@ -12,6 +12,46 @@ final class RepositoryTests: XCTestCase {
         cloud.archive.value = .new
     }
     
+    func testBrowse() {
+        let expectSave = expectation(description: "")
+        let expectBrowse = expectation(description: "")
+        cloud.archive.value.counter = 99
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("https://hello.com", $0.entries.first?.url)
+            XCTAssertEqual(99, $0.entries.first?.id)
+            XCTAssertEqual(100, $0.counter)
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.browse(.google, "hello.com").sink {
+            XCTAssertEqual("https://hello.com", $0?.0.url)
+            XCTAssertEqual(99, $0?.1)
+            expectBrowse.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testBrowseEmpty() {
+        let expect = expectation(description: "")
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        cloud.browse(.google, "").sink {
+            XCTAssertNil($0)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
     func testAdd() {
         let expect = expectation(description: "")
         cloud.archive.value.counter = 99

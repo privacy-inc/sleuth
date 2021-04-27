@@ -5,14 +5,16 @@ public enum Engine: String {
     ecosia,
     google
     
-    public func browse(_ string: String) -> Browse? {
+    func browse(_ string: String) -> Browse? {
         string.trimmed {
             $0.url(transform: Browse.navigate)
                 ?? $0.partialURL(transform: Browse.navigate)
-                ?? $0.query { URL(string: prefix + $0)
-                                .map(Browse.search) }
-                ?? nil
-        } ?? nil
+                ?? $0.query
+                        .map {
+                            prefix + $0
+                        }
+                        .map(Browse.search)
+        }
     }
     
     private var prefix: String {
@@ -24,13 +26,13 @@ public enum Engine: String {
 }
 
 private extension String {
-    func trimmed<T>(transform: (Self) -> T) -> T? {
+    func trimmed(transform: (Self) -> Engine.Browse?) -> Engine.Browse? {
         {
             $0.isEmpty ? nil : transform($0)
         } (trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
-    func url<T>(transform: (URL) -> T) -> T? {
+    func url(transform: (String) -> Engine.Browse) -> Engine.Browse? {
         isEmpty
             ? nil
             : URL(string: self)
@@ -38,25 +40,28 @@ private extension String {
                     $0.scheme == nil || ($0.host == nil && $0.query == nil)
                         ? nil
                         : contains(Scheme.joiner)
-                            ? transform($0)
+                            ? transform($0.absoluteString)
                             : nil
                 }
     }
     
-    func partialURL<T>(transform: (URL) -> T) -> T? {
+    func partialURL(transform: (String) -> Engine.Browse) -> Engine.Browse? {
         separated {
-            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 ? URL(string: Scheme.https.url + self).map(transform) : nil
+            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
+                ? URL(string: Scheme.https.url + self)
+                    .map(\.absoluteString)
+                    .map(transform)
+                : nil
         }
     }
     
-    func query<T>(transform: (Self) -> T) -> T? {
-        addingPercentEncoding(
-            withAllowedCharacters:
-                CharacterSet.urlQueryAllowed.subtracting(.init(arrayLiteral: "&", "+", ":")))
-            .map(transform)
+    var query: Self? {
+        addingPercentEncoding(withAllowedCharacters:
+                                .urlQueryAllowed
+                                .subtracting(.init(arrayLiteral: "&", "+", ":")))
     }
     
-    private func separated<T>(transform: ([Self]) -> T) -> T {
+    private func separated(transform: ([Self]) -> Engine.Browse?) -> Engine.Browse? {
         transform(components(separatedBy: "."))
     }
 }
