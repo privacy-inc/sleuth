@@ -34,4 +34,11 @@ public struct Archive: Archived {
         activity = []
         blocked = [:]
     }
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.date.timestamp == rhs.date.timestamp &&
+            lhs.entries == rhs.entries &&
+            lhs.activity == rhs.activity &&
+            lhs.blocked == rhs.blocked
+    }
 }

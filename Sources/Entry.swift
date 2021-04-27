@@ -13,13 +13,14 @@ public struct Entry: Equatable, Property {
     
     public var data: Data {
         Data()
+            .adding(UInt16(id))
             .adding(date)
             .adding(title)
             .adding(bookmark.data)
     }
     
     public init(data: inout Data) {
-        id = 0
+        id = .init(data.uInt16())
         date = data.date()
         title = data.string()
         bookmark = .init(data: &data)
@@ -30,5 +31,11 @@ public struct Entry: Equatable, Property {
         self.title = title
         bookmark = .init(url: url)
         date = .init()
+    }
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id &&
+            lhs.title == rhs.title &&
+            lhs.bookmark == rhs.bookmark &&
+            lhs.date.timestamp == rhs.date.timestamp
     }
 }
