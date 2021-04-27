@@ -16,15 +16,33 @@ extension Entry {
         
         var data: Data {
             Data()
-                .adding(UInt16(id))
+                .adding(key.rawValue)
+                .adding(value)
         }
         
         init(data: inout Data) {
-            self = .remote(.init(data.uInt16()), .init(url: "", title: ""))
+            switch Key(rawValue: data.removeFirst())! {
+            case .remote:
+                self = .remote(data.string())
+            case .local:
+                self = .local(data.string(), data.unwrap())
+            }
         }
         
         init(url: String) {
-            
+            self = .remote(url)
+        }
+        
+        private var value: Data {
+            switch self {
+            case let .remote(url):
+                return Data()
+                        .adding(url)
+            case let .local(url, bookmark):
+                return Data()
+                        .adding(url)
+                        .wrapping(bookmark)
+            }
         }
     }
 }

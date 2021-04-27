@@ -22,14 +22,13 @@ public struct Entry: Equatable, Property {
         id = 0
         date = data.date()
         title = data.string()
-        url = data.string()
+        bookmark = .init(data: &data)
     }
     
     init(id: Int, title: String, url: String) {
         self.id = id
-        
         self.title = title
-        self.url = url
+        bookmark = .init(url: url)
         date = .init()
     }
 }

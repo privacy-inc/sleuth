@@ -34,21 +34,4 @@ public struct Archive: Archived {
         activity = []
         blocked = [:]
     }
-    
-    public mutating func add(_ page: inout Entry.Info) {
-//        page.date = .init()
-//        entries.removeAll { $0.id == page.id }
-//        entries.append(page)
-//        save()
-    }
-    
-    public mutating func remove(_ page: Entry.Info) {
-//        entries.removeAll { $0.id == page.id }
-//        save()
-    }
-    
-    private mutating func save() {
-        date = .init()
-        Repository.save(self)
-    }
 }
