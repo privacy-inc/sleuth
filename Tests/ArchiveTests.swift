@@ -1,14 +1,11 @@
 import XCTest
-import Combine
 @testable import Sleuth
 
 final class ArchiveTests: XCTestCase {
     private var archive: Archive!
-    private var subs = Set<AnyCancellable>()
     
     override func setUp() {
         archive = .new
-        Repository.override = .init()
     }
     
     func testDate() {
@@ -18,6 +15,11 @@ final class ArchiveTests: XCTestCase {
         let date1 = Date(timeIntervalSince1970: 1)
         archive.date = date1
         XCTAssertGreaterThanOrEqual(archive.data.prototype(Archive.self).date.timestamp, date1.timestamp)
+    }
+    
+    func testCounter() {
+        archive.counter = 19_999
+        XCTAssertEqual(19_999, archive.data.prototype(Archive.self).counter)
     }
     
     func testEntries() {

@@ -3,13 +3,15 @@ import Archivable
 
 public struct Archive: Archived {
     public static let new = Self()
-    public internal(set) var date: Date
+    public var date: Date
     public internal(set) var entries: [Entry]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: Date]
+    var counter = 0
     
     public var data: Data {
         Data()
+            .adding(UInt16(counter))
             .adding(date)
             .adding(UInt16(entries.count))
             .adding(entries.flatMap(\.data))
@@ -18,6 +20,7 @@ public struct Archive: Archived {
     }
     
     public init(data: inout Data) {
+        counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
         entries = (0 ..< .init(data.uInt16())).map { _ in
             .init(data: &data)
