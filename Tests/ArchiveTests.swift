@@ -23,7 +23,7 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testEntries() {
-        let entry = Entry(id: 1234, title: "adsdasafas", url: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")
+        let entry = Entry(id: 1234, title: "adsdasafas", bookmark: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))
         archive.entries = [entry]
         XCTAssertEqual(entry, archive.data.prototype(Archive.self).entries.first)
     }

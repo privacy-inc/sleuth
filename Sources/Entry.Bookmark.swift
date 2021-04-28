@@ -29,8 +29,8 @@ extension Entry {
             }
         }
         
-        init(url: String) {
-            self = .remote(url)
+        init(url: URL) {
+            self = .remote(url.absoluteString)
         }
         
         private var value: Data {

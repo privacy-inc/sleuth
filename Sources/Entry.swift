@@ -26,23 +26,23 @@ public struct Entry: Equatable, Property {
         bookmark = .init(data: &data)
     }
     
-    init(id: Int, title: String, url: String) {
-        self.init(id: id, title: title, url: url, date: .init())
+    init(id: Int, browse: Engine.Browse) {
+        self.init(id: id, bookmark: .remote(browse.url))
     }
     
-    private init(id: Int, title: String, url: String, date: Date) {
+    init(id: Int, url: URL) {
+        self.init(id: id, bookmark: .init(url: url))
+    }
+    
+    init(id: Int, title: String = "", bookmark: Bookmark, date: Date = .init()) {
         self.id = id
         self.title = title
+        self.bookmark = bookmark
         self.date = date
-        bookmark = .init(url: url)
     }
     
     var revisit: Self {
-        .init(id: id, title: title, url: url)
-    }
-    
-    func with(date: Date) -> Self {
-        .init(id: id, title: title, url: url, date: date)
+        .init(id: id, title: title, bookmark: bookmark, date: .init())
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {

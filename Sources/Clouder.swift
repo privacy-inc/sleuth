@@ -10,10 +10,22 @@ extension Clouder where C == Repository {
                     return promise(.success(nil))
                 }
                 let id = $0.counter
-                $0.entries.append(.init(id: id, title: "", url: browse.url))
+                $0.entries.append(.init(id: id, browse: browse))
                 $0.counter += 1
                 save(&$0)
                 promise(.success((browse, id)))
+            }
+        }
+    }
+    
+    public func navigate(_ url: URL) -> Future<Int, Never> {
+        .init { promise in
+            mutating {
+                let id = $0.counter
+                $0.entries.append(.init(id: id, url: url))
+                $0.counter += 1
+                save(&$0)
+                promise(.success(id))
             }
         }
     }

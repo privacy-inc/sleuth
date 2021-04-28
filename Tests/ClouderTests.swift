@@ -72,8 +72,7 @@ final class ClouderTests: XCTestCase {
     func testRevisit() {
         let expect = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com")
-                                        .with(date: date)]
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         cloud.archive.value.counter = 99
         
         cloud.save.sink {
@@ -104,8 +103,7 @@ final class ClouderTests: XCTestCase {
         let expectSave = expectation(description: "")
         let expectRevisit = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com")
-                                        .with(date: date)]
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         
         cloud.save.sink {
             XCTAssertGreaterThan($0.entries.first!.date, date)
@@ -135,6 +133,29 @@ final class ClouderTests: XCTestCase {
         cloud.revisit(33).sink {
             XCTAssertNil($0)
             expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testNavigate() {
+        let expectSave = expectation(description: "")
+        let expectNavigate = expectation(description: "")
+        cloud.archive.value.counter = 99
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("https://hello.com", $0.entries.first?.url)
+            XCTAssertEqual(99, $0.entries.first?.id)
+            XCTAssertEqual(100, $0.counter)
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.navigate(URL(string: "https://hello.com")!).sink {
+            XCTAssertEqual(99, $0)
+            expectNavigate.fulfill()
         }
         .store(in: &subs)
         
