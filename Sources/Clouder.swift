@@ -18,11 +18,16 @@ extension Clouder where C == Repository {
         }
     }
     
-    public func revisit(_ id: Int) {
-        mutating {
-            guard let entry = $0.entries.remove(id: id) else { return }
-            $0.entries.append(entry.revisit)
-            save(&$0)
+    @discardableResult public func revisit(_ id: Int) -> Future<Entry?, Never> {
+        .init { promise in
+            mutating {
+                guard let entry = $0.entries.remove(id: id)?.revisit else {
+                    return promise(.success(nil))
+                }
+                $0.entries.append(entry)
+                save(&$0)
+                promise(.success(entry))
+            }
         }
     }
 }

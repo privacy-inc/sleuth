@@ -72,7 +72,8 @@ final class ClouderTests: XCTestCase {
     func testRevisit() {
         let expect = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com").with(date: date)]
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com")
+                                        .with(date: date)]
         cloud.archive.value.counter = 99
         
         cloud.save.sink {
@@ -91,12 +92,53 @@ final class ClouderTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    func testRevisitUnknownId() {
+    func testRevisitUnknown() {
         cloud.save.sink { _ in
             XCTFail()
         }
         .store(in: &subs)
         cloud.revisit(33)
+    }
+    
+    func testRevisitSink() {
+        let expectSave = expectation(description: "")
+        let expectRevisit = expectation(description: "")
+        let date = Date(timeIntervalSinceNow: -10)
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com")
+                                        .with(date: date)]
+        
+        cloud.save.sink {
+            XCTAssertGreaterThan($0.entries.first!.date, date)
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.revisit(33).sink {
+            XCTAssertEqual("aguacate.com", $0?.url)
+            XCTAssertEqual(33, $0?.id)
+            XCTAssertGreaterThan($0!.date, date)
+            expectRevisit.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testRevisitUnknownSink() {
+        let expect = expectation(description: "")
+        
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        cloud.revisit(33).sink {
+            XCTAssertNil($0)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
     }
     
     func testRemove() {
