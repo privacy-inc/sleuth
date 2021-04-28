@@ -27,11 +27,24 @@ public struct Entry: Equatable, Property {
     }
     
     init(id: Int, title: String, url: String) {
+        self.init(id: id, title: title, url: url, date: .init())
+    }
+    
+    private init(id: Int, title: String, url: String, date: Date) {
         self.id = id
         self.title = title
+        self.date = date
         bookmark = .init(url: url)
-        date = .init()
     }
+    
+    var revisit: Self {
+        .init(id: id, title: title, url: url)
+    }
+    
+    func with(date: Date) -> Self {
+        .init(id: id, title: title, url: url, date: date)
+    }
+    
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
             lhs.title == rhs.title &&

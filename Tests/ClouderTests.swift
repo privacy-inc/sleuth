@@ -3,7 +3,7 @@ import Combine
 import Archivable
 @testable import Sleuth
 
-final class RepositoryTests: XCTestCase {
+final class ClouderTests: XCTestCase {
     private var cloud: Cloud<Repository>.Stub!
     private var subs = Set<AnyCancellable>()
     
@@ -36,6 +36,23 @@ final class RepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testBrowseMultiple() {
+        let expect = expectation(description: "")
+        cloud.archive.value.counter = 99
+        _ = cloud.browse(.google, "hello.com")
+        _ = cloud.browse(.google, "hello.com")
+        
+        cloud.browse(.google, "hello.com").sink {
+            XCTAssertEqual(101, $0?.1)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1) { _ in
+            XCTAssertEqual(3, self.cloud.archive.value.entries.count)
+        }
+    }
+    
     func testBrowseEmpty() {
         let expect = expectation(description: "")
         cloud.save.sink { _ in
@@ -52,19 +69,34 @@ final class RepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    func testAdd() {
+    func testRevisit() {
         let expect = expectation(description: "")
+        let date = Date(timeIntervalSinceNow: -10)
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", url: "aguacate.com").with(date: date)]
         cloud.archive.value.counter = 99
+        
         cloud.save.sink {
             XCTAssertEqual(1, $0.entries.count)
-            XCTAssertEqual("hello.com", $0.entries.first?.url)
-            XCTAssertEqual(99, $0.entries.first?.id)
-            XCTAssertEqual(100, $0.counter)
+            XCTAssertEqual("aguacate.com", $0.entries.first?.url)
+            XCTAssertEqual("hello bla bla", $0.entries.first?.title)
+            XCTAssertGreaterThan($0.entries.first!.date, date)
+            XCTAssertEqual(33, $0.entries.first?.id)
+            XCTAssertEqual(99, $0.counter)
             expect.fulfill()
         }
         .store(in: &subs)
-        cloud.url("hello.com")
+        
+        cloud.revisit(33)
+        
         waitForExpectations(timeout: 1)
+    }
+    
+    func testRevisitUnknownId() {
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        cloud.revisit(33)
     }
     
     func testRemove() {
@@ -102,7 +134,7 @@ final class RepositoryTests: XCTestCase {
 //        XCTAssertEqual(1, archive.entries.count)
     }
     
-    func testRevisit() {
+//    func testRevisit() {
 //        let date = Date(timeIntervalSince1970: 10)
 //        let page = Entry(id: 0, url: "aguacate.com")
 ////        page.date = date
@@ -110,5 +142,5 @@ final class RepositoryTests: XCTestCase {
 ////        archive.add(&page)
 //        XCTAssertEqual(1, archive.entries.count)
 //        XCTAssertGreaterThan(archive.entries.first!.date.timestamp, date.timestamp)
-    }
+//    }
 }
