@@ -5,7 +5,7 @@ public enum Protection {
     simple,
     antitracker
     
-    public func policy(for url: URL) -> Policy {
+    public func policy(for url: URL) -> Result {
         url.scheme.flatMap {
             Site.Ignore(rawValue: $0)
                 .map { _ in
