@@ -17,7 +17,7 @@ final class AllowTests: XCTestCase {
     ]
     
     override func setUp() {
-        protection = Antitracker()
+        protection = .antitracker
     }
     
     func testAllow() {

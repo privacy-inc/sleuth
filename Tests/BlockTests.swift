@@ -87,7 +87,7 @@ final class BlockTests: XCTestCase {
     ]
     
     override func setUp() {
-        protection = Antitracker()
+        protection = .antitracker
     }
     
     func test() {

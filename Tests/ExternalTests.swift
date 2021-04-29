@@ -10,7 +10,7 @@ final class ExternalTests: XCTestCase {
     ]
 
     override func setUp() {
-        protection = Antitracker()
+        protection = .antitracker
     }
     
     func test() {

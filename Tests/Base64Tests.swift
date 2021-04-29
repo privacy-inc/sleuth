@@ -10,7 +10,7 @@ final class Base64Tests: XCTestCase {
     
     
     override func setUp() {
-        protection = Antitracker()
+        protection = .antitracker
     }
     
     func test() {

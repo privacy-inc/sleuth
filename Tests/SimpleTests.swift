@@ -23,7 +23,7 @@ final class SimpleTests: XCTestCase {
     ]
     
     override func setUp() {
-        protection = Simple()
+        protection = .simple
     }
     
     func testIgnore() {
