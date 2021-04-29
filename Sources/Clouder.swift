@@ -53,4 +53,10 @@ extension Clouder where C == Repository {
             $0.entries.append(entry)
         }
     }
+    
+    public func remove(_ id: Int) {
+        mutating {
+            $0.entries.remove(id: id)
+        }
+    }
 }

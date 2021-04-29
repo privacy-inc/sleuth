@@ -1,7 +1,7 @@
 import Foundation
 
 extension Array where Element == Entry {
-    mutating func remove(id: Int) -> Element? {
+    @discardableResult mutating func remove(id: Int) -> Element? {
         firstIndex {
             $0.id == id
         }
