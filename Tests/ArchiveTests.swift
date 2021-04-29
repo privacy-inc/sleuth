@@ -33,4 +33,15 @@ final class ArchiveTests: XCTestCase {
         archive.activity = [date]
         XCTAssertEqual(date.timestamp, archive.data.prototype(Archive.self).activity.first?.timestamp)
     }
+    
+    func testBlocked() {
+        let date1 = Date(timeIntervalSince1970: 10)
+        let date2 = Date(timeIntervalSince1970: 20)
+        let date3 = Date(timeIntervalSince1970: 30)
+        archive.blocked = ["hello world": [date1, date2],
+                           "lorem ipsum": [date3]]
+        XCTAssertEqual(date1.timestamp, archive.data.prototype(Archive.self).blocked["hello world"]?.first?.timestamp)
+        XCTAssertEqual(date2.timestamp, archive.data.prototype(Archive.self).blocked["hello world"]?.last?.timestamp)
+        XCTAssertEqual(date3.timestamp, archive.data.prototype(Archive.self).blocked["lorem ipsum"]?.first?.timestamp)
+    }
 }

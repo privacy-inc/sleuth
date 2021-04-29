@@ -6,7 +6,7 @@ public struct Archive: Archived {
     public var date: Date
     public internal(set) var entries: [Entry]
     public internal(set) var activity: [Date]
-    public internal(set) var blocked: [String: Date]
+    public internal(set) var blocked: [String: [Date]]
     var counter = 0
     
     public var data: Data {
@@ -17,18 +17,27 @@ public struct Archive: Archived {
             .adding(entries.flatMap(\.data))
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
+            .adding(blocked.data)
     }
     
     public init(data: inout Data) {
         counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
-        entries = (0 ..< .init(data.uInt16())).map { _ in
-            .init(data: &data)
-        }
-        activity = (0 ..< .init(data.uInt32())).map { _ in
-            .init(timestamp: data.uInt32())
-        }
-        blocked = [:]
+        entries = (0 ..< .init(data.uInt16()))
+            .map { _ in
+                .init(data: &data)
+            }
+        activity = (0 ..< .init(data.uInt32()))
+            .map { _ in
+                .init(timestamp: data.uInt32())
+            }
+        blocked = (0 ..< .init(data.uInt16()))
+            .reduce(into: [:]) { result, _ in
+                result[data.string()] = (0 ..< .init(data.uInt16()))
+                    .map { _ in
+                        .init(timestamp: data.uInt32())
+                    }
+            }
     }
     
     private init() {
