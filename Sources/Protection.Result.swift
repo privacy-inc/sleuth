@@ -6,6 +6,6 @@ extension Protection {
         allow,
         ignore,
         external,
-        block(String)
+        block
     }
 }

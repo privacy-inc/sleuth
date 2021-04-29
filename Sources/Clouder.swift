@@ -79,7 +79,7 @@ extension Clouder where C == Repository {
                                 for site in Site.Domain.allCases {
                                     guard domain.hasSuffix(site.rawValue) else { continue }
                                     block(site.rawValue)
-                                    return .block(domain)
+                                    return .block
                                 }
                                 
                                 for site in Site.Partial.allCases {
@@ -88,13 +88,13 @@ extension Clouder where C == Repository {
                                         url.path.hasPrefix(site.rawValue)
                                     else { continue }
                                     block(site.url)
-                                    return .block(site.url)
+                                    return .block
                                 }
                                 
                                 for item in domain.components(separatedBy: ".").dropLast() {
                                     guard Site.Component(rawValue: item) == nil else {
                                         block(domain)
-                                        return .block(domain)
+                                        return .block
                                     }
                                     continue
                                 }
