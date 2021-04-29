@@ -78,6 +78,7 @@ extension Clouder where C == Repository {
                             if let domain = url.host {
                                 for site in Site.Domain.allCases {
                                     guard domain.hasSuffix(site.rawValue) else { continue }
+                                    block(site.rawValue)
                                     return .block(domain)
                                 }
                                 
@@ -86,11 +87,15 @@ extension Clouder where C == Repository {
                                         domain.hasSuffix(site.domain.rawValue),
                                         url.path.hasPrefix(site.rawValue)
                                     else { continue }
+                                    block(site.url)
                                     return .block(site.url)
                                 }
                                 
                                 for item in domain.components(separatedBy: ".").dropLast() {
-                                    guard Site.Component(rawValue: item) == nil else { return .block(domain) }
+                                    guard Site.Component(rawValue: item) == nil else {
+                                        block(domain)
+                                        return .block(domain)
+                                    }
                                     continue
                                 }
                             }
@@ -99,5 +104,11 @@ extension Clouder where C == Repository {
                         return .allow
                     }
         } ?? .external
+    }
+    
+    public func block(_ url: String) {
+        mutating {
+            $0.blocked[url, default: []].append(.init())
+        }
     }
 }
