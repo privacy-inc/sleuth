@@ -39,4 +39,18 @@ extension Clouder where C == Repository {
             }
         }
     }
+    
+    public func update(_ id: Int, title: String) {
+        mutating {
+            guard let entry = $0.entries.remove(id: id)?.with(title: title) else { return }
+            $0.entries.append(entry)
+        }
+    }
+    
+    public func update(_ id: Int, url: URL) {
+        mutating {
+            guard let entry = $0.entries.remove(id: id)?.with(url: url) else { return }
+            $0.entries.append(entry)
+        }
+    }
 }

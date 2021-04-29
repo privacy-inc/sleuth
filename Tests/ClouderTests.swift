@@ -197,6 +197,64 @@ final class ClouderTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testUpdateTitle() {
+        let expect = expectation(description: "")
+        let date = Date(timeIntervalSinceNow: -10)
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("hello world", $0.entries.first?.title)
+            XCTAssertEqual("aguacate.com", $0.entries.first?.url)
+            XCTAssertEqual(33, $0.entries.first?.id)
+            XCTAssertEqual(0, $0.counter)
+            XCTAssertGreaterThan($0.entries.first!.date, date)
+            if case .remote = $0.entries.first?.bookmark { } else {
+                XCTFail()
+            }
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.update(33, title: "hello world")
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testUpdateURL() {
+        let expect = expectation(description: "")
+        let date = Date(timeIntervalSinceNow: -10)
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("hello bla bla", $0.entries.first?.title)
+            XCTAssertEqual("avocado.com", $0.entries.first?.url)
+            XCTAssertEqual(33, $0.entries.first?.id)
+            XCTAssertEqual(0, $0.counter)
+            XCTAssertGreaterThan($0.entries.first!.date, date)
+            if case .remote = $0.entries.first?.bookmark { } else {
+                XCTFail()
+            }
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.update(33, url: URL(string: "avocado.com")!)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testUpdateUnknown() {
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        cloud.update(33, title: "hello world")
+        cloud.update(33, url: URL(string: "avocado.com")!)
+    }
+    
     func testRemove() {
 //        let expect = expectation(description: "")
 //        let date = Date()
