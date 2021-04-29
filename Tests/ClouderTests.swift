@@ -278,4 +278,20 @@ final class ClouderTests: XCTestCase {
         
         cloud.remove(33)
     }
+    
+    func testActivity() {
+        let expect = expectation(description: "")
+        let date = Date()
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.activity.count)
+            XCTAssertGreaterThanOrEqual($0.activity.first!, date)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.activity()
+        
+        waitForExpectations(timeout: 1)
+    }
 }

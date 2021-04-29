@@ -59,4 +59,10 @@ extension Clouder where C == Repository {
             $0.entries.remove(id: id)
         }
     }
+    
+    public func activity() {
+        mutating {
+            $0.activity.append(.init())
+        }
+    }
 }
