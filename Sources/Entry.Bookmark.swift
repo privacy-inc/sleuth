@@ -14,6 +14,19 @@ extension Entry {
             }
         }
         
+        var access: URL? {
+            switch self {
+            case let .remote(url):
+                return .init(string: url)
+            case let .local(_, bookmark):
+                var stale = false
+                return (try? URL(resolvingBookmarkData: bookmark, options: .withSecurityScope, bookmarkDataIsStale: &stale))
+                    .flatMap {
+                        $0.startAccessingSecurityScopedResource() ? $0 : nil
+                    }
+            }
+        }
+        
         var data: Data {
             Data()
                 .adding(key.rawValue)
@@ -30,7 +43,9 @@ extension Entry {
         }
         
         init(url: URL) {
-            self = .remote(url.absoluteString)
+            self = url.isFileURL
+                ? .local(url.schemeless, url.deletingLastPathComponent().bookmark)
+                : .remote(url.absoluteString)
         }
         
         private var value: Data {

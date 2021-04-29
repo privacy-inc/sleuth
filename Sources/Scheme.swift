@@ -17,11 +17,4 @@ public enum Scheme: String {
     public var url: String {
         rawValue + Self.joiner
     }
-    
-    func schemeless(_ url: URL) -> String? {
-        switch self {
-        case .http, .https: return .init(url.absoluteString.dropFirst(self.url.count))
-        default: return nil
-        }
-    }
 }

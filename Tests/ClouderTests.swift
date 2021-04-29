@@ -139,7 +139,7 @@ final class ClouderTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
-    func testNavigate() {
+    func testNavigateRemote() {
         let expectSave = expectation(description: "")
         let expectNavigate = expectation(description: "")
         cloud.archive.value.counter = 99
@@ -149,11 +149,46 @@ final class ClouderTests: XCTestCase {
             XCTAssertEqual("https://hello.com", $0.entries.first?.url)
             XCTAssertEqual(99, $0.entries.first?.id)
             XCTAssertEqual(100, $0.counter)
+            if case .remote = $0.entries.first?.bookmark { } else {
+                XCTFail()
+            }
             expectSave.fulfill()
         }
         .store(in: &subs)
         
         cloud.navigate(URL(string: "https://hello.com")!).sink {
+            XCTAssertEqual(99, $0)
+            expectNavigate.fulfill()
+        }
+        .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testNavigateLocal() {
+        let expectSave = expectation(description: "")
+        let expectNavigate = expectation(description: "")
+        cloud.archive.value.counter = 99
+        
+        let file = URL(fileURLWithPath: NSTemporaryDirectory() + "file.html")
+        try! Data("hello world".utf8).write(to: file)
+        
+        cloud.save.sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual(file.schemeless, $0.entries.first?.url)
+            XCTAssertEqual(99, $0.entries.first?.id)
+            XCTAssertEqual(100, $0.counter)
+            if case let .local(url, bookmark) = $0.entries.first?.bookmark {
+                XCTAssertEqual(file.schemeless, url)
+                XCTAssertFalse(bookmark.isEmpty)
+            } else {
+                XCTFail()
+            }
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.navigate(file).sink {
             XCTAssertEqual(99, $0)
             expectNavigate.fulfill()
         }

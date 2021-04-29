@@ -12,7 +12,6 @@ extension Clouder where C == Repository {
                 let id = $0.counter
                 $0.entries.append(.init(id: id, browse: browse))
                 $0.counter += 1
-                save(&$0)
                 promise(.success((browse, id)))
             }
         }
@@ -24,7 +23,6 @@ extension Clouder where C == Repository {
                 let id = $0.counter
                 $0.entries.append(.init(id: id, url: url))
                 $0.counter += 1
-                save(&$0)
                 promise(.success(id))
             }
         }
@@ -37,7 +35,6 @@ extension Clouder where C == Repository {
                     return promise(.success(nil))
                 }
                 $0.entries.append(entry)
-                save(&$0)
                 promise(.success(entry))
             }
         }

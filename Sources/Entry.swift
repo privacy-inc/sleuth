@@ -11,6 +11,10 @@ public struct Entry: Equatable, Property {
         bookmark.url
     }
     
+    public var access: URL? {
+        bookmark.access
+    }
+    
     public var data: Data {
         Data()
             .adding(UInt16(id))

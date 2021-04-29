@@ -9,4 +9,8 @@ final class EntryTests: XCTestCase {
                           date: .init(timeIntervalSince1970: 10))
         XCTAssertEqual(entry, entry.data.prototype())
     }
+    
+    func testAccess() {
+        XCTAssertEqual("https://www.aguacate.com", Entry(id: 0, url: URL(string: "https://www.aguacate.com")!).access?.absoluteString)
+    }
 }
