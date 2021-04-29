@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Share {
+public extension Legacy.Share {
     enum Key: String {
         case
         history,

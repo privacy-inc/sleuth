@@ -1,6 +1,6 @@
 import Foundation
 
-public extension Share {
+public extension Legacy.Share {
     struct Page: Codable, Equatable {
         public let url: URL
         public let title: String

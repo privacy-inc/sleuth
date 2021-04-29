@@ -1,6 +1,17 @@
 import Foundation
 
 public final class Defaults: UserDefaults {
+    public class var archive: Archive? {
+        get {
+            cross.data(forKey: Key.archive.rawValue)?.mutating(transform: Archive.init(data:))
+        }
+        set {
+            newValue.map {
+                cross.setValue($0.data, forKey: Key.archive.rawValue)
+            }
+        }
+    }
+    
     public class var premium: Bool {
         get { self[.premium] as? Bool ?? false }
         set { self[.premium] = newValue }
@@ -70,4 +81,6 @@ public final class Defaults: UserDefaults {
         get { standard.object(forKey: key.rawValue) }
         set { standard.setValue(newValue, forKey: key.rawValue) }
     }
+    
+    private static let cross = UserDefaults(suiteName: "group.incognit.share")!
 }

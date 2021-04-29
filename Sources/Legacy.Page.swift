@@ -7,7 +7,7 @@ extension Legacy {
         public var title: String
         public let id: UUID
         
-        public var shared: Share.Page {
+        public var shared: Legacy.Share.Page {
             .init(url: URL(string: Scheme.privacy_id.url + id.uuidString)!,
                   title: title,
                   subtitle: url.absoluteString
