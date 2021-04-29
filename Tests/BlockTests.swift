@@ -1,8 +1,9 @@
 import XCTest
+import Archivable
 import Sleuth
 
 final class BlockTests: XCTestCase {
-    private var protection: Protection!
+    private var cloud: Cloud<Repository>.Stub!
     private let list =  [
         "https://sourcepoint.theguardian.com/index.html?message_id=343252&consentUUID=4debba32-1827-4286-b168-cd0a6068f5f5&requestUUID=0a3ee8d3-cc2e-43b1-99ba-ceb02302f3e5&preload_message=true)",
         "https://tags.crwdcntrl.net/lt/shared/1/lt.iframe.html",
@@ -87,13 +88,14 @@ final class BlockTests: XCTestCase {
     ]
     
     override func setUp() {
-        protection = .antitracker
+        cloud = .init()
+        cloud.archive.value = .new
     }
     
     func test() {
         list
             .map {
-                ($0, protection.policy(for: URL(string: $0)!))
+                ($0, cloud.validate(URL(string: $0)!, with: .antitracker))
             }
             .forEach {
                 if case .block = $0.1 { } else {
