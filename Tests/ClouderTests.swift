@@ -177,7 +177,7 @@ final class ClouderTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.update(33, title: "hello world")
+        cloud.update(33, title: "hello world    ")
         
         waitForExpectations(timeout: 1)
     }

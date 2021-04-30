@@ -35,7 +35,7 @@ extension Clouder where C == Synch {
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.with(title: title) else { return }
+            guard let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
             $0.entries.append(entry)
         }
     }
