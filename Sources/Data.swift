@@ -1,6 +1,13 @@
 import Foundation
 
-public extension Data {
+extension Data {
+    public func temporal(_ name: String) -> URL {
+        {
+            try? write(to: $0, options: .atomic)
+            return $0
+        } (URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(name))
+    }
+    
     #if os(macOS)
     
     var url: URL? {
