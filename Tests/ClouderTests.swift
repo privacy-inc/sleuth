@@ -27,7 +27,7 @@ final class ClouderTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.browse(.google, "hello.com").sink {
+        cloud.browse("hello.com").sink {
             XCTAssertEqual("https://hello.com", $0?.0.url)
             XCTAssertEqual(99, $0?.1)
             expectBrowse.fulfill()
@@ -40,10 +40,10 @@ final class ClouderTests: XCTestCase {
     func testBrowseMultiple() {
         let expect = expectation(description: "")
         cloud.archive.value.counter = 99
-        _ = cloud.browse(.google, "hello.com")
-        _ = cloud.browse(.google, "hello.com")
+        _ = cloud.browse("hello.com")
+        _ = cloud.browse("hello.com")
         
-        cloud.browse(.google, "hello.com").sink {
+        cloud.browse("hello.com").sink {
             XCTAssertEqual(101, $0?.1)
             expect.fulfill()
         }
@@ -61,7 +61,7 @@ final class ClouderTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.browse(.google, "").sink {
+        cloud.browse("").sink {
             XCTAssertNil($0)
             expect.fulfill()
         }

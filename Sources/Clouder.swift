@@ -3,10 +3,10 @@ import Combine
 import Archivable
 
 extension Clouder where C == Synch {
-    public func browse(_ engine: Engine, _ url: String) -> Future<(Engine.Browse, Int)?, Never> {
+    public func browse(_ url: String) -> Future<(Engine.Browse, Int)?, Never> {
         .init { promise in
             mutating {
-                guard let browse = engine.browse(url) else {
+                guard let browse = Defaults.engine.browse(url) else {
                     return promise(.success(nil))
                 }
                 promise(.success((browse, $0.add(browse))))
