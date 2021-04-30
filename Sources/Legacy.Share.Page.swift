@@ -1,10 +1,10 @@
 import Foundation
 
-public extension Legacy.Share {
+extension Legacy.Share {
     struct Page: Codable, Equatable {
-        public let url: URL
-        public let title: String
-        public let subtitle: String
+        let url: URL
+        let title: String
+        let subtitle: String
     }
 }
 

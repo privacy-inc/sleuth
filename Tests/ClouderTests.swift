@@ -5,11 +5,12 @@ import Archivable
 
 final class ClouderTests: XCTestCase {
     private var cloud: Cloud<Repository>.Stub!
-    private var subs = Set<AnyCancellable>()
+    private var subs: Set<AnyCancellable>!
     
     override func setUp() {
         cloud = .init()
         cloud.archive.value = .new
+        subs = []
     }
     
     func testBrowse() {

@@ -9,10 +9,7 @@ extension Clouder where C == Repository {
                 guard let browse = engine.browse(url) else {
                     return promise(.success(nil))
                 }
-                let id = $0.counter
-                $0.entries.append(.init(id: id, browse: browse))
-                $0.counter += 1
-                promise(.success((browse, id)))
+                promise(.success((browse, $0.add(browse))))
             }
         }
     }
@@ -20,10 +17,7 @@ extension Clouder where C == Repository {
     public func navigate(_ url: URL) -> Future<Int, Never> {
         .init { promise in
             mutating {
-                let id = $0.counter
-                $0.entries.append(.init(id: id, url: url))
-                $0.counter += 1
-                promise(.success(id))
+                promise(.success($0.add(url)))
             }
         }
     }
@@ -113,6 +107,27 @@ extension Clouder where C == Repository {
     }
     
     public func migrate() {
+        guard archive.value == .new else { return }
         
+        var sub: AnyCancellable?
+        sub = FileManager
+            .pages
+            .sink { pages in
+                sub?.cancel()
+                
+                guard !pages.isEmpty else { return }
+                
+                mutating { archive in
+                    archive.entries = pages
+                        .filter {
+                            !$0.url.isFileURL
+                        }
+                        .enumerated()
+                        .map {
+                            .init(id: $0.0, title: $0.1.title, bookmark: .remote($0.1.url.absoluteString), date: $0.1.date)
+                        }
+                    archive.counter = archive.entries.count
+                }
+            }
     }
 }

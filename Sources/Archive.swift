@@ -42,6 +42,20 @@ public struct Archive: Archived {
             }
     }
     
+    @discardableResult mutating func add(_ browse: Engine.Browse) -> Int {
+        let id = counter
+        entries.append(.init(id: id, browse: browse))
+        counter += 1
+        return id
+    }
+    
+    @discardableResult mutating func add(_ url: URL) -> Int {
+        let id = counter
+        entries.append(.init(id: id, url: url))
+        counter += 1
+        return id
+    }
+    
     private init() {
         date = .init(timeIntervalSince1970: 0)
         entries = .init()

@@ -1,5 +1,5 @@
 import XCTest
-import Sleuth
+@testable import Sleuth
 
 final class LegacyPageTests: XCTestCase {
     func testItem() {

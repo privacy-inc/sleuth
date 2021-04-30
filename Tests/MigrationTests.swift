@@ -5,11 +5,53 @@ import Archivable
 
 final class MigrationTests: XCTestCase {
     private var cloud: Cloud<Repository>.Stub!
-    private var subs = Set<AnyCancellable>()
+    private var subs: Set<AnyCancellable>!
     
     override func setUp() {
         cloud = .init()
         cloud.archive.value = .new
+        subs = []
+    }
+    
+    func testArchiveNotNew() {
+        let expect = expectation(description: "")
+        
+        FileManager.queue.async {
+            FileManager.save(.init(url: URL(string: "https://aguacate.com")!))
+        }
+        
+        cloud.archive.value.counter = 1
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        FileManager.queue.async {
+            self.cloud.migrate()
+            expect.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testNoPages() {
+        let expect = expectation(description: "")
+        
+        FileManager.queue.async {
+            FileManager.forget()
+        }
+        
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        FileManager.queue.async {
+            self.cloud.migrate()
+            expect.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
     }
     
     func testPages() {
@@ -25,16 +67,23 @@ final class MigrationTests: XCTestCase {
         
         let pageC = Legacy.Page(url: URL(fileURLWithPath: "dasdas/dsadasds"))
         
-        FileManager.save(pageA)
-        FileManager.save(pageB)
-        FileManager.save(pageC)
+        FileManager.queue.async {
+            FileManager.forget()
+            FileManager.save(pageA)
+            FileManager.save(pageB)
+            FileManager.save(pageC)
+        }
         
         cloud.save.sink {
             XCTAssertEqual(2, $0.entries.count)
             XCTAssertEqual(0, $0.entries.first?.id)
-            XCTAssertEqual(0, $0.entries.last?.id)
+            XCTAssertEqual(1, $0.entries.last?.id)
             XCTAssertEqual("https://aguacate.com", $0.entries.first?.url)
+            XCTAssertEqual("aguacate", $0.entries.first?.title)
+            XCTAssertEqual(Date(timeIntervalSince1970: 10).timestamp, $0.entries.first?.date.timestamp)
             XCTAssertEqual("https://something.com", $0.entries.last?.url)
+            XCTAssertEqual("some", $0.entries.last?.title)
+            XCTAssertEqual(Date(timeIntervalSince1970: 20).timestamp, $0.entries.last?.date.timestamp)
             XCTAssertEqual(2, $0.counter)
             expect.fulfill()
         }

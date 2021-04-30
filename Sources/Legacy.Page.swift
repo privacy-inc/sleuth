@@ -1,13 +1,13 @@
 import Foundation
 
 extension Legacy {
-    public struct Page: Codable, Identifiable, Hashable {
-        public var url: URL
-        public var date: Date
-        public var title: String
-        public let id: UUID
+    struct Page: Codable, Identifiable, Hashable {
+        var url: URL
+        var date: Date
+        var title: String
+        let id: UUID
         
-        public var shared: Legacy.Share.Page {
+        var shared: Legacy.Share.Page {
             .init(url: URL(string: Scheme.privacy_id.url + id.uuidString)!,
                   title: title,
                   subtitle: url.absoluteString
@@ -16,21 +16,21 @@ extension Legacy {
                     .replacingOccurrences(of: "www.", with: ""))
         }
         
-        public init(url: URL) {
+        init(url: URL) {
             id = .init()
             date = .init()
             title = ""
             self.url = url
         }
         
-        public func hash(into: inout Hasher) {
+        func hash(into: inout Hasher) {
             into.combine(id)
             into.combine(url)
             into.combine(title)
             into.combine(date)
         }
         
-        public static func == (lhs: Page, rhs: Page) -> Bool {
+        static func == (lhs: Page, rhs: Page) -> Bool {
             lhs.id == rhs.id
                 && lhs.url == rhs.url
                 && lhs.title == rhs.title
