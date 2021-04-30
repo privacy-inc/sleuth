@@ -2,9 +2,9 @@ import Foundation
 import Archivable
 
 public struct Entry: Equatable, Property {
+    public let id: Int
     public let title: String
     public let date: Date
-    let id: Int
     let bookmark: Bookmark
     
     public var url: String {
