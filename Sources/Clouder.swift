@@ -111,4 +111,8 @@ extension Clouder where C == Repository {
             $0.blocked[url, default: []].append(.init())
         }
     }
+    
+    public func migrate() {
+        
+    }
 }
