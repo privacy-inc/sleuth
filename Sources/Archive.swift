@@ -18,9 +18,11 @@ public struct Archive: Archived {
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
+            .compressed
     }
     
     public init(data: inout Data) {
+        data.decompress()
         counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
         entries = (0 ..< .init(data.uInt16()))
