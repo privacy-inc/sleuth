@@ -19,11 +19,7 @@ extension Entry {
             case let .remote(url):
                 return .init(string: url)
             case let .local(_, bookmark):
-                var stale = false
-                return (try? URL(resolvingBookmarkData: bookmark, options: .withSecurityScope, bookmarkDataIsStale: &stale))
-                    .flatMap {
-                        $0.startAccessingSecurityScopedResource() ? $0 : nil
-                    }
+                return bookmark.url
             }
         }
         
