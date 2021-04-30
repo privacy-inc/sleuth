@@ -3,6 +3,10 @@ import Combine
 import Archivable
 
 extension Clouder where C == Synch {
+    public func entry(_ id: Int) -> Entry? {
+        archive.value.entries.first { $0.id == id }
+    }
+    
     public func browse(_ url: String) -> Future<(Engine.Browse, Int)?, Never> {
         .init { promise in
             mutating {
