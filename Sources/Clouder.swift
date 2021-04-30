@@ -115,8 +115,6 @@ extension Clouder where C == Repository {
             .sink { pages in
                 sub?.cancel()
                 
-                guard !pages.isEmpty else { return }
-                
                 mutating { archive in
                     archive.entries = pages
                         .filter {
@@ -127,6 +125,18 @@ extension Clouder where C == Repository {
                             .init(id: $0.0, title: $0.1.title, bookmark: .remote($0.1.url.absoluteString), date: $0.1.date)
                         }
                     archive.counter = archive.entries.count
+
+                    archive.blocked = Legacy.Share.blocked.reduce(into: [:]) {
+                        $0[$1, default: []].append(.init())
+                    }
+                    
+                    if !pages.isEmpty {
+                        FileManager.forget()
+                    }
+                    
+                    if !Legacy.Share.blocked.isEmpty {
+                        Legacy.Share.blocked = []
+                    }
                 }
             }
     }

@@ -57,7 +57,7 @@ extension FileManager {
     }
     
     static let queue = DispatchQueue(label: "", qos: .utility)
+    static let folder = root.appendingPathComponent("pages")
     private static let instance = `default`
     private static let root = instance.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    private static let folder = root.appendingPathComponent("pages")
 }
