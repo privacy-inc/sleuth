@@ -106,6 +106,14 @@ extension Clouder where C == Repository {
         }
     }
     
+    public func forget() {
+        mutating {
+            $0.entries = []
+            $0.activity = []
+            $0.blocked = [:]
+        }
+    }
+    
     public func migrate() {
         guard archive.value == .new else { return }
         

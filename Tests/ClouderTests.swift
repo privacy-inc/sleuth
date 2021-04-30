@@ -295,4 +295,27 @@ final class ClouderTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testForget() {
+        let expect = expectation(description: "")
+        let date = Date()
+        
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.blocked = ["some" : [.init()]]
+        cloud.archive.value.activity = [.init()]
+        
+        cloud.save.sink {
+            XCTAssertTrue($0.entries.isEmpty)
+            XCTAssertTrue($0.blocked.isEmpty)
+            XCTAssertTrue($0.activity.isEmpty)
+            XCTAssertGreaterThan($0.date, date)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.forget()
+        
+        waitForExpectations(timeout: 1)
+    }
 }
