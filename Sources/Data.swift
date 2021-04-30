@@ -1,11 +1,21 @@
 import Foundation
 
 public extension Data {
-    #if os(iOS) || os(macOS)
+    #if os(macOS)
     
     var url: URL? {
         var stale = false
         return (try? URL(resolvingBookmarkData: self, options: .withSecurityScope, bookmarkDataIsStale: &stale))
+            .flatMap {
+                $0.startAccessingSecurityScopedResource() ? $0 : nil
+            }
+    }
+    
+    #elseif os(iOS)
+    
+    var url: URL? {
+        var stale = false
+        return (try? URL(resolvingBookmarkData: self, bookmarkDataIsStale: &stale))
             .flatMap {
                 $0.startAccessingSecurityScopedResource() ? $0 : nil
             }
