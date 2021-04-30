@@ -130,12 +130,22 @@ extension Clouder where C == Repository {
                         $0[$1, default: []].append(.init())
                     }
                     
+                    archive.activity = Legacy.Share.chart
+                    
                     if !pages.isEmpty {
                         FileManager.forget()
                     }
                     
                     if !Legacy.Share.blocked.isEmpty {
                         Legacy.Share.blocked = []
+                    }
+                    
+                    if !Legacy.Share.chart.isEmpty {
+                        Legacy.Share.chart = []
+                    }
+                    
+                    if !Legacy.Share.history.isEmpty {
+                        Legacy.Share.history = []
                     }
                 }
             }

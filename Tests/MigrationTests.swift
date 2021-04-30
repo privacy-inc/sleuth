@@ -119,4 +119,42 @@ final class MigrationTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testActivity() {
+        let expect = expectation(description: "")
+        Legacy.Share.chart = [.init(timeIntervalSince1970: 10), .init(timeIntervalSince1970: 20)]
+        
+        cloud.save.sink {
+            XCTAssertEqual(2, $0.activity.count)
+            XCTAssertEqual(Date(timeIntervalSince1970: 10).timestamp, $0.activity.first?.timestamp)
+            XCTAssertEqual(Date(timeIntervalSince1970: 20).timestamp, $0.activity.last?.timestamp)
+            XCTAssertTrue(Legacy.Share.chart.isEmpty)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        FileManager.queue.async {
+            self.cloud.migrate()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testHistory() {
+        let expect = expectation(description: "")
+        Legacy.Share.chart = [.init()]
+        Legacy.Share.history = [.init(url: URL(string: "https://www.hello.com")!, title: "", subtitle: "")]
+        
+        cloud.save.sink { _ in
+            XCTAssertTrue(Legacy.Share.history.isEmpty)
+            expect.fulfill()
+        }
+        .store(in: &subs)
+        
+        FileManager.queue.async {
+            self.cloud.migrate()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
 }
