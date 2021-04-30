@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 final class IgnoreTests: XCTestCase {
-    private var cloud: Cloud<Repository>.Stub!
+    private var cloud: Cloud<Synch>.Stub!
     private let list =  [
         "about:blank",
         "about:srcdoc"

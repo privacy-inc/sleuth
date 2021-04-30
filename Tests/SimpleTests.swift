@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 final class SimpleTests: XCTestCase {
-    private var cloud: Cloud<Repository>.Stub!
+    private var cloud: Cloud<Synch>.Stub!
     
     private let listA =  [
         "about:blank",

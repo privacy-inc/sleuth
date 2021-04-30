@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 final class ExternalTests: XCTestCase {
-    private var cloud: Cloud<Repository>.Stub!
+    private var cloud: Cloud<Synch>.Stub!
     private let list = [
         "some://www.ecosia.org",
         "apps://www.theguardian.com/email/form/footer/today-uk",

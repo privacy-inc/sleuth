@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import Archivable
 
-extension Clouder where C == Repository {
+extension Clouder where C == Synch {
     public func browse(_ engine: Engine, _ url: String) -> Future<(Engine.Browse, Int)?, Never> {
         .init { promise in
             mutating {

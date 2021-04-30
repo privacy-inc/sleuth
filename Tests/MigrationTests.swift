@@ -4,7 +4,7 @@ import Archivable
 @testable import Sleuth
 
 final class MigrationTests: XCTestCase {
-    private var cloud: Cloud<Repository>.Stub!
+    private var cloud: Cloud<Synch>.Stub!
     private var subs: Set<AnyCancellable>!
     
     override func setUp() {
