@@ -2,7 +2,13 @@ import Foundation
 import Combine
 import Archivable
 
-extension Clouder where C == Synch {
+extension Cloud where A == Archive {
+    public static let shared = Self(manifest: .init(
+                                        file: "Privacy.archive",
+                                        container: "iCloud.privacy",
+                                        prefix: "privacy_",
+                                        title: "Privacy"))
+    
     public func entry(_ id: Int) -> Entry? {
         archive.value.entries.first { $0.id == id }
     }

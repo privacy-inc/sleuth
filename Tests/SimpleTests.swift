@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 final class SimpleTests: XCTestCase {
-    private var cloud: Cloud<Synch>.Stub!
+    private var cloud: Cloud<Archive>!
     
     private let listA =  [
         "about:blank",
@@ -24,8 +24,7 @@ final class SimpleTests: XCTestCase {
     ]
     
     override func setUp() {
-        cloud = .init()
-        cloud.archive.value = .new
+        cloud = .init(manifest: nil)
     }
     
     func testIgnore() {

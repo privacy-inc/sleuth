@@ -3,15 +3,14 @@ import Archivable
 import Sleuth
 
 final class IgnoreTests: XCTestCase {
-    private var cloud: Cloud<Synch>.Stub!
+    private var cloud: Cloud<Archive>!
     private let list =  [
         "about:blank",
         "about:srcdoc"
     ]
     
     override func setUp() {
-        cloud = .init()
-        cloud.archive.value = .new
+        cloud = .init(manifest: nil)
     }
     
     func test() {

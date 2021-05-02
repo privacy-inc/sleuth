@@ -4,12 +4,11 @@ import Archivable
 @testable import Sleuth
 
 final class BlockedTests: XCTestCase {
-    private var cloud: Cloud<Synch>.Stub!
+    private var cloud: Cloud<Archive>!
     private var subs: Set<AnyCancellable>!
     
     override func setUp() {
-        cloud = .init()
-        cloud.archive.value = .new
+        cloud = .init(manifest: nil)
         subs = []
     }
     

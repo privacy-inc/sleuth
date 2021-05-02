@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 final class AllowTests: XCTestCase {
-    private var cloud: Cloud<Synch>.Stub!
+    private var cloud: Cloud<Archive>!
     private let list = [
         "https://www.ecosia.org",
         "https://www.theguardian.com/email/form/footer/today-uk",
@@ -18,8 +18,7 @@ final class AllowTests: XCTestCase {
     ]
     
     override func setUp() {
-        cloud = .init()
-        cloud.archive.value = .new
+        cloud = .init(manifest: nil)
     }
     
     func testAllow() {

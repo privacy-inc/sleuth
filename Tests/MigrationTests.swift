@@ -4,14 +4,30 @@ import Archivable
 @testable import Sleuth
 
 final class MigrationTests: XCTestCase {
-    private var cloud: Cloud<Synch>.Stub!
+    private var cloud: Cloud<Archive>!
     private var subs: Set<AnyCancellable>!
     
     override func setUp() {
-        cloud = .init()
-        cloud.archive.value = .new
+        cloud = .init(manifest: nil)
         subs = []
-        FileManager.forget()
+    }
+    
+    func testMigrateProtection() {
+        let expect = expectation(description: "")
+        
+        FileManager.save(.init(url: URL(string: "https://aguacate.com")!))
+        
+        cloud.save.sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        FileManager.queue.async {
+            self.cloud.migrate()
+            expect.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
     }
     
     func testArchiveNotNew() {
