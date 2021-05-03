@@ -16,7 +16,7 @@ final class BlockedTests: XCTestCase {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = 2
         
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             expect.fulfill()
         }
         .store(in: &subs)
@@ -35,7 +35,7 @@ final class BlockedTests: XCTestCase {
         let subject = Site.Domain.twitter_platform
         let date = Date(timeIntervalSinceNow: -10)
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.blocked.count)
             XCTAssertEqual(1, $0.blocked.first?.value.count)
             XCTAssertEqual(subject.rawValue, $0.blocked.first?.key)
@@ -54,7 +54,7 @@ final class BlockedTests: XCTestCase {
         let subject = Site.Partial.reddit_account
         let date = Date(timeIntervalSinceNow: -10)
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.blocked.count)
             XCTAssertEqual(1, $0.blocked.first?.value.count)
             XCTAssertEqual(subject.url, $0.blocked.first?.key)
@@ -73,7 +73,7 @@ final class BlockedTests: XCTestCase {
         let url = URL(string: "https://hello." + Site.Component.adition.rawValue + ".dssaa.com/sadsadas/dasdsad/dasdsa.html")!
         let date = Date(timeIntervalSinceNow: -10)
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.blocked.count)
             XCTAssertEqual(1, $0.blocked.first?.value.count)
             XCTAssertEqual(url.host, $0.blocked.first?.key)
@@ -88,7 +88,7 @@ final class BlockedTests: XCTestCase {
     }
     
     func testSimple() {
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)

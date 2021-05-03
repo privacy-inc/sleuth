@@ -17,7 +17,7 @@ final class MigrationTests: XCTestCase {
         
         FileManager.save(.init(url: URL(string: "https://aguacate.com")!))
         
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -36,7 +36,7 @@ final class MigrationTests: XCTestCase {
         FileManager.save(.init(url: URL(string: "https://aguacate.com")!))
         
         cloud.archive.value.counter = 1
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -52,7 +52,7 @@ final class MigrationTests: XCTestCase {
     func testNoPages() {
         let expect = expectation(description: "")
         
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -82,7 +82,7 @@ final class MigrationTests: XCTestCase {
         FileManager.save(pageB)
         FileManager.save(pageC)
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(2, $0.entries.count)
             XCTAssertEqual(0, $0.entries.first?.id)
             XCTAssertEqual(1, $0.entries.last?.id)
@@ -115,7 +115,7 @@ final class MigrationTests: XCTestCase {
         let date = Date()
         Legacy.Share.blocked = ["some", "other", "some"]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(2, $0.blocked.count)
             XCTAssertEqual(2, $0.blocked["some"]?.count)
             XCTAssertEqual(1, $0.blocked["other"]?.count)
@@ -140,7 +140,7 @@ final class MigrationTests: XCTestCase {
         let expect = expectation(description: "")
         Legacy.Share.chart = [.init(timeIntervalSince1970: 10), .init(timeIntervalSince1970: 20)]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(2, $0.activity.count)
             XCTAssertEqual(Date(timeIntervalSince1970: 10).timestamp, $0.activity.first?.timestamp)
             XCTAssertEqual(Date(timeIntervalSince1970: 20).timestamp, $0.activity.last?.timestamp)
@@ -161,7 +161,7 @@ final class MigrationTests: XCTestCase {
         Legacy.Share.chart = [.init()]
         Legacy.Share.history = [.init(url: URL(string: "https://www.hello.com")!, title: "", subtitle: "")]
         
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTAssertTrue(Legacy.Share.history.isEmpty)
             expect.fulfill()
         }

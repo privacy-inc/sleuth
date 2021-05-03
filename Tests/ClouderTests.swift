@@ -17,7 +17,7 @@ final class ClouderTests: XCTestCase {
         let expectBrowse = expectation(description: "")
         cloud.archive.value.counter = 99
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual("https://hello.com", $0.entries.first?.url)
             XCTAssertEqual(99, $0.entries.first?.id)
@@ -55,7 +55,7 @@ final class ClouderTests: XCTestCase {
     
     func testBrowseEmpty() {
         let expect = expectation(description: "")
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -75,7 +75,7 @@ final class ClouderTests: XCTestCase {
         cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         cloud.archive.value.counter = 99
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual("aguacate.com", $0.entries.first?.url)
             XCTAssertEqual("hello bla bla", $0.entries.first?.title)
@@ -92,7 +92,7 @@ final class ClouderTests: XCTestCase {
     }
     
     func testRevisitUnknown() {
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -104,7 +104,7 @@ final class ClouderTests: XCTestCase {
         let expectNavigate = expectation(description: "")
         cloud.archive.value.counter = 99
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual("https://hello.com", $0.entries.first?.url)
             XCTAssertEqual(99, $0.entries.first?.id)
@@ -133,7 +133,7 @@ final class ClouderTests: XCTestCase {
         let file = URL(fileURLWithPath: NSTemporaryDirectory() + "file.html")
         try! Data("hello world".utf8).write(to: file)
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual(file.schemeless, $0.entries.first?.url)
             XCTAssertEqual(99, $0.entries.first?.id)
@@ -162,7 +162,7 @@ final class ClouderTests: XCTestCase {
         let date = Date(timeIntervalSinceNow: -10)
         cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual("hello world", $0.entries.first?.title)
             XCTAssertEqual("aguacate.com", $0.entries.first?.url)
@@ -186,7 +186,7 @@ final class ClouderTests: XCTestCase {
         let date = Date(timeIntervalSinceNow: -10)
         cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.entries.count)
             XCTAssertEqual("hello bla bla", $0.entries.first?.title)
             XCTAssertEqual("avocado.com", $0.entries.first?.url)
@@ -206,7 +206,7 @@ final class ClouderTests: XCTestCase {
     }
     
     func testUpdateUnknown() {
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -219,7 +219,7 @@ final class ClouderTests: XCTestCase {
         let expect = expectation(description: "")
         cloud.archive.value.entries = [.init(id: 33, bookmark: .remote("aguacate.com"))]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertTrue($0.entries.isEmpty)
             expect.fulfill()
         }
@@ -231,7 +231,7 @@ final class ClouderTests: XCTestCase {
     }
     
     func testRemoveUnknown() {
-        cloud.save.sink { _ in
+        cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
@@ -243,7 +243,7 @@ final class ClouderTests: XCTestCase {
         let expect = expectation(description: "")
         let date = Date()
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertEqual(1, $0.activity.count)
             XCTAssertGreaterThanOrEqual($0.activity.first!, date)
             expect.fulfill()
@@ -264,7 +264,7 @@ final class ClouderTests: XCTestCase {
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
         
-        cloud.save.sink {
+        cloud.archive.dropFirst().sink {
             XCTAssertTrue($0.entries.isEmpty)
             XCTAssertTrue($0.blocked.isEmpty)
             XCTAssertTrue($0.activity.isEmpty)
