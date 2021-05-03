@@ -15,16 +15,16 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func browse(_ url: String, completion: @escaping(Engine.Browse, Int) -> Void) {
+    public func browse(_ search: String, completion: @escaping(Engine.Browse, Int) -> Void) {
         mutating {
-            guard let browse = Defaults.engine.browse(url) else { return }
+            guard let browse = Defaults.engine.browse(search) else { return }
             completion(browse, $0.add(browse))
         }
     }
     
-    public func browse(_ id: Int, _ url: String, completion: @escaping(Engine.Browse) -> Void) {
+    public func browse(_ id: Int, _ search: String, completion: @escaping(Engine.Browse) -> Void) {
         mutating {
-            guard let browse = Defaults.engine.browse(url) else { return }
+            guard let browse = Defaults.engine.browse(search) else { return }
             if let entry = $0.entries.remove(id: id)?.with(browse: browse) {
                 $0.entries.append(entry)
             } else {
