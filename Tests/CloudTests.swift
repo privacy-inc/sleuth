@@ -55,6 +55,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse(33, "hello.com") {
             XCTAssertTrue(Thread.current.isMainThread)
+            XCTAssertEqual("https://hello.com", $0.url)
             expectBrowse.fulfill()
         }
         
@@ -76,6 +77,7 @@ final class CloudTests: XCTestCase {
         .store(in: &subs)
         
         cloud.browse(55, "hello.com") {
+            XCTAssertEqual("https://hello.com", $0.url)
             expectBrowse.fulfill()
         }
         
@@ -117,7 +119,7 @@ final class CloudTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.browse(22, "") {
+        cloud.browse(22, "") { _ in
             XCTFail()
         }
     }
