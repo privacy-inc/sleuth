@@ -30,6 +30,7 @@ final class CloudTests: XCTestCase {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual("https://hello.com", $0.url)
             XCTAssertEqual(99, $1)
+            XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectBrowse.fulfill()
         }
         
@@ -56,6 +57,7 @@ final class CloudTests: XCTestCase {
         cloud.browse(33, "hello.com") {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual("https://hello.com", $0.url)
+            XCTAssertGreaterThan(self.cloud.archive.value.entries.first!.date, date)
             expectBrowse.fulfill()
         }
         
@@ -78,6 +80,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse(55, "hello.com") {
             XCTAssertEqual("https://hello.com", $0.url)
+            XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectBrowse.fulfill()
         }
         
@@ -173,6 +176,7 @@ final class CloudTests: XCTestCase {
         
         cloud.navigate(URL(string: "https://hello.com")!) {
             XCTAssertEqual(99, $0)
+            XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectNavigate.fulfill()
         }
         
@@ -204,6 +208,7 @@ final class CloudTests: XCTestCase {
         
         cloud.navigate(file) {
             XCTAssertEqual(99, $0)
+            XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectNavigate.fulfill()
         }
         
