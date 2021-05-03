@@ -57,6 +57,10 @@ public struct Entry: Equatable, Property {
         .init(id: id, title: title, bookmark: .init(url: url), date: .init())
     }
     
+    func with(browse: Engine.Browse) -> Self {
+        .init(id: id, title: title, bookmark: .remote(browse.url), date: .init())
+    }
+    
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
             lhs.title == rhs.title &&

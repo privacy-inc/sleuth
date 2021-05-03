@@ -3,7 +3,7 @@ import Combine
 import Archivable
 @testable import Sleuth
 
-final class ClouderTests: XCTestCase {
+final class CloudTests: XCTestCase {
     private var cloud: Cloud<Archive>!
     private var subs: Set<AnyCancellable>!
     
@@ -32,6 +32,52 @@ final class ClouderTests: XCTestCase {
             expectBrowse.fulfill()
         }
         .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testBrowseId() {
+        let expectSave = expectation(description: "")
+        let expectBrowse = expectation(description: "")
+        let date = Date(timeIntervalSinceNow: -10)
+        cloud.archive.value.counter = 99
+        cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        
+        cloud.archive.dropFirst().sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("https://hello.com", $0.entries.first?.url)
+            XCTAssertEqual(33, $0.entries.first?.id)
+            XCTAssertEqual(99, $0.counter)
+            XCTAssertGreaterThan($0.entries.first!.date, date)
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.browse(33, "hello.com") {
+            XCTAssertTrue(Thread.current.isMainThread)
+            expectBrowse.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testBrowseIdUnknown() {
+        let expectSave = expectation(description: "")
+        let expectBrowse = expectation(description: "")
+        cloud.archive.value.counter = 99
+        
+        cloud.archive.dropFirst().sink {
+            XCTAssertEqual(1, $0.entries.count)
+            XCTAssertEqual("https://hello.com", $0.entries.first?.url)
+            XCTAssertEqual(99, $0.entries.first?.id)
+            XCTAssertEqual(100, $0.counter)
+            expectSave.fulfill()
+        }
+        .store(in: &subs)
+        
+        cloud.browse(55, "hello.com") {
+            expectBrowse.fulfill()
+        }
         
         waitForExpectations(timeout: 1)
     }
@@ -67,6 +113,19 @@ final class ClouderTests: XCTestCase {
         .store(in: &subs)
         
         waitForExpectations(timeout: 1)
+    }
+    
+    func testBrowseIdEmpty() {
+        cloud.archive.value.entries = [.init(id: 22, title: "hello bla bla", bookmark: .remote("aguacate.com"))]
+        
+        cloud.archive.dropFirst().sink { _ in
+            XCTFail()
+        }
+        .store(in: &subs)
+        
+        cloud.browse(22, "") {
+            XCTFail()
+        }
     }
     
     func testRevisit() {
