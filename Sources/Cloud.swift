@@ -10,17 +10,15 @@ extension Cloud where A == Archive {
                                         title: "Privacy"))
     
     public func entry(_ id: Int) -> Entry? {
-        archive.value.entries.first { $0.id == id }
+        archive.value.entries.first {
+            $0.id == id
+        }
     }
     
-    public func browse(_ url: String) -> Future<(Engine.Browse, Int)?, Never> {
-        .init { promise in
-            mutating {
-                guard let browse = Defaults.engine.browse(url) else {
-                    return promise(.success(nil))
-                }
-                promise(.success((browse, $0.add(browse))))
-            }
+    public func browse(_ url: String, completion: @escaping(Engine.Browse, Int) -> Void) {
+        mutating {
+            guard let browse = Defaults.engine.browse(url) else { return }
+            completion(browse, $0.add(browse))
         }
     }
     
@@ -36,11 +34,9 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func navigate(_ url: URL) -> Future<Int, Never> {
-        .init { promise in
-            mutating {
-                promise(.success($0.add(url)))
-            }
+    public func navigate(_ url: URL, completion: @escaping(Int) -> Void) {
+        mutating {
+            completion($0.add(url))
         }
     }
     

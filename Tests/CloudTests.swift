@@ -26,12 +26,12 @@ final class CloudTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.browse("hello.com").sink {
-            XCTAssertEqual("https://hello.com", $0?.0.url)
-            XCTAssertEqual(99, $0?.1)
+        cloud.browse("hello.com") {
+            XCTAssertTrue(Thread.current.isMainThread)
+            XCTAssertEqual("https://hello.com", $0.url)
+            XCTAssertEqual(99, $1)
             expectBrowse.fulfill()
         }
-        .store(in: &subs)
         
         waitForExpectations(timeout: 1)
     }
@@ -85,14 +85,13 @@ final class CloudTests: XCTestCase {
     func testBrowseMultiple() {
         let expect = expectation(description: "")
         cloud.archive.value.counter = 99
-        _ = cloud.browse("hello.com")
-        _ = cloud.browse("hello.com")
+        cloud.browse("hello.com") { _, _ in }
+        cloud.browse("hello.com") { _, _ in }
         
-        cloud.browse("hello.com").sink {
-            XCTAssertEqual(101, $0?.1)
+        cloud.browse("hello.com") {
+            XCTAssertEqual(101, $1)
             expect.fulfill()
         }
-        .store(in: &subs)
         
         waitForExpectations(timeout: 1) { _ in
             XCTAssertEqual(3, self.cloud.archive.value.entries.count)
@@ -100,19 +99,14 @@ final class CloudTests: XCTestCase {
     }
     
     func testBrowseEmpty() {
-        let expect = expectation(description: "")
         cloud.archive.dropFirst().sink { _ in
             XCTFail()
         }
         .store(in: &subs)
         
-        cloud.browse("").sink {
-            XCTAssertNil($0)
-            expect.fulfill()
+        cloud.browse("") { _, _ in
+            XCTFail()
         }
-        .store(in: &subs)
-        
-        waitForExpectations(timeout: 1)
     }
     
     func testBrowseIdEmpty() {
@@ -175,11 +169,10 @@ final class CloudTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.navigate(URL(string: "https://hello.com")!).sink {
+        cloud.navigate(URL(string: "https://hello.com")!) {
             XCTAssertEqual(99, $0)
             expectNavigate.fulfill()
         }
-        .store(in: &subs)
         
         waitForExpectations(timeout: 1)
     }
@@ -207,11 +200,10 @@ final class CloudTests: XCTestCase {
         }
         .store(in: &subs)
         
-        cloud.navigate(file).sink {
+        cloud.navigate(file) {
             XCTAssertEqual(99, $0)
             expectNavigate.fulfill()
         }
-        .store(in: &subs)
         
         waitForExpectations(timeout: 1)
     }
