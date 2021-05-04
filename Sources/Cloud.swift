@@ -25,7 +25,7 @@ extension Cloud where A == Archive {
     }
     
     public func browse(_ id: Int, _ search: String, completion: @escaping(Engine.Browse) -> Void) {
-        mutating {
+        mutating(transform: {
             guard let browse = Defaults.engine.browse(search) else { return nil }
             if let entry = $0.entries.remove(id: id)?.with(browse: browse) {
                 $0.entries.append(entry)
@@ -33,17 +33,13 @@ extension Cloud where A == Archive {
                 $0.add(browse)
             }
             return browse
-        } completion: {
-            completion($0)
-        }
+        }, completion: completion)
     }
     
     public func navigate(_ url: URL, completion: @escaping(Int) -> Void) {
-        mutating {
+        mutating(transform: {
             $0.add(url)
-        } completion: {
-            completion($0)
-        }
+        }, completion: completion)
     }
     
     public func revisit(_ id: Int) {
