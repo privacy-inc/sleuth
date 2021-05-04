@@ -18,10 +18,9 @@ extension Cloud where A == Archive {
     public func browse(_ search: String, completion: @escaping(Engine.Browse, Int) -> Void) {
         mutating {
             guard let browse = Defaults.engine.browse(search) else { return nil }
-            let id = $0.add(browse)
-            return {
-                completion(browse, id)
-            }
+            return (browse, $0.add(browse))
+        } completion: { (result: (Engine.Browse, Int)) in
+            completion(result.0, result.1)
         }
     }
     
@@ -33,59 +32,50 @@ extension Cloud where A == Archive {
             } else {
                 $0.add(browse)
             }
-            return {
-                completion(browse)
-            }
+            return browse
+        } completion: {
+            completion($0)
         }
     }
     
     public func navigate(_ url: URL, completion: @escaping(Int) -> Void) {
         mutating {
-            let id = $0.add(url)
-            return {
-                completion(id)
-            }
+            $0.add(url)
+        } completion: {
+            completion($0)
         }
     }
     
     public func revisit(_ id: Int) {
         mutating {
-            if let entry = $0.entries.remove(id: id)?.revisit {
-                $0.entries.append(entry)
-            }
-            return nil
+            guard let entry = $0.entries.remove(id: id)?.revisit else { return }
+            $0.entries.append(entry)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            if let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                $0.entries.append(entry)
-            }
-            return nil
+            guard let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
+            $0.entries.append(entry)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            if let entry = $0.entries.remove(id: id)?.with(url: url) {
-                $0.entries.append(entry)
-            }
-            return nil
+            guard let entry = $0.entries.remove(id: id)?.with(url: url) else { return }
+            $0.entries.append(entry)
         }
     }
     
     public func remove(_ id: Int) {
         mutating {
             $0.entries.remove(id: id)
-            return nil
         }
     }
     
     public func activity() {
         mutating {
             $0.activity.append(.init())
-            return nil
         }
     }
     
@@ -132,7 +122,6 @@ extension Cloud where A == Archive {
     public func block(_ url: String) {
         mutating {
             $0.blocked[url, default: []].append(.init())
-            return nil
         }
     }
     
@@ -141,7 +130,6 @@ extension Cloud where A == Archive {
             $0.entries = []
             $0.activity = []
             $0.blocked = [:]
-            return nil
         }
     }
     
@@ -186,8 +174,6 @@ extension Cloud where A == Archive {
                     if !Legacy.Share.history.isEmpty {
                         Legacy.Share.history = []
                     }
-                    
-                    return nil
                 }
             }
     }
