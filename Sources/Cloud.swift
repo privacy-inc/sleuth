@@ -17,9 +17,9 @@ extension Cloud where A == Archive {
     
     public func browse(_ search: String, completion: @escaping(Engine.Browse, Int) -> Void) {
         mutating {
-            guard let browse = Defaults.engine.browse(search) else { return }
+            guard let browse = Defaults.engine.browse(search) else { return nil }
             let id = $0.add(browse)
-            DispatchQueue.main.async {
+            return {
                 completion(browse, id)
             }
         }
@@ -27,13 +27,13 @@ extension Cloud where A == Archive {
     
     public func browse(_ id: Int, _ search: String, completion: @escaping(Engine.Browse) -> Void) {
         mutating {
-            guard let browse = Defaults.engine.browse(search) else { return }
+            guard let browse = Defaults.engine.browse(search) else { return nil }
             if let entry = $0.entries.remove(id: id)?.with(browse: browse) {
                 $0.entries.append(entry)
             } else {
                 $0.add(browse)
             }
-            DispatchQueue.main.async {
+            return {
                 completion(browse)
             }
         }
@@ -42,7 +42,7 @@ extension Cloud where A == Archive {
     public func navigate(_ url: URL, completion: @escaping(Int) -> Void) {
         mutating {
             let id = $0.add(url)
-            DispatchQueue.main.async {
+            return {
                 completion(id)
             }
         }
@@ -50,34 +50,42 @@ extension Cloud where A == Archive {
     
     public func revisit(_ id: Int) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.revisit else { return }
-            $0.entries.append(entry)
+            if let entry = $0.entries.remove(id: id)?.revisit {
+                $0.entries.append(entry)
+            }
+            return nil
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
-            $0.entries.append(entry)
+            if let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                $0.entries.append(entry)
+            }
+            return nil
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.with(url: url) else { return }
-            $0.entries.append(entry)
+            if let entry = $0.entries.remove(id: id)?.with(url: url) {
+                $0.entries.append(entry)
+            }
+            return nil
         }
     }
     
     public func remove(_ id: Int) {
         mutating {
             $0.entries.remove(id: id)
+            return nil
         }
     }
     
     public func activity() {
         mutating {
             $0.activity.append(.init())
+            return nil
         }
     }
     
@@ -124,6 +132,7 @@ extension Cloud where A == Archive {
     public func block(_ url: String) {
         mutating {
             $0.blocked[url, default: []].append(.init())
+            return nil
         }
     }
     
@@ -132,6 +141,7 @@ extension Cloud where A == Archive {
             $0.entries = []
             $0.activity = []
             $0.blocked = [:]
+            return nil
         }
     }
     
@@ -176,6 +186,8 @@ extension Cloud where A == Archive {
                     if !Legacy.Share.history.isEmpty {
                         Legacy.Share.history = []
                     }
+                    
+                    return nil
                 }
             }
     }
