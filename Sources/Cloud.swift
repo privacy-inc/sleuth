@@ -128,49 +128,4 @@ extension Cloud where A == Archive {
             $0.blocked = [:]
         }
     }
-    
-    public func migrate() {
-        guard archive.value == .new else { return }
-        
-        var sub: AnyCancellable?
-        sub = FileManager
-            .pages
-            .sink { pages in
-                sub?.cancel()
-                
-                mutating { archive in
-                    archive.entries = pages
-                        .filter {
-                            !$0.url.isFileURL
-                        }
-                        .enumerated()
-                        .map {
-                            .init(id: $0.0, title: $0.1.title, bookmark: .remote($0.1.url.absoluteString), date: $0.1.date)
-                        }
-                    archive.counter = archive.entries.count
-
-                    archive.blocked = Legacy.Share.blocked.reduce(into: [:]) {
-                        $0[$1, default: []].append(.init())
-                    }
-                    
-                    archive.activity = Legacy.Share.chart
-                    
-                    if !pages.isEmpty {
-                        FileManager.forget()
-                    }
-                    
-                    if !Legacy.Share.blocked.isEmpty {
-                        Legacy.Share.blocked = []
-                    }
-                    
-                    if !Legacy.Share.chart.isEmpty {
-                        Legacy.Share.chart = []
-                    }
-                    
-                    if !Legacy.Share.history.isEmpty {
-                        Legacy.Share.history = []
-                    }
-                }
-            }
-    }
 }
