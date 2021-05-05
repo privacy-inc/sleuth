@@ -103,9 +103,6 @@ extension Cloud where A == Archive {
                                         .filter({
                                             !$0.1.isEmpty
                                         }) {
-                                        
-                                        print(black.1)
-                                        print("contains: \(path)")
                                             guard
                                                 domain.hasSuffix(black.0),
                                                 black.1.contains(path)
