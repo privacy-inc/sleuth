@@ -2,26 +2,26 @@ import XCTest
 import Sleuth
 
 final class AdsTests: XCTestCase {
-    private var rules: Rules!
+    private var rules: Blocker.Parser!
     
     override func setUp() {
         rules = .init(content: Block.ads)
     }
     
     func testEcosia() {
-        XCTAssertTrue(rules.remove(domain: "*ecosia.org", selector: ".card-ad"))
-        XCTAssertTrue(rules.remove(domain: "*ecosia.org", selector: ".card-productads"))
+        XCTAssertTrue(rules.displayNone(domain: "*ecosia.org", selector: ".card-ad"))
+        XCTAssertTrue(rules.displayNone(domain: "*ecosia.org", selector: ".card-productads"))
     }
     
     func testGoogle() {
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#taw"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#rhs"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: "#tadsb"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".commercial"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".Rn1jbe"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".kxhcC"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".isv-r.PNCib.BC7Tfc"))
-        XCTAssertTrue(rules.remove(domain: "*google.com", selector: ".isv-r.PNCib.o05QGe"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: "#taw"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: "#rhs"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: "#tadsb"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: ".commercial"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: ".Rn1jbe"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: ".kxhcC"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: ".isv-r.PNCib.BC7Tfc"))
+        XCTAssertTrue(rules.displayNone(domain: "*google.com", selector: ".isv-r.PNCib.o05QGe"))
     }
     
     func testDomains() {
@@ -78,9 +78,9 @@ final class AdsTests: XCTestCase {
     }
     
     func testPartial() {
-        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/pagead"))
-        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/recaptcha"))
-        XCTAssertTrue(rules.block(domain: "google.com", url: "google.com/swg"))
-        XCTAssertTrue(rules.block(domain: "youtube.com", url: "youtube.com/embed"))
+        XCTAssertTrue(rules.block(url: "google.com/pagead", on: "google.com"))
+        XCTAssertTrue(rules.block(url: "google.com/recaptcha", on: "google.com"))
+        XCTAssertTrue(rules.block(url: "google.com/swg", on: "google.com"))
+        XCTAssertTrue(rules.block(url: "youtube.com/embed", on: "youtube.com"))
     }
 }
