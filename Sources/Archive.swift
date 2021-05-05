@@ -42,6 +42,13 @@ public struct Archive: Archived {
             }
     }
     
+    private init() {
+        date = .init(timeIntervalSince1970: 0)
+        entries = .init()
+        activity = []
+        blocked = [:]
+    }
+    
     @discardableResult mutating func add(_ browse: Engine.Browse) -> Int {
         let id = counter
         entries.append(.init(id: id, browse: browse))
@@ -54,13 +61,6 @@ public struct Archive: Archived {
         entries.append(.init(id: id, url: url))
         counter += 1
         return id
-    }
-    
-    private init() {
-        date = .init(timeIntervalSince1970: 0)
-        entries = .init()
-        activity = []
-        blocked = [:]
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
