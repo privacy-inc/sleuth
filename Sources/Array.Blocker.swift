@@ -30,7 +30,7 @@ extension Array where Element == Blocker.Rule.Trigger {
                 return """
 "if-domain": ["\(domain
                     .map {
-                        "*" + $0
+                        "*" + $0 + "*"
                     }
                     .joined(separator: ", "))"]
 """
