@@ -39,16 +39,14 @@ private extension String {
                 .flatMap {
                     $0.scheme == nil || ($0.host == nil && $0.query == nil)
                         ? nil
-                        : contains(URL.Scheme.separator)
-                            ? transform($0.absoluteString)
-                            : nil
+                        : transform($0.absoluteString)
                 }
     }
     
     func partialURL(transform: (String) -> Engine.Browse) -> Engine.Browse? {
         separated {
             $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
-                ? URL(string: URL.Scheme.https.url + self)
+                ? URL(string: URL.Scheme.https.rawValue + "://" + self)
                     .map(\.absoluteString)
                     .map(transform)
                 : nil
