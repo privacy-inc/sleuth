@@ -51,7 +51,7 @@ extension URL {
             }
         }
         
-        var black: [Path] {
+        var path: [Path] {
             switch self {
             case .google:
                 return [.pagead,

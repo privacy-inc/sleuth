@@ -28,7 +28,7 @@ public class Router {
                                         .dropFirst()))
                             }
                             .map {
-                                !$0.0.isEmpty && !$0.1.isEmpty
+                                !$0.0.isEmpty
                                     ? route(host: $0.0, path: $0.1)
                                     : .ignore
                             }

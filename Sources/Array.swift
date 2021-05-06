@@ -1,12 +1,8 @@
 import Foundation
 
-extension Array where Element == Entry {
-    @discardableResult mutating func remove(id: Int) -> Element? {
-        firstIndex {
-            $0.id == id
-        }
-        .map {
-            remove(at: $0)
-        }
+extension Array where Element : Hashable {
+    func intersection(other: [Element]) -> Set<Element> {
+        .init(self)
+            .intersection(other)
     }
 }

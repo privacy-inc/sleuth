@@ -99,7 +99,7 @@ extension Cloud where A == Archive {
                                         .allCases
                                         .map({
                                             ($0.rawValue, $0
-                                                .black
+                                                .path
                                                 .map(\.rawValue))
                                         })
                                         .filter({

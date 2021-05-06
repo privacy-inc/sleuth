@@ -6,15 +6,33 @@ extension Router {
             URL
                 .White
                 .init(rawValue: host.last!)
-                .map { _ in
-                    .allow
+                .map {
+                    $0
+                        .subdomain
+                        .map(\.rawValue)
+                        .intersection(other: host
+                                        .dropLast())
+                        .first
+                        .map(Direction.block)
+                    ?? $0
+                        .path
+                        .map(\.rawValue)
+                        .intersection(other: path)
+                        .first
+                        .map(Direction.block)
+                    ?? .allow
                 }
             ?? URL
                 .Black
                 .init(rawValue: host.last!)
-                .map {
-                    .block($0.rawValue)
-                }
+                .map(\.rawValue)
+                .map(Direction.block)
+            ?? host
+                .dropLast()
+                .compactMap(URL.Subdomain.init(rawValue:))
+                .map(\.rawValue)
+                .first
+                .map(Direction.block)
             ?? .allow
             
             
