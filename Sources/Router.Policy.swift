@@ -1,7 +1,7 @@
 import Foundation
 
 extension Router {
-    public enum Direction {
+    public enum Policy {
         case
         allow,
         ignore,

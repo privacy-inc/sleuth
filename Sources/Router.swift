@@ -6,14 +6,12 @@ public class Router {
     
     init() { }
     
-    public final func callAsFunction(_ url: URL) -> Direction {
+    public final func callAsFunction(_ url: URL) -> Policy {
         url
             .scheme
             .map {
-                URL.Ignore(rawValue: $0)
-                    .map { _ in
-                        .ignore
-                    }
+                URL.Embed(rawValue: $0)
+                    .map(\.policy)
                 ?? URL.Scheme(rawValue: $0)
                     .map { _ in
                         url
@@ -22,10 +20,11 @@ public class Router {
                                 (Array($0
                                         .components(separatedBy: ".")
                                         .dropLast()),
-                                 Array(url
-                                        .path
-                                        .components(separatedBy: "/")
-                                        .dropFirst()))
+                                 url
+                                    .path
+                                    .components(separatedBy: "/")
+                                    .dropFirst()
+                                    .first)
                             }
                             .map {
                                 !$0.0.isEmpty
@@ -39,7 +38,7 @@ public class Router {
             ?? .ignore
     }
     
-    func route(host: [String], path: [String]) -> Direction {
+    func route(host: [String], path: String?) -> Policy {
         .allow
     }
 }
