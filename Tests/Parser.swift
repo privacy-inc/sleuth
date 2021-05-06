@@ -1,5 +1,5 @@
 import Foundation
-import Sleuth
+@testable import Sleuth
 
 struct Parser {
     private let dictionary: [[String : [String : Any]]]
@@ -38,11 +38,12 @@ struct Parser {
         }
     }
     
-    func displayNone(domain: String, selector: String) -> Bool {
+    func css(domain: String, selectors: [String]) -> Bool {
         dictionary.contains {
             ($0["action"]!["type"] as! String) == "css-display-none"
-                && ($0["action"]!["selector"] as! String).components(separatedBy: ", ")
-                .contains(selector)
+                && ($0["action"]!["selector"] as! String)
+                .components(separatedBy: ", ")
+                .intersection(other: selectors).count == selectors.count
                 && ($0["trigger"]!["url-filter"] as! String) == ".*"
                 && ($0["trigger"]!["if-domain"] as! [String]).first == domain
         }

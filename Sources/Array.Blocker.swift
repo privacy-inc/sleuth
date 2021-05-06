@@ -28,7 +28,11 @@ extension Array where Element == Blocker.Rule.Trigger {
 """
             case let .domain(domain):
                 return """
-"if-domain": ["\(domain.joined(separator: ", "))"]
+"if-domain": ["\(domain
+                    .map {
+                        "*" + $0
+                    }
+                    .joined(separator: ", "))"]
 """
             }
         }
@@ -58,7 +62,8 @@ extension Array where Element == Blocker.Rule.Action {
 """
             case let .selector(selector):
                 return """
-"selector": "\(selector.joined(separator: ", "))"
+"selector": "\(selector
+                .joined(separator: ", "))"
 """
             }
         }
