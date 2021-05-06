@@ -1,9 +1,8 @@
 import XCTest
-import Archivable
 import Sleuth
 
 final class AllowTests: XCTestCase {
-    private var cloud: Cloud<Archive>!
+    private var router: Router!
     private let list = [
         "https://www.ecosia.org",
         "https://www.theguardian.com/email/form/footer/today-uk",
@@ -18,13 +17,13 @@ final class AllowTests: XCTestCase {
     ]
     
     override func setUp() {
-        cloud = .init(manifest: nil)
+        router = .secure
     }
     
     func testAllow() {
         list
             .map {
-                ($0, cloud.validate(URL(string: $0)!, with: .antitracker))
+                ($0, router(URL(string: $0)!))
             }
             .forEach {
                 if case .allow = $0.1 { } else {

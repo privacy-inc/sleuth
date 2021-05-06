@@ -6,7 +6,8 @@ final class IgnoreTests: XCTestCase {
     private var cloud: Cloud<Archive>!
     private let list =  [
         "about:blank",
-        "about:srcdoc"
+        "about:srcdoc",
+        "adsadasdddsada"
     ]
     
     override func setUp() {

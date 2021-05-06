@@ -80,13 +80,15 @@ extension Cloud where A == Archive {
             URL.Ignore(rawValue: $0)
                 .map { _ in
                     .ignore
-                } ?? Scheme(rawValue: $0)
+                } ?? URL.Scheme(rawValue: $0)
                     .map { _ in
                         switch protection {
                         case .antitracker:
                             if let domain = url.host {
+                                let components = domain.components(separatedBy: ".").dropLast()
+                                let rejoined = components.joined(separator: ".")
                                 for black in URL.Black.allCases {
-                                    guard domain.hasSuffix(black.rawValue) else { continue }
+                                    guard rejoined.hasSuffix(black.rawValue) else { continue }
                                     block(black.rawValue)
                                     return .block
                                 }
@@ -112,7 +114,7 @@ extension Cloud where A == Archive {
                                         }
                                 }
                                 
-                                for item in domain.components(separatedBy: ".").dropLast() {
+                                for item in components {
                                     guard URL.Subdomain(rawValue: item) == nil else {
                                         block(domain)
                                         return .block

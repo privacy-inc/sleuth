@@ -7,7 +7,8 @@ final class ExternalTests: XCTestCase {
     private let list = [
         "some://www.ecosia.org",
         "apps://www.theguardian.com/email/form/footer/today-uk",
-        "sms://uk.reuters.com/"
+        "sms://uk.reuters.com/",
+        "dsddasdsa://"
     ]
 
     override func setUp() {
