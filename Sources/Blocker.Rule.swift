@@ -12,7 +12,7 @@ extension Blocker {
         
         static func css(url: URL.White, selectors: [String]) -> Self {
             .init(actions: [.css, .selector(selectors)],
-                  triggers: [.url, .domain([url.rawValue])])
+                  triggers: [.url, .domain([url.rawValue + "." + url.tld.rawValue])])
         }
         
         private init(actions: [Action], triggers: [Trigger]) {
