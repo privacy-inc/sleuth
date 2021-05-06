@@ -10,15 +10,15 @@ extension Block {
             domain = "*" + site.rawValue
         }
         
-        init(site: Site.Partial) {
-            url = site.url
-            domain = site.domain.rawValue
-        }
+//        init(site: Site.Partial) {
+//            url = site.url
+//            domain = site.domain.rawValue
+//        }
         
-        init(site: Site.Domain) {
-            url = ".*"
-            domain = site.rawValue.components(separatedBy: ".").count > 2 ? "*" + site.rawValue : site.rawValue
-        }
+//        init(site: Site.Domain) {
+//            url = ".*"
+//            domain = site.rawValue.components(separatedBy: ".").count > 2 ? "*" + site.rawValue : site.rawValue
+//        }
         
         var description: String {
             """

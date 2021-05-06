@@ -15,9 +15,9 @@ public enum Blocker {
     private var rules: [Rule] {
         switch self {
         case .cookies:
-            return [.init(action: .cookies, trigger: .all)]
+            return [.cookies]
         case .http:
-            return [.init(action: .http, trigger: .all)]
+            return [.http]
         case .ads:
             return []
         case .popups:

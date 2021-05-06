@@ -6,20 +6,7 @@ extension Blocker.Rule {
         block,
         cookies,
         http,
-        css([String])
-        
-        var content: String {
-            switch self {
-            case .block:
-                return "block"
-            case .cookies:
-                return "block-cookies"
-            case .http:
-                return "make-https"
-            case let .css(css):
-                return css
-                    .joined(separator: ",")
-            }
-        }
+        css,
+        selector([String])
     }
 }

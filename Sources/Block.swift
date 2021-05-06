@@ -38,11 +38,7 @@ public struct Block {
         .init(.css(".kxhcC"), .init(site: .google)),
         .init(.css(".isv-r.PNCib.BC7Tfc"), .init(site: .google)),
         .init(.css(".isv-r.PNCib.o05QGe"), .init(site: .google))
-    ] + Site.Domain.allCases.map {
-        .init(.block, .init(site: $0))
-    } + Site.Partial.allCases.map {
-        .init(.block, .init(site: $0))
-    })
+    ])
     
     public static let blockers = serialise(rules: [
         .init(.css("#consent-bump"), .init(site: .google)),
