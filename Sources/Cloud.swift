@@ -107,13 +107,13 @@ extension Cloud where A == Archive {
                                                 domain.hasSuffix(black.0),
                                                 black.1.contains(path)
                                             else { continue }
-                                        block(black.0 + "/" + path)
+                                            block(black.0 + "/" + path)
                                             return .block
                                         }
                                 }
                                 
                                 for item in domain.components(separatedBy: ".").dropLast() {
-                                    guard Site.Component(rawValue: item) == nil else {
+                                    guard URL.Subdomain(rawValue: item) == nil else {
                                         block(domain)
                                         return .block
                                     }

@@ -114,6 +114,13 @@ final class PerformanceTests: XCTestCase {
                  "https://www.hello.com",
                  "http://www.hello.com"]
         
+        list += ["hello.com/",
+                 "hello.com",
+                 "hello.com//",
+                 "hello.com/a/",
+                 "www.hello.com/a/b/",
+                 "https://www.hello.com/a/b/"]
+        
         let urls = list.map {
             URL(string: $0)!
         }

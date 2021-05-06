@@ -13,7 +13,10 @@ extension URL {
         pinterest = "pinterest.com",
         facebook = "facebook.com",
         bbc = "bbc.com",
-        reddit = "reddit.com"
+        reddit = "reddit.com",
+        spiegel = "spiegel.de",
+        snapchat = "snapchat.com",
+        linkedin = "linkedin.com"
         
         var black: [Path] {
             switch self {
@@ -27,6 +30,24 @@ extension URL {
                 return [.plugins]
             case .reddit:
                 return [.account]
+            default:
+                return []
+            }
+        }
+        
+        var subdomain: [Subdomain] {
+            switch self {
+            case .twitter:
+                return [.platform]
+            case .spiegel:
+                return [.interactive]
+            case .snapchat:
+                return [.tr]
+            case .linkedin:
+                return [.platform]
+            case .google:
+                return [.accounts,
+                        .consent]
             default:
                 return []
             }
