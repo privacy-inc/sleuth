@@ -75,58 +75,10 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func validate(_ url: URL, with protection: Protection) -> Protection.Result {
-        url.scheme.flatMap {
-            URL.Ignore(rawValue: $0)
-                .map { _ in
-                    .ignore
-                } ?? URL.Scheme(rawValue: $0)
-                    .map { _ in
-                        switch protection {
-                        case .antitracker:
-                            if let domain = url.host {
-                                let components = domain.components(separatedBy: ".").dropLast()
-                                let rejoined = components.joined(separator: ".")
-                                for black in URL.Black.allCases {
-                                    guard rejoined.hasSuffix(black.rawValue) else { continue }
-                                    block(black.rawValue)
-                                    return .block
-                                }
-                                
-                                if let path = url.path.components(separatedBy: "/").dropFirst().first {
-                                    for black in URL
-                                        .White
-                                        .allCases
-                                        .map({
-                                            ($0.rawValue, $0
-                                                .path
-                                                .map(\.rawValue))
-                                        })
-                                        .filter({
-                                            !$0.1.isEmpty
-                                        }) {
-                                            guard
-                                                domain.hasSuffix(black.0),
-                                                black.1.contains(path)
-                                            else { continue }
-                                            block(black.0 + "/" + path)
-                                            return .block
-                                        }
-                                }
-                                
-                                for item in components {
-                                    guard URL.Subdomain(rawValue: item) == nil else {
-                                        block(domain)
-                                        return .block
-                                    }
-                                    continue
-                                }
-                            }
-                        default: break
-                        }
-                        return .allow
-                    }
-        } ?? .external
+    public func block(_ issue: String) {
+        mutating {
+            $0.blocked[issue, default: []].append(.init())
+        }
     }
     
     public func forget() {
@@ -134,12 +86,6 @@ extension Cloud where A == Archive {
             $0.entries = []
             $0.activity = []
             $0.blocked = [:]
-        }
-    }
-    
-    private func block(_ url: String) {
-        mutating {
-            $0.blocked[url, default: []].append(.init())
         }
     }
 }
