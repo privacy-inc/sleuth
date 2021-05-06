@@ -52,7 +52,6 @@ extension URL {
         user_shield = "user-shield",
         google_analytics = "google-analytics",
         amazon_adsystem = "amazon-adsystem",
-        the_ozone_project = "the-ozone-project",
-        guim = "guim.co"
+        the_ozone_project = "the-ozone-project"
     }
 }

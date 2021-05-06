@@ -9,21 +9,37 @@ public class Router {
     public final func callAsFunction(_ url: URL) -> Direction {
         url
             .scheme
-            .flatMap {
+            .map {
                 URL.Ignore(rawValue: $0)
                     .map { _ in
                         .ignore
                     }
                 ?? URL.Scheme(rawValue: $0)
                     .map { _ in
-                        direct(url)
+                        url
+                            .host
+                            .map {
+                                (Array($0
+                                        .components(separatedBy: ".")
+                                        .dropLast()),
+                                 Array(url
+                                        .path
+                                        .components(separatedBy: "/")
+                                        .dropFirst()))
+                            }
+                            .map {
+                                !$0.0.isEmpty && !$0.1.isEmpty
+                                    ? route(host: $0.0, path: $0.1)
+                                    : .ignore
+                            }
+                        ?? .ignore
                     }
                 ?? .external
             }
             ?? .ignore
     }
     
-    func direct(_ url: URL) -> Direction {
+    func route(host: [String], path: [String]) -> Direction {
         .allow
     }
 }

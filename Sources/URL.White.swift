@@ -3,20 +3,53 @@ import Foundation
 extension URL {
     enum White: String, Website {
         case
-        ecosia = "ecosia.org",
-        google = "google.com",
-        youtube = "youtube.com",
-        instagram = "instagram.com",
-        twitter = "twitter.com",
-        reuters = "reuters.com",
-        thelocal = "thelocal.de",
-        pinterest = "pinterest.com",
-        facebook = "facebook.com",
-        bbc = "bbc.com",
-        reddit = "reddit.com",
-        spiegel = "spiegel.de",
-        snapchat = "snapchat.com",
-        linkedin = "linkedin.com"
+        ecosia,
+        google,
+        youtube,
+        instagram,
+        twitter,
+        reuters,
+        thelocal,
+        pinterest,
+        facebook,
+        bbc,
+        reddit,
+        spiegel,
+        snapchat,
+        linkedin
+        
+        var tld: TLD {
+            switch self {
+            case .ecosia:
+                return .org
+            case .google:
+                return .com
+            case .youtube:
+                return .com
+            case .instagram:
+                return .com
+            case .twitter:
+                return .com
+            case .reuters:
+                return .com
+            case .thelocal:
+                return .de
+            case .pinterest:
+                return .com
+            case .facebook:
+                return .com
+            case .bbc:
+                return .com
+            case .reddit:
+                return .com
+            case .spiegel:
+                return .de
+            case .snapchat:
+                return .com
+            case .linkedin:
+                return .com
+            }
+        }
         
         var black: [Path] {
             switch self {
