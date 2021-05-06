@@ -1,9 +1,8 @@
 import XCTest
-import Archivable
 import Sleuth
 
-final class SimpleTests: XCTestCase {
-    private var cloud: Cloud<Archive>!
+final class RegularTests: XCTestCase {
+    private var router: Router!
     
     private let listA =  [
         "about:blank",
@@ -24,13 +23,13 @@ final class SimpleTests: XCTestCase {
     ]
     
     override func setUp() {
-        cloud = .init(manifest: nil)
+        router = .regular
     }
     
     func testIgnore() {
         listA
             .map {
-                ($0, cloud.validate(URL(string: $0)!, with: .simple))
+                ($0, router(URL(string: $0)!))
             }
             .forEach {
                 if case .ignore = $0.1 { } else {
@@ -42,7 +41,7 @@ final class SimpleTests: XCTestCase {
     func testAllow() {
         listB
             .map {
-                ($0, cloud.validate(URL(string: $0)!, with: .simple))
+                ($0, router(URL(string: $0)!))
             }
             .forEach {
                 if case .allow = $0.1 { } else {
@@ -54,7 +53,7 @@ final class SimpleTests: XCTestCase {
     func testExternal() {
         listC
             .map {
-                ($0, cloud.validate(URL(string: $0)!, with: .simple))
+                ($0, router(URL(string: $0)!))
             }
             .forEach {
                 if case .external = $0.1 { } else {

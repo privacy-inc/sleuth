@@ -3,7 +3,20 @@ import Foundation
 extension Router {
     final class Secure: Router {
         override func route(host: [String], path: [String]) -> Direction {
-            .allow
+            URL
+                .White
+                .init(rawValue: host.last!)
+                .map { _ in
+                    .allow
+                }
+            ?? URL
+                .Black
+                .init(rawValue: host.last!)
+                .map {
+                    .block($0.rawValue)
+                }
+            ?? .allow
+            
             
 //            if let domain = url.host {
 //                let components = domain.components(separatedBy: ".").dropLast()

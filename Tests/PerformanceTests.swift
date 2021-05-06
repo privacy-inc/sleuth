@@ -1,10 +1,9 @@
 import XCTest
-import Archivable
 import Sleuth
 
 final class PerformanceTests: XCTestCase {
     func testProtection() {
-        let cloud = Cloud<Archive>(manifest: nil)
+        let router = Router.secure
         var list = [String]()
         list += [
             "https://sourcepoint.theguardian.com/index.html?message_id=343252&consentUUID=4debba32-1827-4286-b168-cd0a6068f5f5&requestUUID=0a3ee8d3-cc2e-43b1-99ba-ceb02302f3e5&preload_message=true)",
@@ -128,7 +127,7 @@ final class PerformanceTests: XCTestCase {
         
         measure {
             urls.forEach {
-                _ = cloud.validate($0, with: .antitracker)
+                _ = router($0)
             }
         }
     }
