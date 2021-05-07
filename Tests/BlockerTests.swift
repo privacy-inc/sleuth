@@ -14,4 +14,20 @@ final class BlockerTests: XCTestCase {
     func testHttp() {
         XCTAssertTrue(Parser(content: Blocker.rules([.http])).http)
     }
+    
+    func testAdds() {
+        XCTAssertTrue(Parser(content: Blocker.rules([.ads]))
+                        .css(url: "www.ecosia.org", selectors: [".card-ad",
+                                                                ".card-productads"]))
+        
+        XCTAssertTrue(Parser(content: Blocker.rules([.ads]))
+                        .css(url: "www.google.com", selectors: ["#taw",
+                                                                "#rhs",
+                                                                "#tadsb",
+                                                                ".commercial",
+                                                                ".Rn1jbe",
+                                                                ".kxhcC",
+                                                                ".isv-r.PNCib.BC7Tfc",
+                                                                ".isv-r.PNCib.o05QGe"]))
+    }
 }

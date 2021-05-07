@@ -5,14 +5,14 @@ final class AdsTests: XCTestCase {
     private var parser: Parser!
     
     override func setUp() {
-//        parser = .init(blocker: .ads)
+        parser = .init(content: Blocker.rules([.ads]))
     }
     
     func testCss() {
-        XCTAssertTrue(parser.css(domain: "ecosia.org", selectors: [".card-ad",
+        XCTAssertTrue(parser.css(url: "ecosia.org", selectors: [".card-ad",
                                                                    ".card-productads"]))
         
-        XCTAssertTrue(parser.css(domain: "google.com", selectors: ["#taw",
+        XCTAssertTrue(parser.css(url: "google.com", selectors: ["#taw",
                                                                    "#rhs",
                                                                    "#tadsb",
                                                                    ".commercial",
