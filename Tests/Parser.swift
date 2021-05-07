@@ -53,4 +53,10 @@ struct Parser {
                 && ($0["trigger"]!["if-domain"] as! [String]).first == url
         }
     }
+    
+    func amount(url: String) -> Int {
+        dictionary.filter {
+            ($0["trigger"]?["if-domain"] as? [String])?.first == url
+        }.count
+    }
 }

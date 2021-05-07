@@ -1,10 +1,16 @@
 import XCTest
-import Sleuth
+@testable import Sleuth
 
 final class BlockerTests: XCTestCase {
     func testAllCases() {
-        XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases))).cookies)
-        XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases))).http)
+        XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases)))
+                        .cookies)
+        XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases)))
+                        .http)
+        XCTAssertEqual(1, Parser(content: Blocker.rules(.init(Blocker.allCases)))
+                        .amount(url: "www.google.com"))
+        XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases)))
+                        .css(url: "www.google.com", selectors: ["#taw"]))
     }
     
     func testCookies() {
