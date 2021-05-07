@@ -4,13 +4,12 @@ extension Array where Element == Blocker.Rule {
     var content: String {
         "[" + map {
             """
-
 {
     "action": {
-        \($0.actions.content)
+        \($0.action.content)
     },
     "trigger": {
-        \($0.triggers.content)
+        \($0.trigger.content)
     }
 }
 """
@@ -19,70 +18,41 @@ extension Array where Element == Blocker.Rule {
     }
 }
 
-extension Array where Element == Blocker.Rule.Trigger {
-    private var content: String {
-        map {
-            switch $0 {
-            case .all:
-                return """
-"url-filter": ".*"
+private extension Blocker.Rule.Action {
+    var content: String {
+        switch self {
+        case .cookies:
+            return """
+"type": "block-cookies"
 """
-            case .sensitive:
-                return """
-"url-filter-is-case-sensitive": true
+        case .http:
+            return """
+"type": "make-https"
 """
-            case .document:
-                return """
-"resource-type": ["document"]
+        case let .css(css):
+            return """
+"type": "css-display-none",
+"selector": "\(css.joined(separator: ", "))"
 """
-            case .first:
-                return """
-"load-type": ["first-party"]
-"""
-            case let .url(url):
-                return """
-"url-filter": "^https?://\(url.prefix)\\\\.\(url.rawValue)\\\\.\(url.tld)[:/]"
-"""
-            case let .domain(domain):
-                return """
-"if-domain": ["\(domain.prefix).\(domain.rawValue).\(domain.tld.rawValue)"]
-"""
-            }
         }
-        .joined(separator: """
-,
-        
-""")
     }
 }
 
-extension Array where Element == Blocker.Rule.Action {
-    private var content: String {
-        map {
-            switch $0 {
-            case .block:
-                return """
-"type": "block"
+private extension Blocker.Rule.Trigger {
+    var content: String {
+        switch self {
+        case .all:
+            return """
+"url-filter": ".*"
 """
-            case .cookies:
-                return """
-"type": "block-cookies"
+        case let .url(url):
+            return """
+"url-filter": "^https?://\(url.prefix)\\\\.\(url.rawValue)\\\\.\(url.tld)[:/]",
+"url-filter-is-case-sensitive": true,
+"if-domain": ["\(url.prefix).\(url.rawValue).\(url.tld.rawValue)"],
+"load-type": ["first-party"],
+"resource-type": ["document"]
 """
-            case .http:
-                return """
-"type": "make-https"
-"""
-            case .css:
-                return """
-"type": "css-display-none"
-"""
-            case let .selector(selector):
-                return """
-"selector": "\(selector
-                .joined(separator: ", "))"
-"""
-            }
         }
-        .joined(separator: ", ")
     }
 }

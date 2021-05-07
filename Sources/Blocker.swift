@@ -14,27 +14,23 @@ public enum Blocker: CaseIterable {
             .content
     }
     
-    public var content: String {
-        rules.content
-    }
-    
     private var rules: [Rule] {
         switch self {
         case .cookies:
-            return [.cookies]
+            return [.init(trigger: .all, action: .cookies)]
         case .http:
-            return [.http]
+            return [.init(trigger: .all, action: .http)]
         case .ads:
-            return [.css(url: .ecosia, selectors: [".card-ad",
-                                                   ".card-productads"]),
-                    .css(url: .google, selectors: ["#taw",
-                                                   "#rhs",
-                                                   "#tadsb",
-                                                   ".commercial",
-                                                   ".Rn1jbe",
-                                                   ".kxhcC",
-                                                   ".isv-r.PNCib.BC7Tfc",
-                                                   ".isv-r.PNCib.o05QGe"])]
+            return [.init(trigger: .url(.ecosia), action: .css([".card-ad",
+                                                                ".card-productads"])),
+                    .init(trigger: .url(.google), action: .css(["#taw",
+                                                                "#rhs",
+                                                                "#tadsb",
+                                                                ".commercial",
+                                                                ".Rn1jbe",
+                                                                ".kxhcC",
+                                                                ".isv-r.PNCib.BC7Tfc",
+                                                                ".isv-r.PNCib.o05QGe"]))]
         case .popups:
             return []
         case .antidark:
