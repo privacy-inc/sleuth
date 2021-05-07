@@ -23,40 +23,24 @@ struct Parser {
         }
     }
     
-    func block(domain: String) -> Bool {
-        dictionary.contains {
-            ($0["action"]!["type"] as! String) == "block"
-                && ($0["trigger"]!["url-filter"] as! String) == ".*"
-                && ($0["trigger"]!["if-domain"] as! [String]).first == domain
-        }
-    }
-    
-    func block(url: String, on domain: String) -> Bool {
-        dictionary.contains {
-            ($0["action"]!["type"] as! String) == "block"
-                && ($0["trigger"]!["url-filter"] as! String) == url
-                && ($0["trigger"]!["if-domain"] as! [String]).first == domain
-        }
-    }
-    
     func css(url: String, selectors: [String]) -> Bool {
         dictionary.contains {
             ($0["action"]!["type"] as! String) == "css-display-none"
                 && ($0["action"]!["selector"] as! String)
                 .components(separatedBy: ", ")
                 .intersection(other: selectors).count == selectors.count
-                && ($0["trigger"]!["url-filter"] as! String).hasPrefix("^https?://")
+                && ($0["trigger"]!["url-filter"] as! String).hasPrefix("^https?://+([^:/]+\\.)?")
                 && ($0["trigger"]!["url-filter"] as! String).hasSuffix("[:/]")
                 && ($0["trigger"]!["url-filter-is-case-sensitive"] as! Bool)
                 && ($0["trigger"]!["load-type"] as! [String]).first == "first-party"
                 && ($0["trigger"]!["resource-type"] as! [String]).first == "document"
-                && ($0["trigger"]!["if-domain"] as! [String]).first == url
+                && ($0["trigger"]!["if-domain"] as! [String]).first == "*" + url
         }
     }
     
     func amount(url: String) -> Int {
         dictionary.filter {
-            ($0["trigger"]?["if-domain"] as? [String])?.first == url
+            ($0["trigger"]?["if-domain"] as? [String])?.first == "*" + url
         }.count
     }
 }
