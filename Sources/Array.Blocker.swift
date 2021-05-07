@@ -28,11 +28,7 @@ extension Array where Element == Blocker.Rule.Trigger {
 """
             case let .domain(domain):
                 return """
-"if-domain": ["\(domain
-                    .map {
-                        "*" + $0
-                    }
-                    .joined(separator: ", "))"]
+"if-domain": ["\(domain.rawValue).\(domain.tld.rawValue)"]
 """
             }
         }

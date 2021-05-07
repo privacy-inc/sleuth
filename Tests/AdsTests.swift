@@ -9,17 +9,17 @@ final class AdsTests: XCTestCase {
     }
     
     func testCss() {
-        XCTAssertTrue(parser.css(domain: "*ecosia", selectors: [".card-ad",
-                                                                ".card-productads"]))
+        XCTAssertTrue(parser.css(domain: "ecosia.org", selectors: [".card-ad",
+                                                                   ".card-productads"]))
         
-        XCTAssertTrue(parser.css(domain: "*google", selectors: ["#taw",
-                                                                "#rhs",
-                                                                "#tadsb",
-                                                                ".commercial",
-                                                                ".Rn1jbe",
-                                                                ".kxhcC",
-                                                                ".isv-r.PNCib.BC7Tfc",
-                                                                ".isv-r.PNCib.o05QGe"]))
+        XCTAssertTrue(parser.css(domain: "google.com", selectors: ["#taw",
+                                                                   "#rhs",
+                                                                   "#tadsb",
+                                                                   ".commercial",
+                                                                   ".Rn1jbe",
+                                                                   ".kxhcC",
+                                                                   ".isv-r.PNCib.BC7Tfc",
+                                                                   ".isv-r.PNCib.o05QGe"]))
     }
     /*
     func testGoogle() {

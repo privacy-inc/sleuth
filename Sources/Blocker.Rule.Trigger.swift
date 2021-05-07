@@ -4,6 +4,6 @@ extension Blocker.Rule {
     enum Trigger {
         case
         url,
-        domain([String])
+        domain(URL.White)
     }
 }
