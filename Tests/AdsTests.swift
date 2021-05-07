@@ -5,7 +5,7 @@ final class AdsTests: XCTestCase {
     private var parser: Parser!
     
     override func setUp() {
-        parser = .init(blocker: .ads)
+//        parser = .init(blocker: .ads)
     }
     
     func testCss() {

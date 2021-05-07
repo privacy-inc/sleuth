@@ -4,8 +4,9 @@ import Foundation
 struct Parser {
     private let dictionary: [[String : [String : Any]]]
     
-    init(blocker: Blocker) {
-        dictionary = (try! JSONSerialization.jsonObject(with: .init(blocker.content.utf8))) as! [[String : [String : Any]]]
+    init(content: String) {
+        print(content)
+        dictionary = (try! JSONSerialization.jsonObject(with: .init(content.utf8))) as! [[String : [String : Any]]]
     }
     
     var cookies: Bool {

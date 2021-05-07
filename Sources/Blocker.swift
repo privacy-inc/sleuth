@@ -1,12 +1,18 @@
 import Foundation
 
-public enum Blocker {
+public enum Blocker: CaseIterable {
     case
     cookies,
     http,
     ads,
     popups,
     antidark
+    
+    public static func rules(_ types: Set<Self>) -> String {
+        types
+            .flatMap(\.rules)
+            .content
+    }
     
     public var content: String {
         rules.content

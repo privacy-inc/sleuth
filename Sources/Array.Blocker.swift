@@ -4,6 +4,7 @@ extension Array where Element == Blocker.Rule {
     var content: String {
         "[" + map {
             """
+
 {
     "action": {
         \($0.actions.content)
@@ -14,7 +15,7 @@ extension Array where Element == Blocker.Rule {
 }
 """
         }
-        .joined(separator: ", ") + "]"
+        .joined(separator: ",") + "]"
     }
 }
 
@@ -32,7 +33,10 @@ extension Array where Element == Blocker.Rule.Trigger {
 """
             }
         }
-        .joined(separator: ", ")
+        .joined(separator: """
+,
+        
+""")
     }
 }
 
