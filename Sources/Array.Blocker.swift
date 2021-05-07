@@ -23,13 +23,29 @@ extension Array where Element == Blocker.Rule.Trigger {
     private var content: String {
         map {
             switch $0 {
-            case .url:
+            case .all:
                 return """
 "url-filter": ".*"
 """
+            case .sensitive:
+                return """
+"url-filter-is-case-sensitive": true
+"""
+            case .document:
+                return """
+"resource-type": ["document"]
+"""
+            case .first:
+                return """
+"load-type": ["first-party"]
+"""
+            case let .url(url):
+                return """
+"url-filter": "^https?://\(url.prefix)\\\\.\(url.rawValue)\\\\.\(url.tld)[:/]"
+"""
             case let .domain(domain):
                 return """
-"if-domain": ["\(domain.rawValue).\(domain.tld.rawValue)"]
+"if-domain": ["\(domain.prefix).\(domain.rawValue).\(domain.tld.rawValue)"]
 """
             }
         }

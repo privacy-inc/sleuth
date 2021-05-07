@@ -6,13 +6,13 @@ extension Blocker {
         let triggers: [Trigger]
         
         static let cookies = Self(actions: [.cookies],
-                                  triggers: [.url])
+                                  triggers: [.all])
         static let http = Self(actions: [.http],
-                               triggers: [.url])
+                               triggers: [.all])
         
         static func css(url: URL.White, selectors: [String]) -> Self {
             .init(actions: [.css, .selector(selectors)],
-                  triggers: [.url, .domain(url)])
+                  triggers: [.all, .domain(url)])
         }
         
         private init(actions: [Action], triggers: [Trigger]) {

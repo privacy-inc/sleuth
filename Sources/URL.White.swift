@@ -85,5 +85,9 @@ extension URL {
                 return []
             }
         }
+        
+        var prefix: Prefix {
+            .www
+        }
     }
 }

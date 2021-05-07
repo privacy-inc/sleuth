@@ -3,7 +3,11 @@ import Foundation
 extension Blocker.Rule {
     enum Trigger {
         case
-        url,
+        all,
+        sensitive,
+        document,
+        first,
+        url(URL.White),
         domain(URL.White)
     }
 }
