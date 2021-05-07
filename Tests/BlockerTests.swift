@@ -60,12 +60,13 @@ final class BlockerTests: XCTestCase {
                                                                ".f11OC"]))
         
         XCTAssertTrue(Parser(content: Blocker.rules([.popups]))
+                        .css(url: "twitter.com", selectors: [
+                                ".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"]))
+        
+        XCTAssertTrue(Parser(content: Blocker.rules([.popups]))
                         .css(url: "reuters.com", selectors: ["#onetrust-consent-sdk",
                                                              "#newReutersModal"]))
         
-        XCTAssertTrue(Parser(content: Blocker.rules([.popups]))
-                        .css(url: "twitter.com", selectors: [
-                                ".css-1dbjc4n.r-aqfbo4.r-1p0dtai.r-1d2f490.r-12vffkv.r-1xcajam.r-zchlnj"]))
         
         XCTAssertTrue(Parser(content: Blocker.rules([.popups]))
                         .css(url: "thelocal.de", selectors: ["#qc-cmp2-container",
