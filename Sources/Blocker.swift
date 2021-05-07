@@ -11,6 +11,7 @@ public enum Blocker: CaseIterable {
     public static func rules(_ types: Set<Self>) -> String {
         types
             .flatMap(\.rules)
+            .compress
             .content
     }
     

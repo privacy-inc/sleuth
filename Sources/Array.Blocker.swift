@@ -1,6 +1,26 @@
 import Foundation
 
 extension Array where Element == Blocker.Rule {
+    var compress: Self {
+        self
+            .filter {
+                $0.trigger == .all
+            }
+        + self
+            .filter {
+                $0.trigger != .all
+            }
+            .reduce(into: [URL.White : Set<String>]()) {
+                if case let .css(css) = $1.action,
+                   case let .url(url) = $1.trigger {
+                    $0[url, default: []].formUnion(css)
+                }
+            }
+            .map {
+                .init(trigger: .url($0.0), action: .css($0.1))
+            }
+    }
+    
     var content: String {
         "[" + map {
             """

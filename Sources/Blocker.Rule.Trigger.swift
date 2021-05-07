@@ -1,7 +1,7 @@
 import Foundation
 
 extension Blocker.Rule {
-    enum Trigger {
+    enum Trigger: Equatable {
         case
         all,
         url(URL.White)
