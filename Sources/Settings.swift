@@ -16,19 +16,28 @@ public struct Settings: Property {
     public var data: Data {
         Data()
             .adding(engine.data)
+            .adding(javascript)
+            .adding(dark)
+            .adding(popups)
+            .adding(ads)
+            .adding(screen)
+            .adding(trackers)
+            .adding(cookies)
+            .adding(http)
+            .adding(location)
     }
     
     public init(data: inout Data) {
         engine = .init(data: &data)
-        javascript = true
-        dark = true
-        popups = false
-        ads = false
-        screen = false
-        trackers = false
-        cookies = false
-        http = false
-        location = false
+        javascript = data.bool()
+        dark = data.bool()
+        popups = data.bool()
+        ads = data.bool()
+        screen = data.bool()
+        trackers = data.bool()
+        cookies = data.bool()
+        http = data.bool()
+        location = data.bool()
     }
     
     init() {
