@@ -63,7 +63,7 @@ public enum Blocker: CaseIterable {
                                                                 ".EUCookieNotice",
                                                                 ".XPromoPopup"]))]
         case .antidark:
-            return []
+            return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         }
     }
 }

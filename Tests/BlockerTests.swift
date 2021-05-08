@@ -11,7 +11,8 @@ final class BlockerTests: XCTestCase {
                         .amount(url: "google.com"))
         XCTAssertTrue(Parser(content: Blocker.rules(.init(Blocker.allCases)))
                         .css(url: "google.com", selectors: ["#taw",
-                                                            "#consent-bump"]))
+                                                            "#consent-bump",
+                                                            ".P1Ycoe"]))
     }
     
     func testCookies() {
@@ -87,5 +88,10 @@ final class BlockerTests: XCTestCase {
                         .css(url: "reddit.com", selectors: ["._3q-XSJ2vokDQrvdG6mR__k",
                                                             ".EUCookieNotice",
                                                             ".XPromoPopup"]))
+    }
+    
+    func testAntidark() {
+        XCTAssertTrue(Parser(content: Blocker.rules([.antidark]))
+                        .css(url: "google.com", selectors: [".P1Ycoe"]))
     }
 }
