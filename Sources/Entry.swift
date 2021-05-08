@@ -30,7 +30,7 @@ public struct Entry: Equatable, Property {
         bookmark = .init(data: &data)
     }
     
-    init(id: Int, browse: Engine.Browse) {
+    init(id: Int, browse: Browse) {
         self.init(id: id, bookmark: .remote(browse.url))
     }
     
@@ -57,7 +57,7 @@ public struct Entry: Equatable, Property {
         .init(id: id, title: title, bookmark: .init(url: url), date: .init())
     }
     
-    func with(browse: Engine.Browse) -> Self {
+    func with(browse: Browse) -> Self {
         .init(id: id, title: title, bookmark: .remote(browse.url), date: .init())
     }
     

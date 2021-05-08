@@ -1,9 +1,19 @@
 import Foundation
+import Archivable
 
-public enum Engine: String {
+public enum Engine: UInt8, Property {
     case
     ecosia,
     google
+    
+    public var data: Data {
+        Data()
+            .adding(rawValue)
+    }
+    
+    public init(data: inout Data) {
+        self.init(rawValue: data.removeFirst())!
+    }
     
     func browse(_ string: String) -> Browse? {
         string.trimmed {
@@ -26,13 +36,13 @@ public enum Engine: String {
 }
 
 private extension String {
-    func trimmed(transform: (Self) -> Engine.Browse?) -> Engine.Browse? {
+    func trimmed(transform: (Self) -> Browse?) -> Browse? {
         {
             $0.isEmpty ? nil : transform($0)
         } (trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
-    func url(transform: (String) -> Engine.Browse) -> Engine.Browse? {
+    func url(transform: (String) -> Browse) -> Browse? {
         isEmpty
             ? nil
             : URL(string: self)
@@ -43,7 +53,7 @@ private extension String {
                 }
     }
     
-    func partialURL(transform: (String) -> Engine.Browse) -> Engine.Browse? {
+    func partialURL(transform: (String) -> Browse) -> Browse? {
         separated {
             $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
                 ? URL(string: URL.Scheme.https.rawValue + "://" + self)
@@ -59,7 +69,7 @@ private extension String {
                                 .subtracting(.init(arrayLiteral: "&", "+", ":")))
     }
     
-    private func separated(transform: ([Self]) -> Engine.Browse?) -> Engine.Browse? {
+    private func separated(transform: ([Self]) -> Browse?) -> Browse? {
         transform(components(separatedBy: "."))
     }
 }

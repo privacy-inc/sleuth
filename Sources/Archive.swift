@@ -4,6 +4,7 @@ import Archivable
 public struct Archive: Archived {
     public static let new = Self()
     public var date: Date
+    public internal(set) var settings: Settings
     public internal(set) var entries: [Entry]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
@@ -18,6 +19,7 @@ public struct Archive: Archived {
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
+            .adding(settings.data)
             .compressed
     }
     
@@ -40,6 +42,7 @@ public struct Archive: Archived {
                         .init(timestamp: data.uInt32())
                     }
             }
+        settings = .init(data: &data)
     }
     
     private init() {
@@ -47,9 +50,10 @@ public struct Archive: Archived {
         entries = .init()
         activity = []
         blocked = [:]
+        settings = .init()
     }
     
-    @discardableResult mutating func add(_ browse: Engine.Browse) -> Int {
+    @discardableResult mutating func add(_ browse: Browse) -> Int {
         let id = counter
         entries.append(.init(id: id, browse: browse))
         counter += 1

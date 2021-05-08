@@ -44,4 +44,9 @@ final class ArchiveTests: XCTestCase {
         XCTAssertEqual(date2.timestamp, archive.data.prototype(Archive.self).blocked["hello world"]?.last?.timestamp)
         XCTAssertEqual(date3.timestamp, archive.data.prototype(Archive.self).blocked["lorem ipsum"]?.first?.timestamp)
     }
+    
+    func testSettings() {
+        archive.settings.engine = .ecosia
+        XCTAssertEqual(.ecosia, archive.data.prototype(Archive.self).settings.engine)
+    }
 }

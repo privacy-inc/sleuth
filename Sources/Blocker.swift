@@ -5,7 +5,7 @@ public enum Blocker: CaseIterable {
         cookies,
         http,
         ads,
-        popups,
+        screen,
         antidark
     
     public static func rules(_ types: Set<Self>) -> String {
@@ -32,7 +32,7 @@ public enum Blocker: CaseIterable {
                                                                 ".kxhcC",
                                                                 ".isv-r.PNCib.BC7Tfc",
                                                                 ".isv-r.PNCib.o05QGe"]))]
-        case .popups:
+        case .screen:
             return [.init(trigger: .url(.google), action: .css(["#consent-bump",
                                                                 "#lb",
                                                                 ".hww53CMqxtL__mobile-promo",
