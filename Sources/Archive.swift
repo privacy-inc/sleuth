@@ -42,7 +42,7 @@ public struct Archive: Archived {
                         .init(timestamp: data.uInt32())
                     }
             }
-        settings = .init(data: &data)
+        settings = data.isEmpty ? .init() : .init(data: &data)
     }
     
     private init() {
