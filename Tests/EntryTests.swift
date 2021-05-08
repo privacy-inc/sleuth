@@ -11,6 +11,6 @@ final class EntryTests: XCTestCase {
     }
     
     func testAccess() {
-        XCTAssertEqual("https://www.aguacate.com", Entry(id: 0, url: URL(string: "https://www.aguacate.com")!).access?.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", Entry(id: 0, bookmark: .init(url: URL(string: "https://www.aguacate.com")!)).access?.absoluteString)
     }
 }

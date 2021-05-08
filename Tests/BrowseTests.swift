@@ -1,27 +1,28 @@
 import XCTest
 @testable import Sleuth
 
-final class EngineTests: XCTestCase {
-    func testEmpty() {
-        XCTAssertNil(Engine.ecosia.browse(""))
-        XCTAssertNil(Engine.ecosia.browse(" "))
-        XCTAssertNil(Engine.ecosia.browse("\n"))
+final class BrowseTests: XCTestCase {
+    func testBrowseEmpty() {
+        XCTAssertNil("".browse(engine: .ecosia) { url, _ in url })
+        XCTAssertNil(" ".browse(engine: .ecosia) { url, _ in url })
+        XCTAssertNil("\n".browse(engine: .ecosia) { url, _ in url })
     }
     
     func testSearch() {
-        if case let .search(url) = Engine.ecosia.browse("hello world") {
-            XCTAssertEqual("https://www.ecosia.org/search?q=hello%20world", url)
-        } else {
-            XCTFail()
-        }
-        
-        if case let .search(url) = Engine.google.browse("hello world") {
-            XCTAssertEqual("https://www.google.com/search?q=hello%20world", url)
-        } else {
-            XCTFail()
-        }
+        XCTAssertEqual("https://www.ecosia.org/search?q=hello%20world", "hello world".browse(engine: .ecosia) { url, _ in url })
+//        if case let .search(url) = Engine.ecosia.browse("hello world") {
+//            XCTAssertEqual("https://www.ecosia.org/search?q=hello%20world", url)
+//        } else {
+//            XCTFail()
+//        }
+//
+//        if case let .search(url) = Engine.google.browse("hello world") {
+//            XCTAssertEqual("https://www.google.com/search?q=hello%20world", url)
+//        } else {
+//            XCTFail()
+//        }
     }
-    
+    /*
     func testURL() {
         if case let .navigate(url) = Engine.ecosia.browse("https://github.com") {
             XCTAssertEqual("https://github.com", url)
@@ -118,4 +119,5 @@ final class EngineTests: XCTestCase {
             XCTFail()
         }
     }
+ */
 }
