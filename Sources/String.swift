@@ -29,7 +29,7 @@ extension String {
     private var url: (url: Self, browse: Browse)? {
         URL(string: self)
             .flatMap {
-                $0.scheme != nil || $0.host != nil || $0.query != nil
+                $0.scheme != nil && ($0.host != nil || $0.query != nil)
                     ? (self, .navigate)
                     : nil
             }
