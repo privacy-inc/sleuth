@@ -30,14 +30,6 @@ public struct Entry: Equatable, Property {
         bookmark = .init(data: &data)
     }
     
-    init(id: Int, browse: Browse) {
-        self.init(id: id, bookmark: .remote(browse.url))
-    }
-    
-    init(id: Int, url: URL) {
-        self.init(id: id, bookmark: .init(url: url))
-    }
-    
     init(id: Int, title: String = "", bookmark: Bookmark, date: Date = .init()) {
         self.id = id
         self.title = title
@@ -57,8 +49,8 @@ public struct Entry: Equatable, Property {
         .init(id: id, title: title, bookmark: .init(url: url), date: .init())
     }
     
-    func with(browse: Browse) -> Self {
-        .init(id: id, title: title, bookmark: .remote(browse.url), date: .init())
+    func with(bookmark: Bookmark) -> Self {
+        .init(id: id, title: title, bookmark: bookmark, date: .init())
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {

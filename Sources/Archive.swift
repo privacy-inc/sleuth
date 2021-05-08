@@ -53,16 +53,33 @@ public struct Archive: Archived {
         settings = .init()
     }
     
-    @discardableResult mutating func add(_ browse: Browse) -> Int {
-        let id = counter
-        entries.append(.init(id: id, browse: browse))
-        counter += 1
-        return id
+    mutating func browse(_ search: String) -> (id: Int, browse: Browse)? {
+        search.browse(engine: settings.engine) {
+            (add($0), $1)
+        }
+    }
+    
+    mutating func browse(_ id: Int, _ search: String) -> Browse? {
+        search.browse(engine: settings.engine) {
+            if let entry = entries.remove(id: id)?.with(bookmark: .remote($0)) {
+                entries.append(entry)
+            } else {
+                add($0)
+            }
+            return $1
+        }
     }
     
     @discardableResult mutating func add(_ url: URL) -> Int {
         let id = counter
-        entries.append(.init(id: id, url: url))
+        entries.append(.init(id: id, bookmark: .init(url: url)))
+        counter += 1
+        return id
+    }
+    
+    @discardableResult private mutating func add(_ remote: String) -> Int {
+        let id = counter
+        entries.append(.init(id: id, bookmark: .remote(remote)))
         counter += 1
         return id
     }
