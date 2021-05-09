@@ -4,14 +4,66 @@ import Archivable
 public struct Settings: Property {
     public internal(set) var engine: Engine
     public internal(set) var javascript: Bool
-    public internal(set) var dark: Bool
     public internal(set) var popups: Bool
-    public internal(set) var ads: Bool
-    public internal(set) var screen: Bool
-    public internal(set) var trackers: Bool
-    public internal(set) var cookies: Bool
-    public internal(set) var http: Bool
     public internal(set) var location: Bool
+    private(set) var router: Router
+    private(set) var blocking: Set<Blocker>
+    
+    public internal(set) var dark: Bool {
+        didSet {
+            if dark {
+                blocking.insert(.antidark)
+            } else {
+                blocking.remove(.antidark)
+            }
+        }
+    }
+    
+    public internal(set) var ads: Bool {
+        didSet {
+            if ads {
+                blocking.remove(.ads)
+            } else {
+                blocking.insert(.ads)
+            }
+        }
+    }
+    
+    public internal(set) var screen: Bool {
+        didSet {
+            if screen {
+                blocking.remove(.screen)
+            } else {
+                blocking.insert(.screen)
+            }
+        }
+    }
+    
+    public internal(set) var cookies: Bool {
+        didSet {
+            if cookies {
+                blocking.remove(.cookies)
+            } else {
+                blocking.insert(.cookies)
+            }
+        }
+    }
+    
+    public internal(set) var http: Bool {
+        didSet {
+            if http {
+                blocking.remove(.http)
+            } else {
+                blocking.insert(.http)
+            }
+        }
+    }
+    
+    public internal(set) var trackers: Bool {
+        didSet {
+            router = trackers.router
+        }
+    }
     
     public var data: Data {
         Data()
@@ -38,6 +90,28 @@ public struct Settings: Property {
         cookies = data.bool()
         http = data.bool()
         location = data.bool()
+        router = trackers.router
+        blocking = []
+        
+        if dark {
+            blocking.insert(.antidark)
+        }
+        
+        if !ads {
+            blocking.insert(.ads)
+        }
+        
+        if !screen {
+            blocking.insert(.screen)
+        }
+        
+        if !cookies {
+            blocking.insert(.cookies)
+        }
+        
+        if !http {
+            blocking.insert(.http)
+        }
     }
     
     init() {
@@ -51,27 +125,17 @@ public struct Settings: Property {
         cookies = false
         http = false
         location = false
+        router = .secure
+        blocking = .init(Blocker.allCases)
     }
     
     public var rules: String {
-        var rules = Set<Blocker>()
-        
-        if !ads {
-            rules.insert(.ads)
-        }
-        
-        if !cookies {
-            rules.insert(.cookies)
-        }
-        
-        if !http {
-            rules.insert(.http)
-        }
-        
-        if !screen {
-            rules.insert(.screen)
-        }
-        
-        return Blocker.rules(rules)
+        blocking.rules
+    }
+}
+
+private extension Bool {
+    var router: Router {
+        self ? .regular : .secure
     }
 }

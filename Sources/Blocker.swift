@@ -8,14 +8,7 @@ enum Blocker: CaseIterable {
         screen,
         antidark
     
-    static func rules(_ types: Set<Self>) -> String {
-        types
-            .flatMap(\.rules)
-            .compress
-            .content
-    }
-    
-    private var rules: [Rule] {
+    var rules: [Rule] {
         switch self {
         case .cookies:
             return [.init(trigger: .all, action: .cookies)]

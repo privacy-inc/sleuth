@@ -1,12 +1,12 @@
 import Foundation
 
-public class Router {
-    public static let secure: Router = Secure()
-    public static let regular = Router()
+class Router {
+    static let secure = Secure()
+    static let regular = Router()
     
     init() { }
     
-    public final func callAsFunction(_ url: URL) -> Policy {
+    final func callAsFunction(_ url: URL) -> Policy {
         url
             .scheme
             .map {

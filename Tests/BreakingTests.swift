@@ -1,5 +1,5 @@
 import XCTest
-import Sleuth
+@testable import Sleuth
 
 final class BreakingTests: XCTestCase {
     private var router: Router!

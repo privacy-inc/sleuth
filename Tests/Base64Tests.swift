@@ -1,5 +1,5 @@
 import XCTest
-import Sleuth
+@testable import Sleuth
 
 final class Base64Tests: XCTestCase {
     private var router: Router!
