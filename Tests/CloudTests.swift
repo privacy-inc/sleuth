@@ -396,8 +396,8 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.block("twitter.com")
-        cloud.block("twitter.com")
+//        cloud.block("twitter.com")
+//        cloud.block("twitter.com")
         
         waitForExpectations(timeout: 1) { _ in
             XCTAssertEqual(1, self.cloud.archive.value.blocked.count)

@@ -68,10 +68,18 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func block(_ issue: String) {
-        mutating {
-            $0.blocked[issue, default: []].append(.init())
-        }
+    public func policy(_ url: URL) -> Policy {
+        {
+            switch $0 {
+            case let .block(block):
+                mutating {
+                    $0.blocked[block, default: []].append(.init())
+                }
+            default:
+                break
+            }
+            return $0
+        } (archive.value.settings.router(url))
     }
     
     public func forget() {
