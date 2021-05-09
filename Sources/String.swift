@@ -3,7 +3,9 @@ import Foundation
 extension String {
     func browse<T>(engine: Engine, result: (String, Browse) -> T) -> T? {
         {
-            $0.1 == .none ? nil : result($0.0, $0.1)
+            $0.flatMap {
+                $0.1 == .none ? nil : result($0.0, $0.1)
+            }
         } (trimmed {
             $0.url
                 ?? $0.partial
@@ -11,9 +13,9 @@ extension String {
         })
     }
     
-    private func trimmed(transform: (Self) -> (url: Self, browse: Browse)) -> (url: Self, browse: Browse) {
+    private func trimmed(transform: (Self) -> (url: Self, browse: Browse)) -> (url: Self, browse: Browse)? {
         {
-            $0.isEmpty ? ("", .none) : transform($0)
+            $0.isEmpty ? nil : transform($0)
         } (trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
