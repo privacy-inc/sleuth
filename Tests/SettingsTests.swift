@@ -57,4 +57,27 @@ final class SettingsTests: XCTestCase {
         settings.location = true
         XCTAssertTrue(settings.data.prototype(Settings.self).location)
     }
+    
+    func testRules() {
+        settings.ads = true
+        settings.cookies = true
+        settings.http = true
+        settings.screen = true
+        XCTAssertEqual(Blocker.rules([]).count, settings.rules.count)
+        
+        settings.ads = false
+        XCTAssertEqual(Blocker.rules([.ads]).count, settings.rules.count)
+        
+        settings.ads = true
+        settings.cookies = false
+        XCTAssertEqual(Blocker.rules([.cookies]).count, settings.rules.count)
+        
+        settings.cookies = true
+        settings.http = false
+        XCTAssertEqual(Blocker.rules([.http]).count, settings.rules.count)
+        
+        settings.http = true
+        settings.screen = false
+        XCTAssertEqual(Blocker.rules([.screen]).count, settings.rules.count)
+    }
 }

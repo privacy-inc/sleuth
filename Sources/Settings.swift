@@ -52,4 +52,26 @@ public struct Settings: Property {
         http = false
         location = false
     }
+    
+    public var rules: String {
+        var rules = Set<Blocker>()
+        
+        if !ads {
+            rules.insert(.ads)
+        }
+        
+        if !cookies {
+            rules.insert(.cookies)
+        }
+        
+        if !http {
+            rules.insert(.http)
+        }
+        
+        if !screen {
+            rules.insert(.screen)
+        }
+        
+        return Blocker.rules(rules)
+    }
 }

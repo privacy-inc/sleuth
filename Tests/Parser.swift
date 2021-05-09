@@ -5,7 +5,6 @@ struct Parser {
     private let dictionary: [[String : [String : Any]]]
     
     init(content: String) {
-        print(content)
         dictionary = (try! JSONSerialization.jsonObject(with: .init(content.utf8))) as! [[String : [String : Any]]]
     }
     

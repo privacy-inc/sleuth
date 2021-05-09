@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Blocker: CaseIterable {
+enum Blocker: CaseIterable {
     case
         cookies,
         http,
@@ -8,7 +8,7 @@ public enum Blocker: CaseIterable {
         screen,
         antidark
     
-    public static func rules(_ types: Set<Self>) -> String {
+    static func rules(_ types: Set<Self>) -> String {
         types
             .flatMap(\.rules)
             .compress
