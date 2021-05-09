@@ -1,7 +1,7 @@
 import Foundation
 
-extension Scripts {
-    public static let scroll = """
+extension Script {
+    static let scroll = """
     if (location.hostname.endsWith("google.com")) {
         var style = document.createElement('style');
         style.innerHTML = ":root, body { overflow-y: visible !important; }";

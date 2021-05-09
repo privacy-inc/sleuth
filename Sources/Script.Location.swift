@@ -1,7 +1,7 @@
 import Foundation
 
-extension Scripts {
-    public static let location = """
+extension Script {
+    static let location = """
 var locationSuccess = null;
 
 function locationReceived(latitude, longitude, accuracy) {

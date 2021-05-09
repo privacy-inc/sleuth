@@ -1,7 +1,7 @@
 import Foundation
 
 extension URL {
-    enum Black: String, Website {
+    enum Black: String, CaseIterable {
         case
         pubmatic,
         dianomi,

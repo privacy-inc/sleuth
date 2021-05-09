@@ -132,6 +132,15 @@ public struct Settings: Property {
     public var rules: String {
         blocking.rules
     }
+    
+    public var begin: String {
+        dark ? Script.dark : ""
+    }
+    
+    public var end: String {
+        (screen ? "" : Script.scroll)
+        + (location ? Script.location : "")
+    }
 }
 
 private extension Bool {

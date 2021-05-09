@@ -1,7 +1,7 @@
 import Foundation
 
-extension Scripts {
-    public static let dark = """
+extension Script {
+    static let dark = """
 function _privacy_incognit_make_dark(element) {
     const background_color = getComputedStyle(element).getPropertyValue("background-color");
     const parts = background_color.match(/[\\d.]+/g);
