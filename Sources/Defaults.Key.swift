@@ -6,16 +6,6 @@ public extension Defaults {
         archive,
         premium,
         rated,
-        popups,
-        javascript,
-        ads,
-        blockers,
-        secure,
-        trackers,
-        cookies,
-        dark,
-        engine,
-        created,
-        location
+        created
     }
 }
