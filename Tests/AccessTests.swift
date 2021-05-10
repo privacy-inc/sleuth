@@ -1,7 +1,7 @@
 import XCTest
 @testable import Sleuth
 
-final class BookmarkTests: XCTestCase {
+final class AccessTests: XCTestCase {
     func testRemote() {
         XCTAssertEqual("https://www.aguacate.com", Page.Access(url: URL(string: "https://www.aguacate.com")!).url.absoluteString)
         XCTAssertEqual("https://www.aguacate.com", Page.Access.remote("https://www.aguacate.com").url.absoluteString)

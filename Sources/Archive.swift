@@ -5,7 +5,7 @@ public struct Archive: Archived {
     public static let new = Self()
     public var date: Date
     public internal(set) var settings: Settings
-    public internal(set) var pages: [Page]
+    public internal(set) var history: [History]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
     var counter = 0
@@ -14,8 +14,8 @@ public struct Archive: Archived {
         Data()
             .adding(UInt16(counter))
             .adding(date)
-            .adding(UInt16(pages.count))
-            .adding(pages.flatMap(\.data))
+            .adding(UInt16(history.count))
+            .adding(history.flatMap(\.data))
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
@@ -27,7 +27,7 @@ public struct Archive: Archived {
         data.decompress()
         counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
-        pages = (0 ..< .init(data.uInt16()))
+        history = (0 ..< .init(data.uInt16()))
             .map { _ in
                 .init(data: &data)
             }
@@ -47,7 +47,7 @@ public struct Archive: Archived {
     
     private init() {
         date = .init(timeIntervalSince1970: 0)
-        pages = .init()
+        history = .init()
         activity = []
         blocked = [:]
         settings = .init()
@@ -61,8 +61,8 @@ public struct Archive: Archived {
     
     mutating func browse(_ id: Int, _ search: String) -> Browse? {
         search.browse(engine: settings.engine) {
-            if let page = pages.remove(id: id)?.with(access: .remote($0)) {
-                pages.append(page)
+            if let page = history.remove(id: id)?.with(access: .remote($0)) {
+                history.append(page)
             } else {
                 add($0)
             }
@@ -72,21 +72,21 @@ public struct Archive: Archived {
     
     @discardableResult mutating func add(_ url: URL) -> Int {
         let id = counter
-        pages.append(.init(id: id, access: .init(url: url)))
+        history.append(.init(id: id, page: .init(access: .init(url: url))))
         counter += 1
         return id
     }
     
     @discardableResult private mutating func add(_ remote: String) -> Int {
         let id = counter
-        pages.append(.init(id: id, access: .remote(remote)))
+        history.append(.init(id: id, page: .init(access: .remote(remote))))
         counter += 1
         return id
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.date.timestamp == rhs.date.timestamp &&
-            lhs.pages == rhs.pages &&
+            lhs.history == rhs.history &&
             lhs.activity == rhs.activity &&
             lhs.blocked == rhs.blocked
     }
