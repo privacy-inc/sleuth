@@ -362,6 +362,7 @@ final class CloudTests: XCTestCase {
         let expect = expectation(description: "")
         let date = Date()
         
+        cloud.archive.value.counter = 99
         cloud.archive.value.entries = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
         cloud.archive.value.date = .init(timeIntervalSince1970: 10)
         cloud.archive.value.blocked = ["some" : [.init()]]
@@ -374,6 +375,7 @@ final class CloudTests: XCTestCase {
                 XCTAssertTrue($0.entries.isEmpty)
                 XCTAssertTrue($0.blocked.isEmpty)
                 XCTAssertTrue($0.activity.isEmpty)
+                XCTAssertEqual(0, $0.counter)
                 XCTAssertGreaterThan($0.date, date)
                 expect.fulfill()
             }

@@ -87,6 +87,7 @@ extension Cloud where A == Archive {
             $0.entries = []
             $0.activity = []
             $0.blocked = [:]
+            $0.counter = 0
         }
     }
 }
