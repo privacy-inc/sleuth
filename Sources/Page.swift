@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-public struct Page: Equatable, Property {
+public struct Page: Hashable, Property {
     public let title: String
     let access: Access
     
@@ -35,10 +35,5 @@ public struct Page: Equatable, Property {
     
     func with(access: Access) -> Self {
         .init(title: title, access: access)
-    }
-    
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.title == rhs.title &&
-            lhs.access == rhs.access
     }
 }

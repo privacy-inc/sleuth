@@ -6,6 +6,7 @@ public struct Archive: Archived {
     public var date: Date
     public internal(set) var settings: Settings
     public internal(set) var history: [History]
+    public internal(set) var bookmarks: Set<Page>
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
     var counter = 0
@@ -20,6 +21,8 @@ public struct Archive: Archived {
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
             .adding(settings.data)
+            .adding(UInt16(bookmarks.count))
+            .adding(bookmarks.flatMap(\.data))
             .compressed
     }
     
@@ -43,6 +46,10 @@ public struct Archive: Archived {
                     }
             }
         settings = data.isEmpty ? .init() : .init(data: &data)
+        bookmarks = .init((0 ..< (data.isEmpty ? 0 : .init(data.uInt16())))
+            .map { _ in
+                .init(data: &data)
+            })
     }
     
     private init() {
@@ -51,6 +58,7 @@ public struct Archive: Archived {
         activity = []
         blocked = [:]
         settings = .init()
+        bookmarks = []
     }
     
     mutating func browse(_ search: String) -> (id: Int, browse: Browse)? {
@@ -85,9 +93,11 @@ public struct Archive: Archived {
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.date.timestamp == rhs.date.timestamp &&
-            lhs.history == rhs.history &&
-            lhs.activity == rhs.activity &&
-            lhs.blocked == rhs.blocked
+        lhs.date.timestamp == rhs.date.timestamp
+            && lhs.history == rhs.history
+            && lhs.activity == rhs.activity
+            && lhs.blocked == rhs.blocked
+            && lhs.settings == rhs.settings
+            && lhs.bookmarks == rhs.bookmarks
     }
 }

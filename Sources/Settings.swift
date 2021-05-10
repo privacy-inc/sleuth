@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-public struct Settings: Property {
+public struct Settings: Equatable, Property {
     public internal(set) var engine: Engine
     public internal(set) var javascript: Bool
     public internal(set) var popups: Bool
@@ -140,6 +140,19 @@ public struct Settings: Property {
     public var end: String {
         (screen ? "" : Script.scroll)
         + (location ? Script.location : "")
+    }
+    
+    public static func == (lhs: Settings, rhs: Settings) -> Bool {
+        lhs.engine == rhs.engine
+            && lhs.javascript == rhs.javascript
+            && lhs.dark == rhs.dark
+            && lhs.popups == rhs.popups
+            && lhs.ads == rhs.ads
+            && lhs.screen == rhs.screen
+            && lhs.trackers == rhs.trackers
+            && lhs.cookies == rhs.cookies
+            && lhs.http == rhs.http
+            && lhs.location == rhs.location
     }
 }
 

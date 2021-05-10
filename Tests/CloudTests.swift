@@ -407,4 +407,51 @@ final class CloudTests: XCTestCase {
             XCTAssertEqual(2, self.cloud.archive.value.blocked.first?.value.count)
         }
     }
+    
+    func testBookmark() {
+        let expect = expectation(description: "")
+        cloud.archive.value.history = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")))]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(1, $0.bookmarks.count)
+                XCTAssertEqual("hello bla bla", $0.bookmarks.first?.title)
+                XCTAssertEqual("aguacate.com", $0.bookmarks.first?.subtitle)
+                if case .remote = $0.bookmarks.first?.access { } else {
+                    XCTFail()
+                }
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.bookmark(33)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testBookmarkRepeat() {
+        let expect = expectation(description: "")
+        cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com"))]
+        cloud.archive.value.history = [.init(id: 33, page: .init(title: "hello tum tum", access: .remote("aguacate.com")))]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(1, $0.bookmarks.count)
+                XCTAssertEqual("hello tum tum", $0.bookmarks.first?.title)
+                XCTAssertEqual("aguacate.com", $0.bookmarks.first?.subtitle)
+                if case .remote = $0.bookmarks.first?.access { } else {
+                    XCTFail()
+                }
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.bookmark(33)
+        
+        waitForExpectations(timeout: 1)
+    }
 }

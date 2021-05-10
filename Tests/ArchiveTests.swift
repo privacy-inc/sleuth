@@ -23,9 +23,9 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testHistory() {
-        let page = History(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
-        archive.history = [page]
-        XCTAssertEqual(page, archive.data.prototype(Archive.self).history.first)
+        let history = History(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
+        archive.history = [history]
+        XCTAssertEqual(history, archive.data.prototype(Archive.self).history.first)
     }
     
     func testActivity() {
@@ -48,5 +48,11 @@ final class ArchiveTests: XCTestCase {
     func testSettings() {
         archive.settings.engine = .ecosia
         XCTAssertEqual(.ecosia, archive.data.prototype(Archive.self).settings.engine)
+    }
+    
+    func testBookmarks() {
+        let page = Page(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))
+        archive.bookmarks = [page]
+        XCTAssertEqual(page, archive.data.prototype(Archive.self).bookmarks.first)
     }
 }

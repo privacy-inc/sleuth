@@ -50,6 +50,27 @@ extension Cloud where A == Archive {
         }
     }
     
+    public func bookmark(_ id: Int) {
+        mutating { archive in
+            archive
+                .history
+                .first {
+                    $0.id == id
+                }
+                .map { history in
+                    _ = archive
+                        .bookmarks
+                        .firstIndex {
+                            $0.subtitle == history.subtitle
+                        }
+                        .map {
+                            archive.bookmarks.remove(at: $0)
+                        }
+                    archive.bookmarks.insert(history.page)
+                }
+        }
+    }
+    
     public func remove(_ id: Int) {
         mutating {
             $0.history.remove(id: id)
