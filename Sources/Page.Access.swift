@@ -2,24 +2,24 @@ import Foundation
 import Archivable
 
 extension Page {
-    enum Bookmark: Equatable, Property {
+    enum Access: Equatable, Property {
         case
         remote(String),
         local(String, Data)
         
-        var url: String {
+        var subtitle: String {
             switch self {
-            case let .remote(url), let .local(url, _):
-                return url
+            case let .remote(subtitle), let .local(subtitle, _):
+                return subtitle
             }
         }
         
-        var access: URL? {
+        var url: URL {
             switch self {
             case let .remote(url):
-                return .init(string: url)
+                return .init(string: url) ?? .blank
             case let .local(_, bookmark):
-                return bookmark.url
+                return bookmark.url ?? .blank
             }
         }
         

@@ -22,7 +22,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual("https://hello.com", $0.pages.first?.url)
+                XCTAssertEqual("https://hello.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(99, $0.pages.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 expectSave.fulfill()
@@ -45,14 +45,14 @@ final class CloudTests: XCTestCase {
         let expectBrowse = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
         cloud.archive.value.counter = 99
-        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", access: .remote("aguacate.com"), date: date)]
         
         cloud
             .archive
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual("https://hello.com", $0.pages.first?.url)
+                XCTAssertEqual("https://hello.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(33, $0.pages.first?.id)
                 XCTAssertEqual(99, $0.counter)
                 XCTAssertGreaterThan($0.pages.first!.date, date)
@@ -80,7 +80,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual("https://hello.com", $0.pages.first?.url)
+                XCTAssertEqual("https://hello.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(99, $0.pages.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 expectSave.fulfill()
@@ -127,7 +127,7 @@ final class CloudTests: XCTestCase {
     }
     
     func testBrowseIdEmpty() {
-        cloud.archive.value.pages = [.init(id: 22, title: "hello bla bla", bookmark: .remote("aguacate.com"))]
+        cloud.archive.value.pages = [.init(id: 22, title: "hello bla bla", access: .remote("aguacate.com"))]
         
         cloud
             .archive
@@ -145,7 +145,7 @@ final class CloudTests: XCTestCase {
     func testRevisit() {
         let expect = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", access: .remote("aguacate.com"), date: date)]
         cloud.archive.value.counter = 99
         
         cloud
@@ -153,7 +153,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual("aguacate.com", $0.pages.first?.url)
+                XCTAssertEqual("aguacate.com", $0.pages.first?.subtitle)
                 XCTAssertEqual("hello bla bla", $0.pages.first?.title)
                 XCTAssertGreaterThan($0.pages.first!.date, date)
                 XCTAssertEqual(33, $0.pages.first?.id)
@@ -188,10 +188,10 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual("https://hello.com", $0.pages.first?.url)
+                XCTAssertEqual("https://hello.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(99, $0.pages.first?.id)
                 XCTAssertEqual(100, $0.counter)
-                if case .remote = $0.pages.first?.bookmark { } else {
+                if case .remote = $0.pages.first?.access { } else {
                     XCTFail()
                 }
                 expectSave.fulfill()
@@ -220,10 +220,10 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
-                XCTAssertEqual(file.schemeless, $0.pages.first?.url)
+                XCTAssertEqual(file.schemeless, $0.pages.first?.subtitle)
                 XCTAssertEqual(99, $0.pages.first?.id)
                 XCTAssertEqual(100, $0.counter)
-                if case let .local(url, bookmark) = $0.pages.first?.bookmark {
+                if case let .local(url, bookmark) = $0.pages.first?.access {
                     XCTAssertEqual(file.schemeless, url)
                     XCTAssertFalse(bookmark.isEmpty)
                 } else {
@@ -245,7 +245,7 @@ final class CloudTests: XCTestCase {
     func testUpdateTitle() {
         let expect = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", access: .remote("aguacate.com"), date: date)]
         
         cloud
             .archive
@@ -253,11 +253,11 @@ final class CloudTests: XCTestCase {
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
                 XCTAssertEqual("hello world", $0.pages.first?.title)
-                XCTAssertEqual("aguacate.com", $0.pages.first?.url)
+                XCTAssertEqual("aguacate.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(33, $0.pages.first?.id)
                 XCTAssertEqual(0, $0.counter)
                 XCTAssertGreaterThan($0.pages.first!.date, date)
-                if case .remote = $0.pages.first?.bookmark { } else {
+                if case .remote = $0.pages.first?.access { } else {
                     XCTFail()
                 }
                 expect.fulfill()
@@ -272,7 +272,7 @@ final class CloudTests: XCTestCase {
     func testUpdateURL() {
         let expect = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
-        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", access: .remote("aguacate.com"), date: date)]
         
         cloud
             .archive
@@ -280,11 +280,11 @@ final class CloudTests: XCTestCase {
             .sink {
                 XCTAssertEqual(1, $0.pages.count)
                 XCTAssertEqual("hello bla bla", $0.pages.first?.title)
-                XCTAssertEqual("avocado.com", $0.pages.first?.url)
+                XCTAssertEqual("avocado.com", $0.pages.first?.subtitle)
                 XCTAssertEqual(33, $0.pages.first?.id)
                 XCTAssertEqual(0, $0.counter)
                 XCTAssertGreaterThan($0.pages.first!.date, date)
-                if case .remote = $0.pages.first?.bookmark { } else {
+                if case .remote = $0.pages.first?.access { } else {
                     XCTFail()
                 }
                 expect.fulfill()
@@ -311,7 +311,7 @@ final class CloudTests: XCTestCase {
     
     func testRemove() {
         let expect = expectation(description: "")
-        cloud.archive.value.pages = [.init(id: 33, bookmark: .remote("aguacate.com"))]
+        cloud.archive.value.pages = [.init(id: 33, access: .remote("aguacate.com"))]
         
         cloud
             .archive
@@ -363,7 +363,7 @@ final class CloudTests: XCTestCase {
         let date = Date()
         
         cloud.archive.value.counter = 99
-        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", bookmark: .remote("aguacate.com"), date: date)]
+        cloud.archive.value.pages = [.init(id: 33, title: "hello bla bla", access: .remote("aguacate.com"), date: date)]
         cloud.archive.value.date = .init(timeIntervalSince1970: 10)
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
