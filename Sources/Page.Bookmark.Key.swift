@@ -1,6 +1,6 @@
 import Foundation
 
-extension Entry.Bookmark {
+extension Page.Bookmark {
     enum Key: UInt8 {
         case
         remote,

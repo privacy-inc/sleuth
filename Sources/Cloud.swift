@@ -9,12 +9,6 @@ extension Cloud where A == Archive {
                                         prefix: "privacy_",
                                         title: "Privacy"))
     
-    public func entry(_ id: Int) -> Entry? {
-        archive.value.entries.first {
-            $0.id == id
-        }
-    }
-    
     public func browse(_ search: String, completion: @escaping(Int, Browse) -> Void) {
         mutating {
             $0.browse(search)
@@ -37,28 +31,28 @@ extension Cloud where A == Archive {
     
     public func revisit(_ id: Int) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.revisit else { return }
-            $0.entries.append(entry)
+            guard let page = $0.pages.remove(id: id)?.revisit else { return }
+            $0.pages.append(page)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
-            $0.entries.append(entry)
+            guard let page = $0.pages.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
+            $0.pages.append(page)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let entry = $0.entries.remove(id: id)?.with(url: url) else { return }
-            $0.entries.append(entry)
+            guard let page = $0.pages.remove(id: id)?.with(url: url) else { return }
+            $0.pages.append(page)
         }
     }
     
     public func remove(_ id: Int) {
         mutating {
-            $0.entries.remove(id: id)
+            $0.pages.remove(id: id)
         }
     }
     
@@ -84,7 +78,7 @@ extension Cloud where A == Archive {
     
     public func forget() {
         mutating {
-            $0.entries = []
+            $0.pages = []
             $0.activity = []
             $0.blocked = [:]
             $0.counter = 0

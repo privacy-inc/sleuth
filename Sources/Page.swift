@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-public struct Entry: Equatable, Property {
+public struct Page: Equatable, Property {
     public let id: Int
     public let title: String
     public let date: Date

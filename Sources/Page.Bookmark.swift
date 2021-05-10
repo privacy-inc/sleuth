@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-extension Entry {
+extension Page {
     enum Bookmark: Equatable, Property {
         case
         remote(String),
