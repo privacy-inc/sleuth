@@ -58,15 +58,10 @@ extension Cloud where A == Archive {
                     $0.id == id
                 }
                 .map { history in
-                    _ = archive
-                        .bookmarks
-                        .firstIndex {
-                            $0.subtitle == history.subtitle
-                        }
-                        .map {
-                            archive.bookmarks.remove(at: $0)
-                        }
-                    archive.bookmarks.insert(history.page)
+                    archive.bookmarks.removeAll {
+                        $0.subtitle == history.subtitle
+                    }
+                    archive.bookmarks.append(history.page)
                 }
         }
     }

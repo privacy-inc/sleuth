@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-public struct Page: Hashable, Property {
+public struct Page: Equatable, Property {
     public let title: String
     let access: Access
     
