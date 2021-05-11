@@ -9,7 +9,6 @@ public struct Archive: Archived {
     public internal(set) var bookmarks: [Page]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
-    public internal(set) var tabs: [Tab]
     var counter = 0
     
     public var data: Data {
@@ -51,7 +50,6 @@ public struct Archive: Archived {
             .map { _ in
                 .init(data: &data)
             }
-        tabs = [.init()]
     }
     
     private init() {
@@ -61,7 +59,6 @@ public struct Archive: Archived {
         blocked = [:]
         settings = .init()
         bookmarks = []
-        tabs = [.init()]
     }
     
     public func url(_ id: Int) -> URL? {

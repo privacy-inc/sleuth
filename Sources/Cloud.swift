@@ -9,27 +9,6 @@ extension Cloud where A == Archive {
                                         prefix: "privacy_",
                                         title: "Privacy"))
     
-    public func tab(completion: @escaping (UUID) -> Void) {
-        ephemeral {
-            let id: UUID
-            if let new = $0.tabs.first(where: {
-                switch $0.state {
-                case .new:
-                    return true
-                default:
-                    return false
-                }
-            }) {
-                id = new.id
-            } else {
-                let tab = Tab()
-                $0.tabs.append(tab)
-                id = tab.id
-            }
-            completion(id)
-        }
-    }
-    
     public func browse(_ search: String, completion: @escaping (Int, Browse) -> Void) {
         mutating {
             $0.browse(search)

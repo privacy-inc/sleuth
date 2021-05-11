@@ -1,6 +1,6 @@
 import XCTest
 import Combine
-@testable import Archivable
+import Archivable
 @testable import Sleuth
 
 final class CloudTests: XCTestCase {
@@ -624,58 +624,5 @@ final class CloudTests: XCTestCase {
             .store(in: &subs)
         cloud.location(true)
         waitForExpectations(timeout: 1)
-    }
-    
-    func testTabNew() {
-        let expectArchive = expectation(description: "")
-        let expectTab = expectation(description: "")
-        cloud.archive.value.tabs = [cloud.archive.value.tabs.first!.with(state: .history(1))]
-        
-        cloud
-            .save
-            .sink { _ in
-                XCTFail()
-            }
-            .store(in: &subs)
-        
-        cloud
-            .archive
-            .dropFirst()
-            .sink {
-                XCTAssertEqual(2, $0.tabs.count)
-                expectArchive.fulfill()
-            }
-            .store(in: &subs)
-        
-        cloud.tab {
-            XCTAssertEqual(self.cloud.archive.value.tabs.last?.id, $0)
-            expectTab.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1)
-    }
-    
-    func testTabNoRepeat() {
-        let expect = expectation(description: "")
-        cloud
-            .save
-            .sink { _ in
-                XCTFail()
-            }
-            .store(in: &subs)
-        cloud
-            .archive
-            .dropFirst()
-            .sink { _ in
-                XCTFail()
-            }
-            .store(in: &subs)
-        cloud.tab {
-            XCTAssertEqual(self.cloud.archive.value.tabs.first?.id, $0)
-            expect.fulfill()
-        }
-        waitForExpectations(timeout: 1) { _ in
-            XCTAssertEqual(1, self.cloud.archive.value.tabs.count)
-        }
     }
 }
