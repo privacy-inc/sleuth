@@ -14,10 +14,6 @@ public struct History: Equatable, Property {
         page.subtitle
     }
     
-    public var url: URL {
-        page.url
-    }
-    
     public var data: Data {
         Data()
             .adding(UInt16(id))

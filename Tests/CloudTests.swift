@@ -455,6 +455,37 @@ final class CloudTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testBookmarkOpen() {
+        let expect = expectation(description: "")
+        cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com"))]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual("aguacate.com", $0.history.first?.subtitle)
+                XCTAssertEqual(1, $0.counter)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.open(0)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testBookmarkOpenOutOfBounds() {
+        cloud
+            .archive
+            .dropFirst()
+            .sink { _ in
+                XCTFail()
+            }
+            .store(in: &subs)
+        
+        cloud.open(0)
+    }
+    
     func testEngine() {
         let expect = expectation(description: "")
         cloud

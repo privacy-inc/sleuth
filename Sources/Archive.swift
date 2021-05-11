@@ -9,6 +9,7 @@ public struct Archive: Archived {
     public internal(set) var bookmarks: [Page]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
+    public internal(set) var tabs: [Tab]
     var counter = 0
     
     public var data: Data {
@@ -50,6 +51,7 @@ public struct Archive: Archived {
             .map { _ in
                 .init(data: &data)
             }
+        tabs = []
     }
     
     private init() {
@@ -59,6 +61,15 @@ public struct Archive: Archived {
         blocked = [:]
         settings = .init()
         bookmarks = []
+        tabs = []
+    }
+    
+    public func url(_ id: Int) -> URL? {
+        history
+            .first {
+                $0.id == id
+            }
+            .flatMap(\.page.access.url)
     }
     
     mutating func browse(_ search: String) -> (id: Int, browse: Browse)? {
@@ -78,9 +89,9 @@ public struct Archive: Archived {
         }
     }
     
-    @discardableResult mutating func add(_ url: URL) -> Int {
+    @discardableResult mutating func add(_ access: Page.Access) -> Int {
         let id = counter
-        history.append(.init(id: id, page: .init(access: .init(url: url))))
+        history.append(.init(id: id, page: .init(access: access)))
         counter += 1
         return id
     }

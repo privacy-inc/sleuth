@@ -8,6 +8,6 @@ final class PageTests: XCTestCase {
     }
     
     func testAccess() {
-        XCTAssertEqual("https://www.aguacate.com", Page(access: .init(url: URL(string: "https://www.aguacate.com")!)).url.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", Page(access: .init(url: URL(string: "https://www.aguacate.com")!)).access.url?.absoluteString)
     }
 }

@@ -25,7 +25,7 @@ extension Cloud where A == Archive {
     
     public func navigate(_ url: URL, completion: @escaping(Int) -> Void) {
         mutating(transform: {
-            $0.add(url)
+            $0.add(.init(url: url))
         }, completion: completion)
     }
     
@@ -63,6 +63,13 @@ extension Cloud where A == Archive {
                     }
                     archive.bookmarks.append(history.page)
                 }
+        }
+    }
+    
+    public func open(_ bookmark: Int) {
+        mutating {
+            guard bookmark < $0.bookmarks.count else { return }
+            $0.add($0.bookmarks[bookmark].access)
         }
     }
     

@@ -14,12 +14,12 @@ extension Page {
             }
         }
         
-        var url: URL {
+        var url: URL? {
             switch self {
             case let .remote(url):
-                return .init(string: url) ?? .blank
+                return .init(string: url)
             case let .local(_, bookmark):
-                return bookmark.url ?? .blank
+                return bookmark.url
             }
         }
         

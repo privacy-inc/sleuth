@@ -10,6 +10,6 @@ final class HistoryTests: XCTestCase {
     }
     
     func testAccess() {
-        XCTAssertEqual("https://www.aguacate.com", History(id: 0, page: .init(access: .init(url: URL(string: "https://www.aguacate.com")!))).url.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", History(id: 0, page: .init(access: .init(url: URL(string: "https://www.aguacate.com")!))).page.access.url?.absoluteString)
     }
 }

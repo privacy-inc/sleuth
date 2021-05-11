@@ -1,8 +1,6 @@
 import Foundation
 
 extension URL {
-    static let blank = URL(string: "about:blank")!
-    
 #if os(macOS)
 
     var bookmark: Data {

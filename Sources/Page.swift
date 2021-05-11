@@ -9,10 +9,6 @@ public struct Page: Equatable, Property {
         access.subtitle
     }
     
-    public var url: URL {
-        access.url
-    }
-    
     public var data: Data {
         Data()
             .adding(title)
