@@ -18,15 +18,15 @@ final class TabTests: XCTestCase {
     
     func testNew() {
         tab.items = [.init().with(state: .history(1))]
-        let item = tab.new()
+        let id = tab.new()
         XCTAssertEqual(2, tab.items.count)
-        XCTAssertEqual(tab.items.last?.id, item.id)
+        XCTAssertEqual(tab.items.first?.id, id)
     }
     
     func testNewNoRepeat() {
-        let item = tab.new()
+        let id = tab.new()
         XCTAssertEqual(1, tab.items.count)
-        XCTAssertEqual(tab.items.last?.id, item.id)
+        XCTAssertEqual(tab.items.last?.id, id)
     }
     
     func testHistory() {
@@ -58,6 +58,23 @@ final class TabTests: XCTestCase {
         XCTAssertEqual(1, tab.items.count)
         if case let .history(history) = tab.items.first?.state {
             XCTAssertEqual(33, history)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testState() {
+        tab.items = [.init().with(state: .history(33))]
+        if case let .history(history) = tab.state(tab.items.first!.id) {
+            XCTAssertEqual(33, history)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testStateUnknown() {
+        if case .new = tab.state(UUID()) {
+            
         } else {
             XCTFail()
         }

@@ -6,7 +6,7 @@ public struct Tab {
     
     public init() { }
     
-    public mutating func new() -> Item {
+    public mutating func new() -> UUID {
         items
             .first {
                 switch $0.state {
@@ -16,9 +16,10 @@ public struct Tab {
                     return false
                 }
             }
+            .map(\.id)
             ?? {
-                items.append($0)
-                return $0
+                items.insert($0, at: 0)
+                return $0.id
             } (Item())
     }
     
@@ -63,5 +64,14 @@ public struct Tab {
                 return nil
             }
         }
+    }
+    
+    public func state(_ id: UUID) -> State {
+        items
+            .first {
+                $0.id == id
+            }
+            .map(\.state)
+            ?? .new
     }
 }
