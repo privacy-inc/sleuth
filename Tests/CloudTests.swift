@@ -454,4 +454,144 @@ final class CloudTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testEngine() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(.ecosia, $0.settings.engine)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.engine(.ecosia)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testJavascript() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertFalse($0.settings.javascript)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.javascript(false)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testDark() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertFalse($0.settings.dark)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.dark(false)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testPopups() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.popups)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.popups(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testAds() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.ads)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.ads(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testScreen() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.screen)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.screen(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testTrackers() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.trackers)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.trackers(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testCookies() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.cookies)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.cookies(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testHttp() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.http)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.http(true)
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testLocation() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.location)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.location(true)
+        waitForExpectations(timeout: 1)
+    }
 }
