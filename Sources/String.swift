@@ -1,6 +1,27 @@
 import Foundation
 
 extension String {
+    var domain: Self {
+        components(separatedBy: "://")
+            .last
+            .flatMap {
+                $0
+                    .components(separatedBy: "/")
+                    .first
+                    .flatMap {
+                        $0
+                            .components(separatedBy: ":")
+                            .first
+                            .flatMap {
+                                $0.isEmpty
+                                ? nil
+                                : $0
+                                    .replacingOccurrences(of: "www.", with: "")
+                            }
+                    }
+            } ?? self
+    }
+    
     func browse<T>(engine: Engine, result: (String, Browse) -> T) -> T? {
         {
             $0.flatMap {

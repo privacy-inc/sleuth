@@ -10,7 +10,7 @@ extension Page {
         var subtitle: String {
             switch self {
             case let .remote(subtitle), let .local(subtitle, _):
-                return subtitle
+                return subtitle.domain
             }
         }
         
