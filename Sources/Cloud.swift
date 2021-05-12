@@ -31,21 +31,21 @@ extension Cloud where A == Archive {
     
     public func revisit(_ id: Int) {
         mutating {
-            guard let page = $0.history.remove(id: id)?.revisit else { return }
+            guard let page = $0.history.remove(where: { $0.id == id })?.revisit else { return }
             $0.history.append(page)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let page = $0.history.remove(id: id)?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
+            guard let page = $0.history.remove(where: { $0.id == id })?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
             $0.history.append(page)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let page = $0.history.remove(id: id)?.with(access: .init(url: url)) else { return }
+            guard let page = $0.history.remove(where: { $0.id == id })?.with(access: .init(url: url)) else { return }
             $0.history.append(page)
         }
     }
@@ -75,7 +75,7 @@ extension Cloud where A == Archive {
     
     public func remove(_ id: Int) {
         mutating {
-            $0.history.remove(id: id)
+            $0.history.remove { $0.id == id }
         }
     }
     

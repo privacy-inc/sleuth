@@ -24,46 +24,49 @@ public struct Tab {
     }
     
     public mutating func history(_ id: UUID, _ history: Int) {
-        items.mutate {
-            $0
-                .firstIndex {
-                    $0.id == id
-                }
-        } transform: {
-            $0.with(state: .history(history))
-        }
+        items
+            .mutate {
+                $0
+                    .firstIndex {
+                        $0.id == id
+                    }
+            } transform: {
+                $0.with(state: .history(history))
+            }
     }
     
     public mutating func error(_ id: UUID, _ error: Error) {
-        items.mutate {
-            $0
-                .firstIndex {
-                    $0.id == id
+        items
+            .mutate {
+                $0
+                    .firstIndex {
+                        $0.id == id
+                    }
+            } transform: {
+                switch $0.state {
+                case let .history(history), let .error(history, _):
+                    return $0.with(state: .error(history, error))
+                default:
+                    return nil
                 }
-        } transform: {
-            switch $0.state {
-            case let .history(history), let .error(history, _):
-                return $0.with(state: .error(history, error))
-            default:
-                return nil
             }
-        }
     }
     
     public mutating func dismiss(_ id: UUID) {
-        items.mutate {
-            $0
-                .firstIndex {
-                    $0.id == id
+        items
+            .mutate {
+                $0
+                    .firstIndex {
+                        $0.id == id
+                    }
+            } transform: {
+                switch $0.state {
+                case let .error(history, _):
+                    return $0.with(state: .history(history))
+                default:
+                    return nil
                 }
-        } transform: {
-            switch $0.state {
-            case let .error(history, _):
-                return $0.with(state: .history(history))
-            default:
-                return nil
             }
-        }
     }
     
     public func state(_ id: UUID) -> State {
@@ -73,5 +76,20 @@ public struct Tab {
             }
             .map(\.state)
             ?? .new
+    }
+    
+    public mutating func close(_ id: UUID) {
+        items
+            .remove {
+                $0.id == id
+            }
+        if items.isEmpty {
+            items = [.init()]
+        }
+    }
+    
+    public mutating func closeAll() -> UUID {
+        items = [.init()]
+        return items.first!.id
     }
 }

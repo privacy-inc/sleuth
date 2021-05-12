@@ -79,4 +79,37 @@ final class TabTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testClose() {
+        tab.items = [.init().with(state: .history(2)), .init().with(state: .history(3))]
+        tab.close(tab.items.first!.id)
+        XCTAssertEqual(1, tab.items.count)
+        if case let .history(history) = tab.items.first?.state {
+            XCTAssertEqual(3, history)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testCloseLast() {
+        tab.items = [.init().with(state: .history(3))]
+        tab.close(tab.items.first!.id)
+        XCTAssertEqual(1, tab.items.count)
+        if case .new = tab.items.first?.state {
+            
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testCloseAll() {
+        tab.items = [.init().with(state: .history(2)), .init().with(state: .history(3))]
+        let id = tab.closeAll()
+        XCTAssertEqual(1, tab.items.count)
+        XCTAssertEqual(tab.items.first?.id, id)
+        if case .new = tab.items.first?.state {
+        } else {
+            XCTFail()
+        }
+    }
 }

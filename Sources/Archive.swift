@@ -77,7 +77,7 @@ public struct Archive: Archived {
     
     mutating func browse(_ id: Int, _ search: String) -> Browse? {
         search.browse(engine: settings.engine) {
-            if let page = history.remove(id: id)?.with(access: .remote($0)) {
+            if let page = history.remove(where: { $0.id == id })?.with(access: .remote($0)) {
                 history.append(page)
             } else {
                 add($0)
