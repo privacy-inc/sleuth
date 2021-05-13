@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Error {
+public struct WebError {
     public var domain: String {
         url.domain
     }

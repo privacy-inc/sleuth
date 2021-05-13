@@ -5,6 +5,6 @@ extension Tab {
         case
         new,
         history(Int),
-        error(Int, Error)
+        error(Int, WebError)
     }
 }

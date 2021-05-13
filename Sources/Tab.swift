@@ -35,7 +35,7 @@ public struct Tab {
             }
     }
     
-    public mutating func error(_ id: UUID, _ error: Error) {
+    public mutating func error(_ id: UUID, _ error: WebError) {
         items
             .mutate {
                 $0
