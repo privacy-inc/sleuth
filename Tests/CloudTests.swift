@@ -40,6 +40,31 @@ final class CloudTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testBrowseSecond() {
+        let expect = expectation(description: "")
+        cloud.archive.value.counter = 99
+        
+        cloud
+            .archive
+            .dropFirst(2)
+            .sink {
+                XCTAssertEqual(2, $0.history.count)
+                XCTAssertEqual("hello2.com", $0.history.first?.page.domain)
+                XCTAssertEqual(100, $0.history.first?.id)
+                XCTAssertEqual(101, $0.counter)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.browse("hello.com") { _, _ in
+        }
+        
+        cloud.browse("hello2.com") { _, _ in
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+    
     func testBrowseId() {
         let expectSave = expectation(description: "")
         let expectBrowse = expectation(description: "")
