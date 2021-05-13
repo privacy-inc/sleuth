@@ -2,8 +2,6 @@ import Foundation
 import Archivable
 
 public struct Page: Equatable, Property {
-    static let blank = Page(access: .remote("about:blank"))
-    
     public let title: String
     let access: Access
     
