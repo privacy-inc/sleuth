@@ -1,6 +1,10 @@
 import Foundation
 
 public struct Error {
+    public var domain: String {
+        url.domain
+    }
+    
     public let url: String
     public let description: String
     
