@@ -9,18 +9,18 @@ extension Cloud where A == Archive {
                                         prefix: "privacy_",
                                         title: "Privacy"))
     
-    public func browse(_ search: String, completion: @escaping (Int, Browse) -> Void) {
+    public func browse(_ search: String, completion: @escaping (Int) -> Void) {
         mutating {
             $0.browse(search)
         } completion: {
-            completion($0.0, $0.1)
+            completion($0)
         }
     }
     
-    public func browse(_ id: Int, _ search: String, completion: @escaping (Browse) -> Void) {
-        mutating(transform: {
+    public func browse(_ id: Int, _ search: String) {
+        mutating {
             $0.browse(id, search)
-        }, completion: completion)
+        }
     }
     
     public func navigate(_ url: URL, completion: @escaping (Int) -> Void) {
@@ -46,7 +46,8 @@ extension Cloud where A == Archive {
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let page = $0.history.remove(where: { $0.id == id })?.with(access: .init(url: url)) else { return }
+            guard let page = $0.history.remove(where: { $0.id == id })?
+                    .with(access: .init(url: url)) else { return }
             $0.history.insert(page, at: 0)
         }
     }

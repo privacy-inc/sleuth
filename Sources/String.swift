@@ -22,46 +22,44 @@ extension String {
             } ?? self
     }
     
-    func browse<T>(engine: Engine, result: (String, Browse) -> T) -> T? {
-        {
-            $0.flatMap {
-                $0.1 == .none ? nil : result($0.0, $0.1)
-            }
-        } (trimmed {
+    func browse<T>(engine: Engine, result: (String) -> T) -> T? {
+        trimmed {
             $0.url
                 ?? $0.partial
                 ?? $0.query(engine)
-        })
+        }
+        .map(result)
     }
     
-    private func trimmed(transform: (Self) -> (url: Self, browse: Browse)) -> (url: Self, browse: Browse)? {
+    private func trimmed(transform: (Self) -> Self) -> Self? {
         {
             $0.isEmpty ? nil : transform($0)
         } (trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
-    private func query(_ engine: Engine) -> (url: Self, browse: Browse) {
-        {
-            (engine.search + $0, .search)
-        } (addingPercentEncoding(withAllowedCharacters:
-                                    .urlQueryAllowed
-                                    .subtracting(.init(arrayLiteral: "&", "+", ":")))
-        ?? self)
+    private func query(_ engine: Engine) -> Self {
+        addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+                .subtracting(.init(arrayLiteral: "&", "+", ":")))
+            .map {
+                engine.search + $0
+            }
+        ?? self
     }
     
-    private var url: (url: Self, browse: Browse)? {
+    private var url: Self? {
         URL(string: self)
             .flatMap {
                 $0.scheme != nil && ($0.host != nil || $0.query != nil)
-                    ? (self, .navigate)
+                    ? self
                     : nil
             }
     }
     
-    private var partial: (url: Self, browse: Browse)? {
+    private var partial: Self? {
         {
             $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
-                ? (URL.Scheme.https.rawValue + "://" + self, .navigate)
+                ? URL.Scheme.https.rawValue + "://" + self
                 : nil
         } (components(separatedBy: "."))
     }
