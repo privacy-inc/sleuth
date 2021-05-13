@@ -9,7 +9,7 @@ public struct Settings: Equatable, Property {
     private(set) var router: Router
     private(set) var blocking: Set<Blocker>
     
-    public internal(set) var dark: Bool {
+    public var dark: Bool {
         didSet {
             if dark {
                 blocking.insert(.antidark)
