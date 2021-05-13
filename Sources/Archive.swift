@@ -61,12 +61,13 @@ public struct Archive: Archived {
         bookmarks = []
     }
     
-    public func url(_ id: Int) -> URL? {
+    public func page(_ id: Int) -> Page {
         history
             .first {
                 $0.id == id
             }
-            .flatMap(\.page.access.url)
+            .map(\.page)
+            ?? .blank
     }
     
     mutating func browse(_ search: String) -> (id: Int, browse: Browse)? {
