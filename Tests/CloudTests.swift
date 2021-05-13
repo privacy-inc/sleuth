@@ -366,6 +366,56 @@ final class CloudTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testActivityRepeat() {
+        let expect = expectation(description: "")
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(1, $0.activity.count)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.activity()
+        cloud.activity()
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testActivityLessThan1Minute() {
+        cloud.archive.value.activity = [Calendar.current.date(byAdding: .second, value: -55, to: .init())!]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink { _ in
+                XCTFail()
+            }
+            .store(in: &subs)
+        
+        cloud.activity()
+    }
+    
+    func testActivity1Minute() {
+        let expect = expectation(description: "")
+        cloud.archive.value.activity = [Calendar.current.date(byAdding: .minute, value: -2, to: .init())!]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(2, $0.activity.count)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.activity()
+        
+        waitForExpectations(timeout: 1)
+    }
+    
     func testForget() {
         let expect = expectation(description: "")
         let date = Date()

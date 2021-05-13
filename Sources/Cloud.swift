@@ -82,7 +82,11 @@ extension Cloud where A == Archive {
     
     public func activity() {
         mutating {
-            $0.activity.append(.init())
+            let now = Date()
+            let last = $0.activity.last ?? .distantPast
+            if last < Calendar.current.date(byAdding: .minute, value: -1, to: now)! {
+                $0.activity.append(now)
+            }
         }
     }
     
