@@ -32,21 +32,22 @@ extension Cloud where A == Archive {
     public func revisit(_ id: Int) {
         mutating {
             guard let page = $0.history.remove(where: { $0.id == id })?.revisit else { return }
-            $0.history.append(page)
+            $0.history.insert(page, at: 0)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let page = $0.history.remove(where: { $0.id == id })?.with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
-            $0.history.append(page)
+            guard let page = $0.history.remove(where: { $0.id == id })?
+                    .with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
+            $0.history.insert(page, at: 0)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
             guard let page = $0.history.remove(where: { $0.id == id })?.with(access: .init(url: url)) else { return }
-            $0.history.append(page)
+            $0.history.insert(page, at: 0)
         }
     }
     

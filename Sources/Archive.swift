@@ -72,16 +72,16 @@ public struct Archive: Archived {
     
     mutating func browse(_ search: String) -> (id: Int, browse: Browse)? {
         search.browse(engine: settings.engine) {
-            (add($0), $1)
+            (add(.remote($0)), $1)
         }
     }
     
     mutating func browse(_ id: Int, _ search: String) -> Browse? {
         search.browse(engine: settings.engine) {
             if let page = history.remove(where: { $0.id == id })?.with(access: .remote($0)) {
-                history.append(page)
+                history.insert(page, at: 0)
             } else {
-                add($0)
+                add(.remote($0))
             }
             return $1
         }
@@ -89,14 +89,7 @@ public struct Archive: Archived {
     
     @discardableResult mutating func add(_ access: Page.Access) -> Int {
         let id = counter
-        history.append(.init(id: id, page: .init(access: access)))
-        counter += 1
-        return id
-    }
-    
-    @discardableResult private mutating func add(_ remote: String) -> Int {
-        let id = counter
-        history.append(.init(id: id, page: .init(access: .remote(remote))))
+        history.insert(.init(id: id, page: .init(access: access)), at: 0)
         counter += 1
         return id
     }
