@@ -133,7 +133,7 @@ public struct Settings: Equatable, Property {
         blocking.rules
     }
     
-    public var begin: String {
+    public var start: String {
         dark ? Script.dark : ""
     }
     

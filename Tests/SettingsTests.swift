@@ -107,9 +107,9 @@ final class SettingsTests: XCTestCase {
     }
     
     func testScriptBegin() {
-        XCTAssertEqual(Script.dark, settings.begin)
+        XCTAssertEqual(Script.dark, settings.start)
         settings.dark = false
-        XCTAssertTrue(settings.begin.isEmpty)
+        XCTAssertTrue(settings.start.isEmpty)
     }
     
     func testScriptEnd() {
