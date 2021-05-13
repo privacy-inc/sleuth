@@ -4,15 +4,7 @@ import Archivable
 public struct History: Equatable, Property {
     public let id: Int
     public let date: Date
-    let page: Page
-    
-    public var title: String {
-        page.title
-    }
-    
-    public var subtitle: String {
-        page.subtitle
-    }
+    public let page: Page
     
     public var data: Data {
         Data()

@@ -7,10 +7,10 @@ extension Page {
         remote(String),
         local(String, Data)
         
-        var subtitle: String {
+        var string: String {
             switch self {
-            case let .remote(subtitle), let .local(subtitle, _):
-                return subtitle.domain
+            case let .remote(string), let .local(string, _):
+                return string
             }
         }
         

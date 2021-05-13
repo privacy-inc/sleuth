@@ -47,7 +47,7 @@ final class MigrationTests: XCTestCase {
             .prototype(History.self)
         XCTAssertEqual(34, migrated.id)
         XCTAssertEqual(date.timestamp, migrated.date.timestamp)
-        XCTAssertEqual("hello world", migrated.title)
+        XCTAssertEqual("hello world", migrated.page.title)
         XCTAssertEqual("https://www.aguacate.com", migrated.page.access.url?.absoluteString)
     }
 }

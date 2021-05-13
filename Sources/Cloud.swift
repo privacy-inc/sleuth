@@ -59,7 +59,7 @@ extension Cloud where A == Archive {
                 }
                 .map { history in
                     archive.bookmarks.removeAll {
-                        $0.subtitle == history.subtitle
+                        $0.string == history.page.string
                     }
                     archive.bookmarks.append(history.page)
                 }

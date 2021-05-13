@@ -5,8 +5,12 @@ public struct Page: Equatable, Property {
     public let title: String
     let access: Access
     
-    public var subtitle: String {
-        access.subtitle
+    public var string: String {
+        access.string
+    }
+    
+    public var domain: String {
+        access.string.domain
     }
     
     public var data: Data {
