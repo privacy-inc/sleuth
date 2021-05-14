@@ -29,7 +29,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com") {
+        cloud.browse("hello.com", id: nil) {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual(99, $0)
             XCTAssertEqual(100, self.cloud.archive.value.counter)
@@ -55,14 +55,15 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com") { _ in }
-        cloud.browse("hello2.com") { _ in }
+        cloud.browse("hello.com", id: nil) { _ in }
+        cloud.browse("hello2.com", id: nil) { _ in }
         
         waitForExpectations(timeout: 1)
     }
     
     func testBrowseId() {
-        let expect = expectation(description: "")
+        let expectArchive = expectation(description: "")
+        let expectBrowse = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
         cloud.archive.value.counter = 99
         cloud.archive.value.history = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")), date: date)]
@@ -76,17 +77,21 @@ final class CloudTests: XCTestCase {
                 XCTAssertEqual(33, $0.history.first?.id)
                 XCTAssertEqual(99, $0.counter)
                 XCTAssertGreaterThan($0.history.first!.date, date)
-                expect.fulfill()
+                expectArchive.fulfill()
             }
             .store(in: &subs)
         
-        cloud.browse(33, "hello.com")
+        cloud.browse("hello.com", id: 33) {
+            XCTAssertEqual(33, $0)
+            expectBrowse.fulfill()
+        }
         
         waitForExpectations(timeout: 1)
     }
     
     func testBrowseIdUnknown() {
-        let expect = expectation(description: "")
+        let expectArchive = expectation(description: "")
+        let expectBrowse = expectation(description: "")
         cloud.archive.value.counter = 99
         
         cloud
@@ -97,11 +102,14 @@ final class CloudTests: XCTestCase {
                 XCTAssertEqual("hello.com", $0.history.first?.page.domain)
                 XCTAssertEqual(99, $0.history.first?.id)
                 XCTAssertEqual(100, $0.counter)
-                expect.fulfill()
+                expectArchive.fulfill()
             }
             .store(in: &subs)
         
-        cloud.browse(55, "hello.com")
+        cloud.browse("hello.com", id: 55) {
+            XCTAssertNotEqual(55, $0)
+            expectBrowse.fulfill()
+        }
         
         waitForExpectations(timeout: 1)
     }
@@ -109,10 +117,10 @@ final class CloudTests: XCTestCase {
     func testBrowseMultiple() {
         let expect = expectation(description: "")
         cloud.archive.value.counter = 99
-        cloud.browse("hello.com") { _ in }
-        cloud.browse("hello.com") { _ in }
+        cloud.browse("hello.com", id: nil) { _ in }
+        cloud.browse("hello.com", id: nil) { _ in }
         
-        cloud.browse("hello.com") {
+        cloud.browse("hello.com", id: nil) {
             XCTAssertEqual(101, $0)
             expect.fulfill()
         }
@@ -131,7 +139,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("") { _ in
+        cloud.browse("", id: nil) { _ in
             XCTFail()
         }
     }
@@ -147,7 +155,9 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse(22, "")
+        cloud.browse("", id: 22) { _ in
+            XCTFail()
+        }
     }
     
     func testRevisit() {

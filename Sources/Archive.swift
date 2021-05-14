@@ -70,18 +70,14 @@ public struct Archive: Archived {
             ?? .blank
     }
     
-    mutating func browse(_ search: String) -> Int? {
+    mutating func browse(_ search: String, id: Int?) -> Int? {
         search.browse(engine: settings.engine) {
-            add(.remote($0))
-        }
-    }
-    
-    mutating func browse(_ id: Int, _ search: String) {
-        search.browse(engine: settings.engine) {
-            if let page = history.remove(where: { $0.id == id })?.with(access: .remote($0)) {
+            if let id = id,
+               let page = history.remove(where: { $0.id == id })?.with(access: .remote($0)) {
                 history.insert(page, at: 0)
+                return id
             } else {
-                add(.remote($0))
+                return add(.remote($0))
             }
         }
     }

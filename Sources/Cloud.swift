@@ -8,17 +8,11 @@ extension Cloud where A == Archive {
                                         prefix: "privacy_",
                                         title: "Privacy"))
     
-    public func browse(_ search: String, completion: @escaping (Int) -> Void) {
+    public func browse(_ search: String, id: Int?, completion: @escaping (Int) -> Void) {
         mutating {
-            $0.browse(search)
+            $0.browse(search, id: id)
         } completion: {
             completion($0)
-        }
-    }
-    
-    public func browse(_ id: Int, _ search: String) {
-        mutating {
-            $0.browse(id, search)
         }
     }
     
