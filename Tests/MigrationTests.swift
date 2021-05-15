@@ -37,14 +37,14 @@ final class MigrationTests: XCTestCase {
         XCTAssertEqual(99, unmigrated.prototype(Archive.self).counter)
     }
     
-    func testHistory() {
+    func testbrowse() {
         let date = Date()
         let migrated = Data()
             .adding(UInt16(34))
             .adding(date)
             .adding("hello world")
             .adding(Page.Access.init(url: URL(string: "https://www.aguacate.com")!).data)
-            .prototype(History.self)
+            .prototype(Browse.self)
         XCTAssertEqual(34, migrated.id)
         XCTAssertEqual(date.timestamp, migrated.date.timestamp)
         XCTAssertEqual("hello world", migrated.page.title)

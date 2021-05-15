@@ -23,7 +23,7 @@ public struct Tab {
             } (Item())
     }
     
-    public mutating func history(_ id: UUID, _ history: Int) {
+    public mutating func browse(_ id: UUID, _ browse: Int) {
         items
             .mutate {
                 $0
@@ -31,7 +31,7 @@ public struct Tab {
                         $0.id == id
                     }
             } transform: {
-                $0.with(state: .history(history))
+                $0.with(state: .browse(browse))
             }
     }
     
@@ -44,8 +44,8 @@ public struct Tab {
                     }
             } transform: {
                 switch $0.state {
-                case let .history(history), let .error(history, _):
-                    return $0.with(state: .error(history, error))
+                case let .browse(browse), let .error(browse, _):
+                    return $0.with(state: .error(browse, error))
                 default:
                     return nil
                 }
@@ -61,8 +61,8 @@ public struct Tab {
                     }
             } transform: {
                 switch $0.state {
-                case let .error(history, _):
-                    return $0.with(state: .history(history))
+                case let .error(browse, _):
+                    return $0.with(state: .browse(browse))
                 default:
                     return nil
                 }

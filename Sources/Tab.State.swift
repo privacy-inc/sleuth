@@ -4,7 +4,7 @@ extension Tab {
     public enum State {
         case
         new,
-        history(Int),
+        browse(Int),
         error(Int, WebError)
     }
 }

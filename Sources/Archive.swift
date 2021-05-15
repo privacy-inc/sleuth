@@ -5,7 +5,7 @@ public struct Archive: Archived {
     public static let new = Self()
     public var date: Date
     public internal(set) var settings: Settings
-    public internal(set) var history: [History]
+    public internal(set) var browse: [Browse]
     public internal(set) var bookmarks: [Page]
     public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
@@ -15,8 +15,8 @@ public struct Archive: Archived {
         Data()
             .adding(UInt16(counter))
             .adding(date)
-            .adding(UInt16(history.count))
-            .adding(history.flatMap(\.data))
+            .adding(UInt16(browse.count))
+            .adding(browse.flatMap(\.data))
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
@@ -30,7 +30,7 @@ public struct Archive: Archived {
         data.decompress()
         counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
-        history = (0 ..< .init(data.uInt16()))
+        browse = (0 ..< .init(data.uInt16()))
             .map { _ in
                 .init(data: &data)
             }
@@ -54,7 +54,7 @@ public struct Archive: Archived {
     
     private init() {
         date = .init(timeIntervalSince1970: 0)
-        history = .init()
+        browse = .init()
         activity = []
         blocked = [:]
         settings = .init()
@@ -62,7 +62,7 @@ public struct Archive: Archived {
     }
     
     public func page(_ id: Int) -> Page {
-        history
+        browse
             .first {
                 $0.id == id
             }
@@ -73,8 +73,8 @@ public struct Archive: Archived {
     mutating func browse(_ search: String, id: Int?) -> Int? {
         search.browse(engine: settings.engine) {
             if let id = id,
-               let page = history.remove(where: { $0.id == id })?.with(access: .remote($0)) {
-                history.insert(page, at: 0)
+               let page = browse.remove(where: { $0.id == id })?.with(access: .remote($0)) {
+                browse.insert(page, at: 0)
                 return id
             } else {
                 return add(.remote($0))
@@ -84,14 +84,14 @@ public struct Archive: Archived {
     
     @discardableResult mutating func add(_ access: Page.Access) -> Int {
         let id = counter
-        history.insert(.init(id: id, page: .init(access: access)), at: 0)
+        browse.insert(.init(id: id, page: .init(access: access)), at: 0)
         counter += 1
         return id
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.date.timestamp == rhs.date.timestamp
-            && lhs.history == rhs.history
+            && lhs.browse == rhs.browse
             && lhs.activity == rhs.activity
             && lhs.blocked == rhs.blocked
             && lhs.settings == rhs.settings

@@ -22,10 +22,10 @@ final class ArchiveTests: XCTestCase {
         XCTAssertEqual(19_999, archive.data.prototype(Archive.self).counter)
     }
     
-    func testHistory() {
-        let history = History(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
-        archive.history = [history]
-        XCTAssertEqual(history, archive.data.prototype(Archive.self).history.first)
+    func testbrowse() {
+        let browse = Browse(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
+        archive.browse = [browse]
+        XCTAssertEqual(browse, archive.data.prototype(Archive.self).browse.first)
     }
     
     func testActivity() {

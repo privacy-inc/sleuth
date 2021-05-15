@@ -24,39 +24,39 @@ extension Cloud where A == Archive {
     
     public func revisit(_ id: Int) {
         mutating {
-            guard let page = $0.history.remove(where: { $0.id == id })?.revisit else { return }
-            $0.history.insert(page, at: 0)
+            guard let page = $0.browse.remove(where: { $0.id == id })?.revisit else { return }
+            $0.browse.insert(page, at: 0)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let page = $0.history.remove(where: { $0.id == id })?
+            guard let page = $0.browse.remove(where: { $0.id == id })?
                     .with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
-            $0.history.insert(page, at: 0)
+            $0.browse.insert(page, at: 0)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let page = $0.history.remove(where: { $0.id == id })?
+            guard let page = $0.browse.remove(where: { $0.id == id })?
                     .with(access: .init(url: url)) else { return }
-            $0.history.insert(page, at: 0)
+            $0.browse.insert(page, at: 0)
         }
     }
     
     public func bookmark(_ id: Int) {
         mutating { archive in
             archive
-                .history
+                .browse
                 .first {
                     $0.id == id
                 }
-                .map { history in
+                .map { browse in
                     archive.bookmarks.removeAll {
-                        $0.string == history.page.string
+                        $0.string == browse.page.string
                     }
-                    archive.bookmarks.append(history.page)
+                    archive.bookmarks.append(browse.page)
                 }
         }
     }
@@ -70,7 +70,7 @@ extension Cloud where A == Archive {
     
     public func remove(_ id: Int) {
         mutating {
-            $0.history.remove { $0.id == id }
+            $0.browse.remove { $0.id == id }
         }
     }
     
@@ -100,7 +100,7 @@ extension Cloud where A == Archive {
     
     public func forget() {
         mutating {
-            $0.history = []
+            $0.browse = []
             $0.activity = []
             $0.blocked = [:]
             $0.counter = 0
