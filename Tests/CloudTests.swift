@@ -523,6 +523,30 @@ final class CloudTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testBookmarkRepeatCaseSensitive() {
+        let expect = expectation(description: "")
+        cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com/a"))]
+        cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello tum tum", access: .remote("aguacate.com/A")))]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(1, $0.bookmarks.count)
+                XCTAssertEqual("hello tum tum", $0.bookmarks.first?.title)
+                XCTAssertEqual("aguacate.com/A", $0.bookmarks.first?.string)
+                if case .remote = $0.bookmarks.first?.access { } else {
+                    XCTFail()
+                }
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.bookmark(33)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
     func testBookmarkOpen() {
         let expect = expectation(description: "")
         cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com"))]
