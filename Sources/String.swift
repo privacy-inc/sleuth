@@ -22,13 +22,13 @@ extension String {
             } ?? self
     }
     
-    func browse<T>(engine: Engine, result: (String) -> T) -> T? {
+    func browse<T>(engine: Engine, result: (String) -> T?) -> T? {
         trimmed {
             $0.url
                 ?? $0.partial
                 ?? $0.query(engine)
         }
-        .map(result)
+        .flatMap(result)
     }
     
     private func trimmed(transform: (Self) -> Self) -> Self? {
