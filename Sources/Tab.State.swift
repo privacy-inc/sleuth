@@ -7,7 +7,7 @@ extension Tab {
         browse(Int),
         error(Int, WebError)
         
-        public var id: Int? {
+        public var browse: Int? {
             switch self {
             case let .browse(id), let .error(id, _):
                 return id
