@@ -61,12 +61,14 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func open(_ bookmark: Int, id: Int?, completion: @escaping (Int) -> Void) {
-        mutating {
-            guard bookmark < $0.bookmarks.count else { return nil }
-            return $0.update(id, $0.bookmarks[bookmark].access) ?? $0.add($0.bookmarks[bookmark].access)
-        } completion: {
-            completion($0)
+    public func open(_ bookmark: Int, id: Int?, completion: @escaping (Int, URL) -> Void) {
+        mutating { archive in
+            guard bookmark < archive.bookmarks.count else { return nil }
+            return {
+                $1 == nil ? nil : (archive.update(id, $0) ?? archive.add($0), $1!)
+            } (archive.bookmarks[bookmark].access, archive.bookmarks[bookmark].access.url)
+        } completion: { (browse: Int, url: URL) in
+            completion(browse, url)
         }
     }
     

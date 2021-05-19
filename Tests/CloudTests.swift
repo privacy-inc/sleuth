@@ -568,6 +568,7 @@ final class CloudTests: XCTestCase {
         
         cloud.open(0, id: nil) {
             XCTAssertEqual(0, $0)
+            XCTAssertEqual("aguacate.com", $1.absoluteString)
             expectBookmark.fulfill()
         }
         
@@ -593,6 +594,7 @@ final class CloudTests: XCTestCase {
         
         cloud.open(0, id: 33) {
             XCTAssertEqual(33, $0)
+            XCTAssertEqual("aguacate.com", $1.absoluteString)
             expectBookmark.fulfill()
         }
         
@@ -608,7 +610,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.open(0, id: nil) { _ in
+        cloud.open(0, id: nil) { _, _ in
             XCTFail()
         }
     }
