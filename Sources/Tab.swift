@@ -1,10 +1,14 @@
-import Foundation
+import WebKit
 import Archivable
 
 public struct Tab {
-    public internal(set) var items = [Item()]
+    var items = [Item()]
     
     public init() { }
+    
+    public var ids: [UUID] {
+        items.map(\.id)
+    }
     
     public mutating func new() -> UUID {
         items
@@ -24,58 +28,31 @@ public struct Tab {
     }
     
     public mutating func browse(_ id: UUID, _ browse: Int) {
-        items
-            .mutate {
-                $0
-                    .firstIndex {
-                        $0.id == id
-                    }
-            } transform: {
-                $0.with(state: .browse(browse))
-            }
+        mutate(id) {
+            $0.with(state: .browse(browse))
+        }
     }
     
     public mutating func error(_ id: UUID, _ error: WebError) {
-        items
-            .mutate {
-                $0
-                    .firstIndex {
-                        $0.id == id
-                    }
-            } transform: {
-                switch $0.state {
-                case let .browse(browse), let .error(browse, _):
-                    return $0.with(state: .error(browse, error))
-                default:
-                    return nil
-                }
+        mutate(id) {
+            switch $0.state {
+            case let .browse(browse), let .error(browse, _):
+                return $0.with(state: .error(browse, error))
+            default:
+                return nil
             }
+        }
     }
     
     public mutating func dismiss(_ id: UUID) {
-        items
-            .mutate {
-                $0
-                    .firstIndex {
-                        $0.id == id
-                    }
-            } transform: {
-                switch $0.state {
-                case let .error(browse, _):
-                    return $0.with(state: .browse(browse))
-                default:
-                    return nil
-                }
+        mutate(id) {
+            switch $0.state {
+            case let .error(browse, _):
+                return $0.with(state: .browse(browse))
+            default:
+                return nil
             }
-    }
-    
-    public func state(_ id: UUID) -> State {
-        items
-            .first {
-                $0.id == id
-            }
-            .map(\.state)
-            ?? .new
+        }
     }
     
     public mutating func close(_ id: UUID) {
@@ -91,5 +68,92 @@ public struct Tab {
     public mutating func closeAll() -> UUID {
         items = [.init()]
         return items.first!.id
+    }
+    
+    public func state(_ id: UUID) -> State {
+        self[id]?.state ?? .new
+    }
+    
+    public subscript(progress id: UUID) -> Double {
+        get {
+            self[id]?.progress ?? 0
+        }
+        set {
+            mutate(id) {
+                $0.with(progress: newValue)
+            }
+        }
+    }
+    
+    public subscript(loading id: UUID) -> Bool {
+        get {
+            self[id]?.loading ?? false
+        }
+        set {
+            mutate(id) {
+                $0.with(loading: newValue)
+            }
+        }
+    }
+    
+    public subscript(forward id: UUID) -> Bool {
+        get {
+            self[id]?.forward ?? false
+        }
+        set {
+            mutate(id) {
+                $0.with(forward: newValue)
+            }
+        }
+    }
+    
+    public subscript(back id: UUID) -> Bool {
+        get {
+            self[id]?.back ?? false
+        }
+        set {
+            mutate(id) {
+                $0.with(back: newValue)
+            }
+        }
+    }
+    
+    public subscript(web id: UUID) -> WKWebView? {
+        get {
+            self[id]?.web
+        }
+        set {
+            mutate(id) {
+                $0.with(web: newValue)
+            }
+        }
+    }
+    
+    public subscript(snapshot id: UUID) -> Data? {
+        get {
+            self[id]?.snapshot
+        }
+        set {
+            mutate(id) {
+                $0.with(snapshot: newValue)
+            }
+        }
+    }
+    
+    private subscript(_ id: UUID) -> Item? {
+        items
+            .first {
+                $0.id == id
+            }
+    }
+    
+    private mutating func mutate(_ id: UUID, transform: (Item) -> Item?) {
+        items
+            .mutate(where: {
+                $0
+                    .firstIndex {
+                        $0.id == id
+                    }
+            }, transform: transform)
     }
 }
