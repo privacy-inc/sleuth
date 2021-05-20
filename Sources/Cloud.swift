@@ -54,7 +54,7 @@ extension Cloud where A == Archive {
                 }
                 .map { browse in
                     archive.bookmarks.removeAll {
-                        $0.string.lowercased() == browse.page.string.lowercased()
+                        $0.access.string.lowercased() == browse.page.access.string.lowercased()
                     }
                     archive.bookmarks.append(browse.page)
                 }

@@ -3,21 +3,8 @@ import Archivable
 
 public struct Page: Equatable, Property {
     static let blank = Page(access: .remote("about:blank"))
-    
     public let title: String
-    let access: Access
-    
-    public var string: String {
-        access.string
-    }
-    
-    public var domain: String {
-        access.string.domain
-    }
-    
-    public var url: URL? {
-        access.url
-    }
+    public let access: Access
     
     public var data: Data {
         Data()

@@ -2,26 +2,30 @@ import Foundation
 import Archivable
 
 extension Page {
-    enum Access: Equatable, Property {
+    public enum Access: Equatable, Property {
         case
         remote(String),
         local(String, Data)
         
-        var string: String {
+        public var string: String {
             switch self {
             case let .remote(string), let .local(string, _):
                 return string
             }
         }
         
-        var url: URL? {
+        public var domain: String {
+            string.domain
+        }
+        
+        public var url: URL? {
             switch self {
             case let .remote(url), let .local(url, _):
                 return .init(string: url)
             }
         }
         
-        var directory: URL? {
+        public var directory: URL? {
             switch self {
             case let .local(_, bookmark):
                 return bookmark.url
@@ -30,13 +34,13 @@ extension Page {
             }
         }
         
-        var data: Data {
+        public var data: Data {
             Data()
                 .adding(key.rawValue)
                 .adding(value)
         }
         
-        init(data: inout Data) {
+        public init(data: inout Data) {
             switch Key(rawValue: data.removeFirst())! {
             case .remote:
                 self = .remote(data.string())
