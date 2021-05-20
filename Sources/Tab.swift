@@ -1,4 +1,4 @@
-import WebKit
+import Foundation
 import Archivable
 
 public struct Tab {
@@ -118,7 +118,7 @@ public struct Tab {
         }
     }
     
-    public subscript(web id: UUID) -> WKWebView? {
+    public subscript(web id: UUID) -> AnyObject? {
         get {
             self[id]?.web
         }
@@ -129,7 +129,7 @@ public struct Tab {
         }
     }
     
-    public subscript(snapshot id: UUID) -> Data? {
+    public subscript(snapshot id: UUID) -> AnyObject? {
         get {
             self[id]?.snapshot
         }

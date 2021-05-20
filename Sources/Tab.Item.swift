@@ -1,4 +1,4 @@
-import WebKit
+import Foundation
 
 extension Tab {
     struct Item {
@@ -8,8 +8,8 @@ extension Tab {
         let loading: Bool
         let forward: Bool
         let back: Bool
-        let web: WKWebView?
-        let snapshot: Data?
+        let web: AnyObject?
+        let snapshot: AnyObject?
         
         init() {
             id = .init()
@@ -29,8 +29,8 @@ extension Tab {
             loading: Bool,
             forward: Bool,
             back: Bool,
-            web: WKWebView?,
-            snapshot: Data?) {
+            web: AnyObject?,
+            snapshot: AnyObject?) {
             self.id = id
             self.state = state
             self.progress = progress
@@ -61,11 +61,11 @@ extension Tab {
             .init(id: id, state: state, progress: progress, loading: loading, forward: forward, back: back, web: web, snapshot: snapshot)
         }
         
-        func with(web: WKWebView?) -> Self {
+        func with(web: AnyObject?) -> Self {
             .init(id: id, state: state, progress: progress, loading: loading, forward: forward, back: back, web: web, snapshot: snapshot)
         }
         
-        func with(snapshot: Data?) -> Self {
+        func with(snapshot: AnyObject?) -> Self {
             .init(id: id, state: state, progress: progress, loading: loading, forward: forward, back: back, web: web, snapshot: snapshot)
         }
     }
