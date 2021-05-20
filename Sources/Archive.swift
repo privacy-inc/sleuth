@@ -70,12 +70,12 @@ public struct Archive: Archived {
             ?? .blank
     }
     
-    mutating func browse(_ search: String, id: Int?) -> (browse: Int, url: URL)? {
+    mutating func browse(_ search: String, id: Int?) -> (Int, Page.Access)? {
         search.browse(engine: settings.engine) {
             {
                 {
-                    $1 == nil ? nil : (update(id, $0) ?? add($0), $1!)
-                } ($0, $0.url)
+                    (update(id, $0) ?? add($0), $0)
+                } ($0)
             } (.remote($0))
         }
     }

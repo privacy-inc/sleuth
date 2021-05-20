@@ -32,7 +32,7 @@ final class CloudTests: XCTestCase {
         cloud.browse("hello.com", id: nil) {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual(99, $0)
-            XCTAssertEqual("https://hello.com", $1.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectBrowse.fulfill()
         }
@@ -84,7 +84,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", id: 33) {
             XCTAssertEqual(33, $0)
-            XCTAssertEqual("https://hello.com", $1.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expectBrowse.fulfill()
         }
         
@@ -110,7 +110,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", id: 55) {
             XCTAssertNotEqual(55, $0)
-            XCTAssertEqual("https://hello.com", $1.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expectBrowse.fulfill()
         }
         
@@ -125,7 +125,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", id: nil) {
             XCTAssertEqual(101, $0)
-            XCTAssertEqual("https://hello.com", $1.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expect.fulfill()
         }
         
@@ -568,7 +568,7 @@ final class CloudTests: XCTestCase {
         
         cloud.open(0, id: nil) {
             XCTAssertEqual(0, $0)
-            XCTAssertEqual("aguacate.com", $1.absoluteString)
+            XCTAssertEqual("aguacate.com", $1.url?.absoluteString)
             expectBookmark.fulfill()
         }
         
@@ -594,7 +594,7 @@ final class CloudTests: XCTestCase {
         
         cloud.open(0, id: 33) {
             XCTAssertEqual(33, $0)
-            XCTAssertEqual("aguacate.com", $1.absoluteString)
+            XCTAssertEqual("aguacate.com", $1.url?.absoluteString)
             expectBookmark.fulfill()
         }
         

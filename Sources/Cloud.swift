@@ -8,7 +8,7 @@ extension Cloud where A == Archive {
                                         prefix: "privacy_",
                                         title: "Privacy"))
     
-    public func browse(_ search: String, id: Int?, completion: @escaping (Int, URL) -> Void) {
+    public func browse(_ search: String, id: Int?, completion: @escaping (Int, Page.Access) -> Void) {
         mutating {
             $0.browse(search, id: id)
         } completion: {
@@ -61,14 +61,14 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func open(_ bookmark: Int, id: Int?, completion: @escaping (Int, URL) -> Void) {
+    public func open(_ bookmark: Int, id: Int?, completion: @escaping (Int, Page.Access) -> Void) {
         mutating { archive in
             guard bookmark < archive.bookmarks.count else { return nil }
             return {
-                $1 == nil ? nil : (archive.update(id, $0) ?? archive.add($0), $1!)
-            } (archive.bookmarks[bookmark].access, archive.bookmarks[bookmark].access.url)
-        } completion: { (browse: Int, url: URL) in
-            completion(browse, url)
+                (archive.update(id, $0) ?? archive.add($0), $0)
+            } (archive.bookmarks[bookmark].access)
+        } completion: {
+            completion($0, $1)
         }
     }
     
