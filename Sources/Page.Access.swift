@@ -16,10 +16,17 @@ extension Page {
         
         var url: URL? {
             switch self {
-            case let .remote(url):
+            case let .remote(url), let .local(url, _):
                 return .init(string: url)
+            }
+        }
+        
+        var directory: URL? {
+            switch self {
             case let .local(_, bookmark):
                 return bookmark.url
+            default:
+                return nil
             }
         }
         
@@ -40,7 +47,7 @@ extension Page {
         
         init(url: URL) {
             self = url.isFileURL
-                ? .local(url.schemeless, url.deletingLastPathComponent().bookmark)
+                ? .local(url.absoluteString, url.deletingLastPathComponent().bookmark)
                 : .remote(url.absoluteString)
         }
         

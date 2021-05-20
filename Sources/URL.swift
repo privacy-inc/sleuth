@@ -23,8 +23,4 @@ extension URL {
     }
 
 #endif
-    
-    var schemeless: String {
-        scheme == nil ? absoluteString : .init(absoluteString.dropFirst(scheme!.count + 3))
-    }
 }
