@@ -1,3 +1,3 @@
 import Foundation
 
-struct Script { }
+public struct Script { }

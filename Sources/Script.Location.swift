@@ -22,7 +22,7 @@ function locationReceived(latitude, longitude, accuracy) {
 
 navigator.geolocation.getCurrentPosition = function(success, error, options) {
     locationSuccess = success;
-    window.webkit.messageHandlers.handler.postMessage('getCurrentPosition');
+    webkit.messageHandlers.handler.postMessage('getCurrentPosition');
 };
 
 """
