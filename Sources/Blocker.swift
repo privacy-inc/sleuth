@@ -53,9 +53,7 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.bbc), action: .css([".fc-consent-root",
                                                              ".ssrcss-u3tmht-ConsentBanner.exhqgzu6",
                                                              "#cookiePrompt"])),
-                    .init(trigger: .url(.reddit), action: .css(["._3q-XSJ2vokDQrvdG6mR__k",
-                                                                ".EUCookieNotice",
-                                                                ".XPromoPopup"]))]
+                    .init(trigger: .url(.reddit), action: .css([".XPromoPopup"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         }
