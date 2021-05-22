@@ -13,13 +13,15 @@ extension Router {
                         .intersection(other: host
                                         .dropLast())
                         .first
-                        .map(Policy.block)
+                        .map { (subdomain: String) -> Policy in
+                            .block(subdomain + "." + white.rawValue)
+                        }
                     ?? path
-                        .map {
+                        .map { (path: String) -> Policy in
                             white
                                 .path
                                 .map(\.rawValue)
-                                .contains($0) ? .block(white.rawValue) : .allow
+                                .contains(path) ? .block(white.rawValue + "." + white.tld.rawValue + "/" + path) : .allow
                         }
                     ?? .allow
                 }
