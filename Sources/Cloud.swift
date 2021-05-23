@@ -111,6 +111,25 @@ extension Cloud where A == Archive {
         }
     }
     
+    public func forgetBrowse() {
+        mutating {
+            $0.browse = []
+            $0.counter = 0
+        }
+    }
+    
+    public func forgetActivity() {
+        mutating {
+            $0.activity = []
+        }
+    }
+    
+    public func forgetBlocked() {
+        mutating {
+            $0.blocked = [:]
+        }
+    }
+    
     public func engine(_ engine: Engine) {
         mutating {
             $0.settings.engine = engine

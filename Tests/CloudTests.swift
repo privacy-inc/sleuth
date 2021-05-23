@@ -458,6 +458,90 @@ final class CloudTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
     
+    func testForgetBrowse() {
+        let expect = expectation(description: "")
+        let date = Date()
+        
+        cloud.archive.value.counter = 99
+        cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")), date: date)]
+        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.blocked = ["some" : [.init()]]
+        cloud.archive.value.activity = [.init()]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.browse.isEmpty)
+                XCTAssertFalse($0.blocked.isEmpty)
+                XCTAssertFalse($0.activity.isEmpty)
+                XCTAssertEqual(0, $0.counter)
+                XCTAssertGreaterThan($0.date, date)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.forgetBrowse()
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testForgetBlocked() {
+        let expect = expectation(description: "")
+        let date = Date()
+        
+        cloud.archive.value.counter = 99
+        cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")), date: date)]
+        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.blocked = ["some" : [.init()]]
+        cloud.archive.value.activity = [.init()]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertFalse($0.browse.isEmpty)
+                XCTAssertTrue($0.blocked.isEmpty)
+                XCTAssertFalse($0.activity.isEmpty)
+                XCTAssertEqual(99, $0.counter)
+                XCTAssertGreaterThan($0.date, date)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.forgetBlocked()
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testForgetActivity() {
+        let expect = expectation(description: "")
+        let date = Date()
+        
+        cloud.archive.value.counter = 99
+        cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")), date: date)]
+        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.blocked = ["some" : [.init()]]
+        cloud.archive.value.activity = [.init()]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertFalse($0.browse.isEmpty)
+                XCTAssertFalse($0.blocked.isEmpty)
+                XCTAssertTrue($0.activity.isEmpty)
+                XCTAssertEqual(99, $0.counter)
+                XCTAssertGreaterThan($0.date, date)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.forgetActivity()
+        
+        waitForExpectations(timeout: 1)
+    }
+    
     func testBlock() {
         let expect = expectation(description: "")
         expect.expectedFulfillmentCount = 2
