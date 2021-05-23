@@ -55,4 +55,13 @@ final class ArchiveTests: XCTestCase {
         archive.bookmarks = [page]
         XCTAssertEqual(page, archive.data.prototype(Archive.self).bookmarks.first)
     }
+    
+    func testPlotter() {
+        XCTAssertEqual([], archive.plotter)
+        archive.activity = [
+            Calendar.current.date(byAdding: .day, value: -9, to: .init())!,
+            Calendar.current.date(byAdding: .day, value: -9, to: .init())!,
+            Calendar.current.date(byAdding: .day, value: -1, to: .init())!]
+        XCTAssertEqual([1, 0, 0, 0, 0, 0, 0, 0, 0.5, 0], archive.plotter)
+    }
 }

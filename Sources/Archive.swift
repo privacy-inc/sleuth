@@ -7,9 +7,15 @@ public struct Archive: Archived {
     public internal(set) var settings: Settings
     public internal(set) var browse: [Browse]
     public internal(set) var bookmarks: [Page]
-    public internal(set) var activity: [Date]
     public internal(set) var blocked: [String: [Date]]
     var counter = 0
+    var activity: [Date]
+    
+    public var plotter: [Double] {
+        activity
+            .map(\.timeIntervalSince1970)
+            .plotter
+    }
     
     public var data: Data {
         Data()
