@@ -11,6 +11,11 @@ public struct Archive: Archived {
     var counter = 0
     var activity: [Date]
     
+    public var since: Date? {
+        activity
+            .first
+    }
+    
     public var plotter: [Double] {
         activity
             .map(\.timeIntervalSince1970)
