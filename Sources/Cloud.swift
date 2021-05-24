@@ -25,11 +25,12 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func revisit(_ id: Int) {
-        mutating {
-            guard let page = $0.browse.remove(where: { $0.id == id })?.revisit else { return }
-            $0.browse.insert(page, at: 0)
-        }
+    public func revisit(_ id: Int, completion: @escaping (Page.Access) -> Void) {
+        mutating(transform: {
+            guard let browse = $0.browse.remove(where: { $0.id == id })?.revisit else { return nil }
+            $0.browse.insert(browse, at: 0)
+            return browse.page.access
+        }, completion: completion)
     }
     
     public func update(_ id: Int, title: String) {

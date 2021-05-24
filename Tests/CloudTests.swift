@@ -165,7 +165,8 @@ final class CloudTests: XCTestCase {
     }
     
     func testRevisit() {
-        let expect = expectation(description: "")
+        let expectArchive = expectation(description: "")
+        let expectRevisit = expectation(description: "")
         let date = Date(timeIntervalSinceNow: -10)
         cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("aguacate.com")), date: date)]
         cloud.archive.value.counter = 99
@@ -180,11 +181,14 @@ final class CloudTests: XCTestCase {
                 XCTAssertGreaterThan($0.browse.first!.date, date)
                 XCTAssertEqual(33, $0.browse.first?.id)
                 XCTAssertEqual(99, $0.counter)
-                expect.fulfill()
+                expectArchive.fulfill()
             }
             .store(in: &subs)
         
-        cloud.revisit(33)
+        cloud.revisit(33) {
+            XCTAssertEqual("aguacate.com", $0.string)
+            expectRevisit.fulfill()
+        }
         
         waitForExpectations(timeout: 1)
     }
@@ -197,7 +201,9 @@ final class CloudTests: XCTestCase {
                 XCTFail()
             }
             .store(in: &subs)
-        cloud.revisit(33)
+        cloud.revisit(33) { _ in
+            XCTFail()
+        }
     }
     
     func testNavigateRemote() {
