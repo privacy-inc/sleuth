@@ -11,8 +11,8 @@ extension Tab {
         let web: AnyObject?
         let snapshot: AnyObject?
         
-        init() {
-            id = .init()
+        init(id: UUID = .init()) {
+            self.id = id
             state = .new
             progress = 0
             loading = false

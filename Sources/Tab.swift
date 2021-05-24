@@ -57,7 +57,7 @@ public struct Tab {
     
     public mutating func clear(_ id: UUID) {
         mutate(id) {
-            $0.with(state: .new)
+            .init(id: $0.id)
         }
     }
     

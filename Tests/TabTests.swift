@@ -64,10 +64,15 @@ final class TabTests: XCTestCase {
     }
     
     func testClear() {
-        tab.items = [.init().with(state: .error(33, .init(url: "hello.com", description: "Some error")))]
+        let web = NSNumber(value: 1)
+        tab.items = [.init()
+                        .with(state: .error(33, .init(url: "hello.com", description: "Some error")))
+                        .with(web: web)]
+        XCTAssertNotNil(tab.items.first?.web)
         tab.clear(tab.items.first!.id)
         XCTAssertEqual(1, tab.items.count)
         if case .new = tab.items.first?.state {
+            XCTAssertNil(tab.items.first?.web)
         } else {
             XCTFail()
         }
