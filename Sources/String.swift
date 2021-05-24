@@ -3,7 +3,8 @@ import Foundation
 extension String {
     var domain: Self {
         components(separatedBy: "://")
-            .last
+            .dropFirst()
+            .first
             .flatMap {
                 $0
                     .components(separatedBy: "/")
