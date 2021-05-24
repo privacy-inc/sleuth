@@ -12,7 +12,7 @@ extension Cloud where A == Archive {
         mutating {
             $0.browse(search, id: id)
         } completion: {
-            completion($0.0, $0.1)
+            completion($0.id, $0.access)
         }
     }
     
