@@ -63,6 +63,16 @@ final class TabTests: XCTestCase {
         }
     }
     
+    func testClear() {
+        tab.items = [.init().with(state: .error(33, .init(url: "hello.com", description: "Some error")))]
+        tab.clear(tab.items.first!.id)
+        XCTAssertEqual(1, tab.items.count)
+        if case .new = tab.items.first?.state {
+        } else {
+            XCTFail()
+        }
+    }
+    
     func testState() {
         tab.items = [.init().with(state: .browse(33))]
         if case let .browse(browse) = tab.state(tab.items.first!.id) {

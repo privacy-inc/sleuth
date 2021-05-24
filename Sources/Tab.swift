@@ -55,6 +55,12 @@ public struct Tab {
         }
     }
     
+    public mutating func clear(_ id: UUID) {
+        mutate(id) {
+            $0.with(state: .new)
+        }
+    }
+    
     public mutating func close(_ id: UUID) {
         items
             .remove {
