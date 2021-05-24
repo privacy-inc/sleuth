@@ -16,10 +16,13 @@ extension Cloud where A == Archive {
         }
     }
     
-    public func navigate(_ url: URL, completion: @escaping (Int) -> Void) {
-        mutating(transform: {
-            $0.add(.init(url: url))
-        }, completion: completion)
+    public func navigate(_ url: URL, completion: @escaping (Int, Page.Access) -> Void) {
+        mutating {
+            let access = Page.Access(url: url)
+            return ($0.add(access), access)
+        } completion: { (id: Int, access: Page.Access) in
+            completion(id, access)
+        }
     }
     
     public func revisit(_ id: Int) {

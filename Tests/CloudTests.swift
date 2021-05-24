@@ -223,6 +223,11 @@ final class CloudTests: XCTestCase {
         cloud.navigate(URL(string: "https://hello.com")!) {
             XCTAssertEqual(99, $0)
             XCTAssertEqual(100, self.cloud.archive.value.counter)
+            if case .remote = $1 {
+                
+            } else {
+                XCTFail()
+            }
             expectNavigate.fulfill()
         }
         
@@ -258,6 +263,11 @@ final class CloudTests: XCTestCase {
         cloud.navigate(file) {
             XCTAssertEqual(99, $0)
             XCTAssertEqual(100, self.cloud.archive.value.counter)
+            if case .local = $1 {
+                
+            } else {
+                XCTFail()
+            }
             expectNavigate.fulfill()
         }
         
