@@ -64,4 +64,12 @@ final class ArchiveTests: XCTestCase {
             Calendar.current.date(byAdding: .day, value: -1, to: .init())!]
         XCTAssertEqual([1, 0, 0, 0, 0, 0, 0, 0, 0.5, 0], archive.plotter)
     }
+    
+    func testTrackers() {
+        archive.blocked = ["a": [.init()],
+                           "b": [.init()],
+                           "c": [.init(), .init()]]
+        XCTAssertEqual("c", archive.trackers.first?.name)
+        XCTAssertEqual("b", archive.trackers.last?.name)
+    }
 }

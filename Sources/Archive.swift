@@ -7,9 +7,9 @@ public struct Archive: Archived {
     public internal(set) var settings: Settings
     public internal(set) var browse: [Browse]
     public internal(set) var bookmarks: [Page]
-    public internal(set) var blocked: [String: [Date]]
-    var counter = 0
+    var blocked: [String: [Date]]
     var activity: [Date]
+    var counter = 0
     
     public var since: Date? {
         activity
@@ -20,6 +20,18 @@ public struct Archive: Archived {
         activity
             .map(\.timeIntervalSince1970)
             .plotter
+    }
+    
+    public var trackers: [(name: String, count: [Date])] {
+        blocked
+            .sorted {
+                $0.1.count == $1.1.count
+                    ? $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending
+                    : $0.1.count > $1.1.count
+            }
+            .map {
+                (name: $0.key, count: $0.value)
+            }
     }
     
     public var data: Data {
