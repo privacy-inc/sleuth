@@ -33,7 +33,7 @@ public struct Tab {
         }
     }
     
-    public mutating func error(_ id: UUID, _ error: WebError) {
+    public mutating func error(_ id: UUID, _ error: Error) {
         mutate(id) {
             switch $0.state {
             case let .browse(browse), let .error(browse, _):

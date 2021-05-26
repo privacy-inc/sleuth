@@ -1,11 +1,11 @@
 import Foundation
 
 extension Tab {
-    public enum State {
+    public enum State: Equatable {
         case
         new,
         browse(Int),
-        error(Int, WebError)
+        error(Int, Error)
         
         public var browse: Int? {
             switch self {
