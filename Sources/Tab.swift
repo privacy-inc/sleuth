@@ -1,17 +1,14 @@
 import Foundation
-import Archivable
+import Combine
 
 public struct Tab {
-    var items = [Item()]
+    public let items = CurrentValueSubject<[Item], Never>([.init()])
     
     public init() { }
     
-    public var ids: [UUID] {
-        items.map(\.id)
-    }
-    
-    public mutating func new() -> UUID {
+    public func new() -> UUID {
         items
+            .value
             .first {
                 switch $0.state {
                 case .new:
@@ -22,46 +19,55 @@ public struct Tab {
             }
             .map(\.id)
             ?? {
-                items.insert($0, at: 0)
+                items.value.insert($0, at: 0)
                 return $0.id
             } (Item())
     }
     
-    public mutating func browse(_ id: UUID, _ browse: Int) {
-        mutate(id) {
-            $0.with(state: .browse(browse))
-        }
-    }
-    
-    public mutating func error(_ id: UUID, _ error: Error) {
-        mutate(id) {
-            switch $0.state {
-            case let .browse(browse), let .error(browse, _):
-                return $0.with(state: .error(browse, error))
-            default:
-                return nil
+    public func browse(_ id: UUID, _ browse: Int) {
+        items
+            .value
+            .mutate(id) {
+                $0.with(state: .browse(browse))
             }
-        }
     }
     
-    public mutating func dismiss(_ id: UUID) {
-        mutate(id) {
-            switch $0.state {
-            case let .error(browse, _):
-                return $0.with(state: .browse(browse))
-            default:
-                return nil
+    public func error(_ id: UUID, _ error: Error) {
+        items
+            .value
+            .mutate(id) {
+                switch $0.state {
+                case let .browse(browse), let .error(browse, _):
+                    return $0.with(state: .error(browse, error))
+                default:
+                    return nil
+                }
             }
-        }
     }
     
-    public mutating func clear(_ id: UUID) {
-        mutate(id) {
-            .init(id: $0.id)
-        }
+    public func dismiss(_ id: UUID) {
+        items
+            .value
+            .mutate(id) {
+                switch $0.state {
+                case let .error(browse, _):
+                    return $0.with(state: .browse(browse))
+                default:
+                    return nil
+                }
+            }
     }
     
-    public mutating func close(_ id: UUID) {
+    public func clear(_ id: UUID) {
+        items
+            .value
+            .mutate(id) {
+                .init(id: $0.id)
+            }
+    }
+    
+    public func close(_ id: UUID) {
+        var items = self.items.value
         items
             .remove {
                 $0.id == id
@@ -69,97 +75,59 @@ public struct Tab {
         if items.isEmpty {
             items = [.init()]
         }
+        self.items.send(items)
     }
     
-    public mutating func closeAll() -> UUID {
-        items = [.init()]
-        return items.first!.id
+    public func closeAll() -> UUID {
+        items.send([.init()])
+        return items.value.first!.id
     }
     
-    public func state(_ id: UUID) -> State {
-        self[id]?.state ?? .new
-    }
-    
-    public subscript(progress id: UUID) -> Double {
-        get {
-            self[id]?.progress ?? 0
-        }
-        set {
-            mutate(id) {
-                $0.with(progress: newValue)
-            }
-        }
-    }
-    
-    public subscript(loading id: UUID) -> Bool {
-        get {
-            self[id]?.loading ?? false
-        }
-        set {
-            mutate(id) {
-                $0.with(loading: newValue)
-            }
-        }
-    }
-    
-    public subscript(forward id: UUID) -> Bool {
-        get {
-            self[id]?.forward ?? false
-        }
-        set {
-            mutate(id) {
-                $0.with(forward: newValue)
-            }
-        }
-    }
-    
-    public subscript(back id: UUID) -> Bool {
-        get {
-            self[id]?.back ?? false
-        }
-        set {
-            mutate(id) {
-                $0.with(back: newValue)
-            }
-        }
-    }
-    
-    public subscript(web id: UUID) -> AnyObject? {
-        get {
-            self[id]?.web
-        }
-        set {
-            mutate(id) {
-                $0.with(web: newValue)
-            }
-        }
-    }
-    
-    public subscript(snapshot id: UUID) -> AnyObject? {
-        get {
-            self[id]?.snapshot
-        }
-        set {
-            mutate(id) {
-                $0.with(snapshot: newValue)
-            }
-        }
-    }
-    
-    private subscript(_ id: UUID) -> Item? {
+    public func update(_ id: UUID, progress: Double) {
         items
-            .first {
-                $0.id == id
+            .value
+            .mutate(id) {
+                $0.with(progress: progress)
             }
     }
     
-    private mutating func mutate(_ id: UUID, transform: (Item) -> Item?) {
+    public func update(_ id: UUID, loading: Bool) {
         items
-            .mutate(where: {
-                $0
-                    .firstIndex {
-                        $0.id == id
-                    }
-            }, transform: transform)
+            .value
+            .mutate(id) {
+                $0.with(loading: loading)
+            }
+    }
+    
+    public func update(_ id: UUID, forward: Bool) {
+        items
+            .value
+            .mutate(id) {
+                $0.with(forward: forward)
+            }
+    }
+    
+    public func update(_ id: UUID, back: Bool) {
+        items
+            .value
+            .mutate(id) {
+                $0.with(back: back)
+            }
+    }
+    
+    public func update(_ id: UUID, web: AnyObject?) {
+        items
+            .value
+            .mutate(id) {
+                $0.with(web: web)
+            }
+    }
+    
+    public func update(_ id: UUID, snapshot: AnyObject?) {
+        items
+            .value
+            .mutate(id) {
+                $0.with(snapshot: snapshot)
+            }
     }
 }

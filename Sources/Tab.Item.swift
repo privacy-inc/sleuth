@@ -1,7 +1,7 @@
 import Foundation
 
 extension Tab {
-    struct Item {
+    public struct Item {
         let id: UUID
         let state: State
         let progress: Double

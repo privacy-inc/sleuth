@@ -1,15 +1,18 @@
 import XCTest
+import Combine
 @testable import Sleuth
 
 final class TabTests: XCTestCase {
     private var tab: Tab!
+    private var subs: Set<AnyCancellable>!
     
     override func setUp() {
         tab = .init()
+        subs = []
     }
     
     func testInitial() {
-        if case .new = tab.items.first?.state {
+        if case .new = tab.items.value.first?.state {
             
         } else {
             XCTFail()
@@ -17,22 +20,22 @@ final class TabTests: XCTestCase {
     }
     
     func testNew() {
-        tab.items = [.init().with(state: .browse(1))]
+        tab.items.value = [.init().with(state: .browse(1))]
         let id = tab.new()
-        XCTAssertEqual(2, tab.items.count)
-        XCTAssertEqual(tab.items.first?.id, id)
+        XCTAssertEqual(2, tab.items.value.count)
+        XCTAssertEqual(tab.items.value.first?.id, id)
     }
     
     func testNewNoRepeat() {
         let id = tab.new()
-        XCTAssertEqual(1, tab.items.count)
-        XCTAssertEqual(tab.items.last?.id, id)
+        XCTAssertEqual(1, tab.items.value.count)
+        XCTAssertEqual(tab.items.value.last?.id, id)
     }
     
     func testbrowse() {
-        tab.browse(tab.items.first!.id, 33)
-        XCTAssertEqual(1, tab.items.count)
-        if case let .browse(browse) = tab.items.first?.state {
+        tab.browse(tab.items.value.first!.id, 33)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case let .browse(browse) = tab.items.value.first?.state {
             XCTAssertEqual(33, browse)
         } else {
             XCTFail()
@@ -40,10 +43,10 @@ final class TabTests: XCTestCase {
     }
     
     func testError() {
-        tab.items = [.init().with(state: .browse(33))]
-        tab.error(tab.items.first!.id, .init(url: "https://aguacate.com", description: "No internet connection"))
-        XCTAssertEqual(1, tab.items.count)
-        if case let .error(browse, error) = tab.items.first?.state {
+        tab.items.value = [.init().with(state: .browse(33))]
+        tab.error(tab.items.value.first!.id, .init(url: "https://aguacate.com", description: "No internet connection"))
+        XCTAssertEqual(1, tab.items.value.count)
+        if case let .error(browse, error) = tab.items.value.first?.state {
             XCTAssertEqual(33, browse)
             XCTAssertEqual("https://aguacate.com", error.url)
             XCTAssertEqual("No internet connection", error.description)
@@ -53,10 +56,10 @@ final class TabTests: XCTestCase {
     }
     
     func testDismiss() {
-        tab.items = [.init().with(state: .error(33, .init(url: "hello.com", description: "Some error")))]
-        tab.dismiss(tab.items.first!.id)
-        XCTAssertEqual(1, tab.items.count)
-        if case let .browse(browse) = tab.items.first?.state {
+        tab.items.value = [.init().with(state: .error(33, .init(url: "hello.com", description: "Some error")))]
+        tab.dismiss(tab.items.value.first!.id)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case let .browse(browse) = tab.items.value.first?.state {
             XCTAssertEqual(33, browse)
         } else {
             XCTFail()
@@ -65,22 +68,22 @@ final class TabTests: XCTestCase {
     
     func testClear() {
         let web = NSNumber(value: 1)
-        tab.items = [.init()
+        tab.items.value = [.init()
                         .with(state: .error(33, .init(url: "hello.com", description: "Some error")))
                         .with(web: web)]
-        XCTAssertNotNil(tab.items.first?.web)
-        tab.clear(tab.items.first!.id)
-        XCTAssertEqual(1, tab.items.count)
-        if case .new = tab.items.first?.state {
-            XCTAssertNil(tab.items.first?.web)
+        XCTAssertNotNil(tab.items.value.first?.web)
+        tab.clear(tab.items.value.first!.id)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case .new = tab.items.value.first?.state {
+            XCTAssertNil(tab.items.value.first?.web)
         } else {
             XCTFail()
         }
     }
     
     func testState() {
-        tab.items = [.init().with(state: .browse(33))]
-        if case let .browse(browse) = tab.state(tab.items.first!.id) {
+        tab.items.value = [.init().with(state: .browse(33))]
+        if case let .browse(browse) = tab.items.value.state(tab.items.value.first!.id) {
             XCTAssertEqual(33, browse)
         } else {
             XCTFail()
@@ -88,7 +91,7 @@ final class TabTests: XCTestCase {
     }
     
     func testStateUnknown() {
-        if case .new = tab.state(UUID()) {
+        if case .new = tab.items.value.state(UUID()) {
             
         } else {
             XCTFail()
@@ -96,10 +99,10 @@ final class TabTests: XCTestCase {
     }
     
     func testClose() {
-        tab.items = [.init().with(state: .browse(2)), .init().with(state: .browse(3))]
-        tab.close(tab.items.first!.id)
-        XCTAssertEqual(1, tab.items.count)
-        if case let .browse(browse) = tab.items.first?.state {
+        tab.items.value = [.init().with(state: .browse(2)), .init().with(state: .browse(3))]
+        tab.close(tab.items.value.first!.id)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case let .browse(browse) = tab.items.value.first?.state {
             XCTAssertEqual(3, browse)
         } else {
             XCTFail()
@@ -107,10 +110,10 @@ final class TabTests: XCTestCase {
     }
     
     func testCloseLast() {
-        tab.items = [.init().with(state: .browse(3))]
-        tab.close(tab.items.first!.id)
-        XCTAssertEqual(1, tab.items.count)
-        if case .new = tab.items.first?.state {
+        tab.items.value = [.init().with(state: .browse(3))]
+        tab.close(tab.items.value.first!.id)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case .new = tab.items.value.first?.state {
             
         } else {
             XCTFail()
@@ -118,11 +121,11 @@ final class TabTests: XCTestCase {
     }
     
     func testCloseAll() {
-        tab.items = [.init().with(state: .browse(2)), .init().with(state: .browse(3))]
+        tab.items.value = [.init().with(state: .browse(2)), .init().with(state: .browse(3))]
         let id = tab.closeAll()
-        XCTAssertEqual(1, tab.items.count)
-        XCTAssertEqual(tab.items.first?.id, id)
-        if case .new = tab.items.first?.state {
+        XCTAssertEqual(1, tab.items.value.count)
+        XCTAssertEqual(tab.items.value.first?.id, id)
+        if case .new = tab.items.value.first?.state {
         } else {
             XCTFail()
         }
