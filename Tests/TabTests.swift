@@ -109,6 +109,22 @@ final class TabTests: XCTestCase {
         }
     }
     
+    func testCloseAtomic() {
+        let expect = expectation(description: "")
+        tab.items.value = [.init().with(state: .browse(2))]
+        
+        tab
+            .items
+            .dropFirst()
+            .sink { _ in
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        tab.close(tab.items.value.first!.id)
+        waitForExpectations(timeout: 1)
+    }
+    
     func testCloseLast() {
         tab.items.value = [.init().with(state: .browse(3))]
         tab.close(tab.items.value.first!.id)
