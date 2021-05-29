@@ -10,12 +10,7 @@ public struct Tab {
         items
             .value
             .first {
-                switch $0.state {
-                case .new:
-                    return true
-                default:
-                    return false
-                }
+                $0.state.isNew
             }
             .map(\.id)
             ?? {
@@ -35,26 +30,26 @@ public struct Tab {
     public func error(_ id: UUID, _ error: Error) {
         items
             .value
-            .mutate(id) {
-                switch $0.state {
-                case let .browse(browse), let .error(browse, _):
-                    return $0.with(state: .error(browse, error))
-                default:
-                    return nil
-                }
+            .mutate(id) { item in
+                item
+                    .state
+                    .browse
+                    .map {
+                        item.with(state: .error($0, error))
+                    }
             }
     }
     
     public func dismiss(_ id: UUID) {
         items
             .value
-            .mutate(id) {
-                switch $0.state {
-                case let .error(browse, _):
-                    return $0.with(state: .browse(browse))
-                default:
-                    return nil
-                }
+            .mutate(id) { item in
+                item
+                    .state
+                    .browse
+                    .map {
+                        item.with(state: .browse($0))
+                    }
             }
     }
     
