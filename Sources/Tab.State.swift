@@ -15,5 +15,32 @@ extension Tab {
                 return nil
             }
         }
+        
+        public var isNew: Bool {
+            switch self {
+            case .new:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        public var isBrowse: Bool {
+            switch self {
+            case .browse:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        public var isError: Bool {
+            switch self {
+            case .error:
+                return true
+            default:
+                return false
+            }
+        }
     }
 }
