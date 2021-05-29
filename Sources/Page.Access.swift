@@ -34,6 +34,15 @@ extension Page {
             }
         }
         
+        public var isRemote: Bool {
+            switch self {
+            case .remote:
+                return true
+            default:
+                return false
+            }
+        }
+        
         public var data: Data {
             Data()
                 .adding(key.rawValue)
