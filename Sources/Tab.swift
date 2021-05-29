@@ -9,9 +9,7 @@ public struct Tab {
     public func new() -> UUID {
         items
             .value
-            .first {
-                $0.state.isNew
-            }
+            .first(where: \.state.isNew)
             .map(\.id)
             ?? {
                 items.value.insert($0, at: 0)
