@@ -6,7 +6,7 @@ extension Array where Element == Tab.Item {
         map(\.id)
     }
     
-    public func state(_ id: UUID) -> Tab.State {
+    public subscript(state id: UUID) -> Tab.State {
         self[id]?.state ?? .new
     }
     

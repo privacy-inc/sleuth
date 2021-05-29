@@ -83,7 +83,7 @@ final class TabTests: XCTestCase {
     
     func testState() {
         tab.items.value = [.init().with(state: .browse(33))]
-        if case let .browse(browse) = tab.items.value.state(tab.items.value.first!.id) {
+        if case let .browse(browse) = tab.items.value[state: tab.items.value.first!.id] {
             XCTAssertEqual(33, browse)
         } else {
             XCTFail()
@@ -91,7 +91,7 @@ final class TabTests: XCTestCase {
     }
     
     func testStateUnknown() {
-        if case .new = tab.items.value.state(UUID()) {
+        if case .new = tab.items.value[state: .init()] {
             
         } else {
             XCTFail()
