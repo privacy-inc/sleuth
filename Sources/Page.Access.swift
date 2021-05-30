@@ -2,7 +2,7 @@ import Foundation
 import Archivable
 
 extension Page {
-    public enum Access: Equatable, Property {
+    public enum Access: Hashable, Property {
         case
         remote(String),
         local(String, Data)

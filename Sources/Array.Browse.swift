@@ -2,16 +2,23 @@ import Foundation
 
 extension Array where Element == Browse {
     public func filter(_ string: String) -> [Filtered] {
-        .init(Set(filter(\.page.access.isRemote)
-                    .filter {
-                        $0.page.title.localizedCaseInsensitiveContains(string)
-                            || $0.page.access.string.localizedCaseInsensitiveContains(string)
-                    }
-                    .sorted {
-                        $0.date < $1.date
-                    }
+        {
+            {
+                $0
+                    .prefix(3)
                     .map(\.page)
-                    .map(Filtered.init(page:)))
-                .prefix(3))
+                    .map(Filtered.init(page:))
+            } (string
+                .isEmpty
+                ? $0
+                : Set($0
+                        .filter {
+                            $0.page.title.localizedCaseInsensitiveContains(string)
+                                || $0.page.access.string.localizedCaseInsensitiveContains(string)
+                        })
+                .sorted {
+                    $0.date < $1.date
+                })
+        } (filter(\.page.access.isRemote))
     }
 }

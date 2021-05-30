@@ -1,7 +1,7 @@
 import Foundation
 import Archivable
 
-public struct Browse: Equatable, Property {
+public struct Browse: Hashable, Property {
     public let id: Int
     public let date: Date
     public let page: Page
@@ -35,6 +35,12 @@ public struct Browse: Equatable, Property {
     
     func with(access: Page.Access) -> Self {
         .init(id: id, page: page.with(access: access), date: .init())
+    }
+    
+    public func hash(into: inout Hasher) {
+        into.combine(id)
+        into.combine(page)
+        into.combine(date.timestamp)
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
