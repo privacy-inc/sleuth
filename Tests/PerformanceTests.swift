@@ -2,7 +2,7 @@ import XCTest
 @testable import Sleuth
 
 final class PerformanceTests: XCTestCase {
-    func testProtection() {
+    func protection() {
         let router = Router.secure
         var list = [String]()
         list += [
