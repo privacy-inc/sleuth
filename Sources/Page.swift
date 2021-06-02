@@ -6,6 +6,11 @@ public struct Page: Hashable, Property {
     public let title: String
     public let access: Access
     
+    public var secure: Bool {
+        access.string.hasPrefix(URL.Scheme.https.rawValue)
+            || access.string.hasPrefix("file://")
+    }
+    
     public var data: Data {
         Data()
             .adding(title)
