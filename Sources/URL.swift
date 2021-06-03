@@ -15,6 +15,15 @@ extension URL {
             } ?? "_." + type
     }
     
+    public var download: URL? {
+        (try? Data(contentsOf: self))
+            .map {
+                $0.temporal({
+                    $0.isEmpty ? "Page.html" : $0.contains(".") && $0.last != "." ? $0 : $0 + ".html"
+                } (lastPathComponent.replacingOccurrences(of: "/", with: "")))
+            }
+    }
+    
 #if os(macOS)
 
     var bookmark: Data {
