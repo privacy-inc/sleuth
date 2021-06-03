@@ -51,14 +51,6 @@ public struct Tab {
             }
     }
     
-    public func clear(_ id: UUID) {
-        items
-            .value
-            .mutate(id) {
-                .init(id: $0.id)
-            }
-    }
-    
     public func close(_ id: UUID) {
         var items = self.items.value
         items
