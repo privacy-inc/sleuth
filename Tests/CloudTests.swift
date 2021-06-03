@@ -660,35 +660,8 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.open(0, id: nil) {
+        cloud.open(0) {
             XCTAssertEqual(0, $0)
-            XCTAssertEqual("aguacate.com", $1.url?.absoluteString)
-            expectBookmark.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1)
-    }
-    
-    func testBookmarkOpenId() {
-        let expectArchive = expectation(description: "")
-        let expectBookmark = expectation(description: "")
-        cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com"))]
-        cloud.archive.value.browse = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote("some.com")))]
-        
-        cloud
-            .archive
-            .dropFirst()
-            .sink {
-                XCTAssertEqual("aguacate.com", $0.browse.first?.page.access.domain)
-                XCTAssertEqual(0, $0.counter)
-                XCTAssertEqual(1, $0.bookmarks.count)
-                expectArchive.fulfill()
-            }
-            .store(in: &subs)
-        
-        cloud.open(0, id: 33) {
-            XCTAssertEqual(33, $0)
-            XCTAssertEqual("aguacate.com", $1.url?.absoluteString)
             expectBookmark.fulfill()
         }
         
@@ -704,7 +677,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.open(0, id: nil) { _, _ in
+        cloud.open(0) { _ in
             XCTFail()
         }
     }
