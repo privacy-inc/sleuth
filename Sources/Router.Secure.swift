@@ -14,7 +14,7 @@ extension Router {
                                         .dropLast())
                         .first
                         .map { (subdomain: String) -> Policy in
-                            .block(subdomain + "." + white.rawValue)
+                            .block(subdomain + "." + white.rawValue + "." + white.tld.rawValue)
                         }
                     ?? path
                         .map { (path: String) -> Policy in
