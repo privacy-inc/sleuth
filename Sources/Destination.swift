@@ -3,6 +3,6 @@ import Foundation
 public enum Destination {
     case
     window,
-    tab,
-    download
+    download,
+    tab(Bool)
 }
