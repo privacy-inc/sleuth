@@ -24,7 +24,9 @@ enum Blocker: CaseIterable {
                                                                 ".Rn1jbe",
                                                                 ".kxhcC",
                                                                 ".isv-r.PNCib.BC7Tfc",
-                                                                ".isv-r.PNCib.o05QGe"]))]
+                                                                ".isv-r.PNCib.o05QGe"])),
+                    .init(trigger: .url(.youtube), action: .css([".ytd-search-pyv-renderer",
+                                                                 ".video-ads.ytp-ad-module"]))]
         case .screen:
             return [.init(trigger: .url(.google), action: .css(["#consent-bump",
                                                                 "#lb",

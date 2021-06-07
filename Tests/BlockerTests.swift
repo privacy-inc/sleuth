@@ -37,6 +37,10 @@ final class BlockerTests: XCTestCase {
                                                             ".kxhcC",
                                                             ".isv-r.PNCib.BC7Tfc",
                                                             ".isv-r.PNCib.o05QGe"]))
+        
+        XCTAssertTrue(Parser(content: Set([.ads]).rules)
+                        .css(url: "youtube.com", selectors: [".ytd-search-pyv-renderer",
+                                                             ".video-ads.ytp-ad-module"]))
     }
     
     func testScreen() {
