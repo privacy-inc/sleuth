@@ -4,7 +4,7 @@ extension Script {
     static let location = """
 var locationSuccess = null;
 
-function locationReceived(latitude, longitude, accuracy) {
+function _privacy_incognit_location_received(latitude, longitude, accuracy) {
     var position = {
         coords: {
             latitude: latitude,
@@ -22,7 +22,7 @@ function locationReceived(latitude, longitude, accuracy) {
 
 navigator.geolocation.getCurrentPosition = function(success, error, options) {
     locationSuccess = success;
-    webkit.messageHandlers.handler.postMessage('getCurrentPosition');
+    webkit.messageHandlers.handler.postMessage('_privacy_incognit_location_request');
 };
 
 """
