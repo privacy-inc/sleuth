@@ -79,8 +79,7 @@ extension URL {
             case .linkedin:
                 return [.platform]
             case .google:
-                return [.accounts,
-                        .consent]
+                return [.accounts]
             default:
                 return []
             }
