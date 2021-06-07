@@ -51,7 +51,8 @@ final class BlockerTests: XCTestCase {
                                                             "#Sx9Kwc",
                                                             "#xe7COe",
                                                             ".NIoIEf",
-                                                            ".QzsnAe.crIj3e"]))
+                                                            ".QzsnAe.crIj3e",
+                                                            ".ml-promotion-container"]))
         
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "youtube.com", selectors: ["#consent-bump",
