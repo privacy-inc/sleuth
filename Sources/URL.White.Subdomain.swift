@@ -6,7 +6,6 @@ extension URL.White {
         platform,
         interactive,
         tr,
-        accounts,
-        consent
+        accounts
     }
 }
