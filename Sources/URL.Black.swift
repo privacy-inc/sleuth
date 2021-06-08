@@ -69,6 +69,7 @@ extension URL {
         impactserving,
         f853150605ccb,
         reactivebetting,
+        edigitalsurvey,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",
