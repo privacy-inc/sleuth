@@ -70,6 +70,8 @@ extension URL {
         f853150605ccb,
         reactivebetting,
         edigitalsurvey,
+        concert,
+        voxmedia,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",
