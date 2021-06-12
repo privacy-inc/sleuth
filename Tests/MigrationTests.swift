@@ -50,4 +50,20 @@ final class MigrationTests: XCTestCase {
         XCTAssertEqual("hello world", migrated.page.title)
         XCTAssertEqual("https://www.aguacate.com", migrated.page.access.url?.absoluteString)
     }
+    
+    func testSettingsV1() {
+        XCTAssertEqual(.ecosia, Settings.V1(engine: .ecosia).data.prototype(Settings.self).engine)
+        XCTAssertEqual(.google, Settings.V1(engine: .google).data.prototype(Settings.self).engine)
+        XCTAssertFalse(Settings.V1().data.prototype(Settings.self).javascript)
+        XCTAssertFalse(Settings.V1().data.prototype(Settings.self).dark)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).popups)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).ads)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).screen)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).trackers)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).cookies)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).http)
+        XCTAssertTrue(Settings.V1().data.prototype(Settings.self).location)
+        
+        XCTAssertFalse(Settings().data.prototype(Settings.self).location)
+    }
 }
