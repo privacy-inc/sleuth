@@ -821,4 +821,18 @@ final class CloudTests: XCTestCase {
         cloud.location(true)
         waitForExpectations(timeout: 1)
     }
+    
+    func testThird() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.settings.third)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        cloud.third(true)
+        waitForExpectations(timeout: 1)
+    }
 }
