@@ -43,9 +43,10 @@ public struct Archive: Archived {
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
-            .adding(settings.data)
+            .adding(settings.pre)
             .adding(UInt16(bookmarks.count))
             .adding(bookmarks.flatMap(\.data))
+            .adding(settings.post)
             .compressed
     }
     
@@ -68,11 +69,19 @@ public struct Archive: Archived {
                         .init(timestamp: data.uInt32())
                     }
             }
-        settings = data.isEmpty ? .init() : .init(data: &data)
-        bookmarks = (0 ..< (data.isEmpty ? 0 : .init(data.uInt16())))
-            .map { _ in
-                .init(data: &data)
-            }
+        if !data.isEmpty {
+            let pre = data.prefix(10)
+            data.removeFirst(10)
+            bookmarks = (0 ..< (data.isEmpty ? 0 : .init(data.uInt16())))
+                .map { _ in
+                    .init(data: &data)
+                }
+            data = pre + data
+            settings = .init(data: &data)
+        } else {
+            settings = .init()
+            bookmarks = []
+        }
     }
     
     private init() {

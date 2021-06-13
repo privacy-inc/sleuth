@@ -9,7 +9,6 @@ final class MigrationTests: XCTestCase {
     }
     
     func testSettings() {
-        let size = Settings().data.count
         archive.counter = 99
         let original: Data = archive
             .data
@@ -18,7 +17,7 @@ final class MigrationTests: XCTestCase {
                 return $0
             }
         let unmigrated = original
-            .dropLast(size + 2)
+            .dropLast(11 + 2)
             .compressed
         XCTAssertEqual(99, unmigrated.prototype(Archive.self).counter)
     }
@@ -32,7 +31,7 @@ final class MigrationTests: XCTestCase {
                 return $0
             }
         let unmigrated = original
-            .dropLast(2)
+            .dropLast(3)
             .compressed
         XCTAssertEqual(99, unmigrated.prototype(Archive.self).counter)
     }
@@ -63,7 +62,24 @@ final class MigrationTests: XCTestCase {
         XCTAssertTrue(Settings.V1().data.prototype(Settings.self).cookies)
         XCTAssertTrue(Settings.V1().data.prototype(Settings.self).http)
         XCTAssertTrue(Settings.V1().data.prototype(Settings.self).location)
-        
-        XCTAssertFalse(Settings().data.prototype(Settings.self).location)
+    }
+    
+    func testSettingsToV1() {
+        archive.bookmarks = [.init(title: "hello world", access: .init(url: URL(string: "https://www.google.com")!))]
+        archive.counter = 99
+        var original: Data = archive
+            .data
+            .mutating {
+                $0.decompress()
+                return $0
+            }
+        let bookmarks = original.suffix(2 + archive.bookmarks.first!.data.count)
+        original.removeLast(2 + archive.bookmarks.first!.data.count + 10)
+        original.append(Settings.V1().data)
+        original.append(bookmarks)
+        let unmigrated = original.compressed
+        XCTAssertEqual(99, unmigrated.prototype(Archive.self).counter)
+        XCTAssertEqual("hello world", unmigrated.prototype(Archive.self).bookmarks.first!.title)
+        XCTAssertEqual("https://www.google.com", unmigrated.prototype(Archive.self).bookmarks.first!.access.string)
     }
 }

@@ -59,6 +59,16 @@ public struct Settings: Equatable, Property {
         }
     }
     
+    public internal(set) var third: Bool {
+        didSet {
+            if http {
+                blocking.remove(.http)
+            } else {
+                blocking.insert(.http)
+            }
+        }
+    }
+    
     public internal(set) var trackers: Bool {
         didSet {
             router = trackers.router
@@ -66,6 +76,10 @@ public struct Settings: Equatable, Property {
     }
     
     public var data: Data {
+        fatalError()
+    }
+    
+    var pre: Data {
         Data()
             .adding(engine.data)
             .adding(javascript)
@@ -79,6 +93,11 @@ public struct Settings: Equatable, Property {
             .adding(location)
     }
     
+    var post: Data {
+        Data()
+            .adding(third)
+    }
+    
     public init(data: inout Data) {
         engine = .init(data: &data)
         javascript = data.bool()
@@ -90,6 +109,8 @@ public struct Settings: Equatable, Property {
         cookies = data.bool()
         http = data.bool()
         location = data.bool()
+        third = data.isEmpty ? false : data.bool()
+        
         router = trackers.router
         blocking = []
         
@@ -125,6 +146,7 @@ public struct Settings: Equatable, Property {
         cookies = false
         http = false
         location = false
+        third = false
         router = .secure
         blocking = .init(Blocker.allCases)
     }

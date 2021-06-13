@@ -1,5 +1,6 @@
 import Foundation
 import Archivable
+import Sleuth
 
 extension Settings {
     struct V1: Property {
