@@ -61,10 +61,10 @@ public struct Settings: Equatable, Property {
     
     public internal(set) var third: Bool {
         didSet {
-            if http {
-                blocking.remove(.http)
+            if third {
+                blocking.remove(.third)
             } else {
-                blocking.insert(.http)
+                blocking.insert(.third)
             }
         }
     }
@@ -110,7 +110,6 @@ public struct Settings: Equatable, Property {
         http = data.bool()
         location = data.bool()
         third = data.isEmpty ? false : data.bool()
-        
         router = trackers.router
         blocking = []
         
@@ -132,6 +131,10 @@ public struct Settings: Equatable, Property {
         
         if !http {
             blocking.insert(.http)
+        }
+        
+        if !third {
+            blocking.insert(.third)
         }
     }
     
@@ -175,6 +178,7 @@ public struct Settings: Equatable, Property {
             && lhs.cookies == rhs.cookies
             && lhs.http == rhs.http
             && lhs.location == rhs.location
+            && lhs.third == rhs.third
     }
 }
 

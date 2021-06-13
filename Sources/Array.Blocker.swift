@@ -4,11 +4,11 @@ extension Array where Element == Blocker.Rule {
     var compress: Self {
         self
             .filter {
-                $0.trigger == .all
+                $0.trigger == .all || $0.trigger == .script
             }
         + self
             .filter {
-                $0.trigger != .all
+                $0.trigger != .all && $0.trigger != .script
             }
             .reduce(into: [URL.White : Set<String>]()) {
                 if case let .css(css) = $1.action,
@@ -49,6 +49,10 @@ private extension Blocker.Rule.Action {
             return """
 "type": "make-https"
 """
+        case .block:
+            return """
+"type": "block"
+"""
         case let .css(css):
             return """
 "type": "css-display-none",
@@ -64,6 +68,12 @@ private extension Blocker.Rule.Trigger {
         case .all:
             return """
 "url-filter": ".*"
+"""
+        case .script:
+            return """
+"url-filter": ".*",
+"load-type": ["third-party"],
+"resource-type": ["script"]
 """
         case let .url(url):
             return """

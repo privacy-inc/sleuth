@@ -87,6 +87,7 @@ final class SettingsTests: XCTestCase {
         settings.cookies = true
         settings.http = true
         settings.screen = true
+        settings.third = true
         XCTAssertTrue(settings.blocking.isEmpty)
         
         settings.ads = false
@@ -103,6 +104,10 @@ final class SettingsTests: XCTestCase {
         settings.http = true
         settings.screen = false
         XCTAssertEqual([.screen], settings.blocking)
+        
+        settings.screen = true
+        settings.third = false
+        XCTAssertEqual([.third], settings.blocking)
     }
     
     func testScriptBegin() {

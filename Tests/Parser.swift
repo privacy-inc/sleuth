@@ -22,6 +22,15 @@ struct Parser {
         }
     }
     
+    var third: Bool {
+        dictionary.contains {
+            ($0["action"]!["type"] as! String) == "block"
+            && ($0["trigger"]!["url-filter"] as! String) == ".*"
+            && ($0["trigger"]!["load-type"] as! [String]).first == "third-party"
+            && ($0["trigger"]!["resource-type"] as! [String]).first == "script"
+        }
+    }
+    
     func css(url: String, selectors: [String]) -> Bool {
         dictionary.contains {
             ($0["action"]!["type"] as! String) == "css-display-none"

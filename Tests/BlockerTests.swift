@@ -23,6 +23,11 @@ final class BlockerTests: XCTestCase {
         XCTAssertTrue(Parser(content: Set([.http]).rules).http)
     }
     
+    func testThird() {
+        print(Set([Blocker.third]).rules)
+        XCTAssertTrue(Parser(content: Set([Blocker.third]).rules).third)
+    }
+    
     func testAds() {
         XCTAssertTrue(Parser(content: Set([.ads]).rules)
                         .css(url: "ecosia.org", selectors: [".card-ad",

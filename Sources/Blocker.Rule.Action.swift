@@ -5,6 +5,7 @@ extension Blocker.Rule {
         case
         cookies,
         http,
+        block,
         css(Set<String>)
     }
 }

@@ -2,11 +2,12 @@ import Foundation
 
 enum Blocker: CaseIterable {
     case
-        cookies,
-        http,
-        ads,
-        screen,
-        antidark
+    cookies,
+    http,
+    ads,
+    screen,
+    antidark,
+    third
     
     var rules: [Rule] {
         switch self {
@@ -63,6 +64,8 @@ enum Blocker: CaseIterable {
                                                                 ".XPromoPopup"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
+        case .third:
+            return [.init(trigger: .script, action: .block)]
         }
     }
 }
