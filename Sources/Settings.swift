@@ -8,7 +8,6 @@ public struct Settings: Equatable, Property {
     public internal(set) var location: Bool
     private(set) var router: Router
     private(set) var blocking: Set<Blocker>
-    private static let version = UInt8(2)
     
     public var dark: Bool {
         didSet {
@@ -60,16 +59,6 @@ public struct Settings: Equatable, Property {
         }
     }
     
-    public internal(set) var third: Bool {
-        didSet {
-            if http {
-                blocking.remove(.http)
-            } else {
-                blocking.insert(.http)
-            }
-        }
-    }
-    
     public internal(set) var trackers: Bool {
         didSet {
             router = trackers.router
@@ -78,7 +67,6 @@ public struct Settings: Equatable, Property {
     
     public var data: Data {
         Data()
-            .adding(Self.version)
             .adding(engine.data)
             .adding(javascript)
             .adding(dark)
@@ -89,39 +77,19 @@ public struct Settings: Equatable, Property {
             .adding(cookies)
             .adding(http)
             .adding(location)
-            .adding(third)
     }
     
     public init(data: inout Data) {
-        switch data.first {
-        case Self.version:
-            data.removeFirst()
-            engine = .init(data: &data)
-            javascript = data.bool()
-            dark = data.bool()
-            popups = data.bool()
-            ads = data.bool()
-            screen = data.bool()
-            trackers = data.bool()
-            cookies = data.bool()
-            http = data.bool()
-            location = data.bool()
-            third = data.bool()
-        default:
-            let unmigrated = V1(data: &data)
-            engine = unmigrated.engine
-            javascript = unmigrated.javascript
-            dark = unmigrated.dark
-            popups = unmigrated.popups
-            ads = unmigrated.ads
-            screen = unmigrated.screen
-            trackers = unmigrated.trackers
-            cookies = unmigrated.cookies
-            http = unmigrated.http
-            location = unmigrated.location
-            third = false
-        }
-        
+        engine = .init(data: &data)
+        javascript = data.bool()
+        dark = data.bool()
+        popups = data.bool()
+        ads = data.bool()
+        screen = data.bool()
+        trackers = data.bool()
+        cookies = data.bool()
+        http = data.bool()
+        location = data.bool()
         router = trackers.router
         blocking = []
         
@@ -157,7 +125,6 @@ public struct Settings: Equatable, Property {
         cookies = false
         http = false
         location = false
-        third = false
         router = .secure
         blocking = .init(Blocker.allCases)
     }
@@ -186,7 +153,6 @@ public struct Settings: Equatable, Property {
             && lhs.cookies == rhs.cookies
             && lhs.http == rhs.http
             && lhs.location == rhs.location
-            && lhs.third == rhs.third
     }
 }
 
