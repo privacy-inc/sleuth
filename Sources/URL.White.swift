@@ -16,7 +16,8 @@ extension URL {
         reddit,
         spiegel,
         snapchat,
-        linkedin
+        linkedin,
+        nyt
         
         var tld: TLD {
             switch self {
@@ -48,6 +49,8 @@ extension URL {
                 return .com
             case .linkedin:
                 return .com
+            case .nyt:
+                return .com
             }
         }
         
@@ -63,6 +66,8 @@ extension URL {
                 return [.plugins]
             case .reddit:
                 return [.account]
+            case .nyt:
+                return [.ads]
             default:
                 return []
             }
