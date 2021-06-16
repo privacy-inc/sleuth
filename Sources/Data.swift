@@ -5,7 +5,7 @@ extension Data {
         {
             try? write(to: $0, options: .atomic)
             return $0
-        } (URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(name))
+        } (URL.temporal(name))
     }
     
     #if os(macOS)

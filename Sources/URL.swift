@@ -1,6 +1,10 @@
 import Foundation
 
 extension URL {
+    public static func temporal(_ name: String) -> Self {
+        .init(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(name)
+    }
+    
     public func file(_ type: String) -> String {
         absoluteString
             .components(separatedBy: ".")
