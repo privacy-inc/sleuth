@@ -828,11 +828,12 @@ final class CloudTests: XCTestCase {
             .archive
             .dropFirst()
             .sink {
-                XCTAssertTrue($0.settings.third)
+                XCTAssertFalse($0.settings.third)
                 expect.fulfill()
             }
             .store(in: &subs)
-        cloud.third(true)
+        XCTAssertTrue(cloud.archive.value.settings.third)
+        cloud.third(false)
         waitForExpectations(timeout: 1)
     }
 }
