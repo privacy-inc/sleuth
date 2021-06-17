@@ -39,9 +39,7 @@ extension String {
     }
     
     private func query(_ engine: Engine) -> Self {
-        addingPercentEncoding(
-            withAllowedCharacters: .urlQueryAllowed
-                .subtracting(.init(arrayLiteral: "&", "+", ":")))
+        encoded
             .map {
                 engine.search + $0
             }
@@ -49,19 +47,32 @@ extension String {
     }
     
     private var url: Self? {
-        URL(string: self)
-            .flatMap {
-                $0.scheme != nil && ($0.host != nil || $0.query != nil)
-                    ? self
-                    : nil
-            }
+        {
+            $0.count > 1 ? URL(string: $0.first! + "?" + $0
+                                .dropFirst()
+                                .compactMap {
+                                    $0.encoded
+                                }
+                                .joined(separator: "?")) : .init(string: self)
+        } (components(separatedBy: "?"))
+        .flatMap {
+            $0.scheme != nil && ($0.host != nil || $0.query != nil)
+                ? self
+                : nil
+        }
     }
     
     private var partial: Self? {
         {
-            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1
+            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 && !$0.first!.contains(" ")
                 ? URL.Scheme.https.rawValue + "://" + self
                 : nil
         } (components(separatedBy: "."))
+    }
+    
+    private var encoded: Self? {
+        addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+                .subtracting(.init(arrayLiteral: "&", "+", ":")))
     }
 }
