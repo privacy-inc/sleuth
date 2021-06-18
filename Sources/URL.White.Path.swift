@@ -6,7 +6,6 @@ extension URL.White {
         pagead,
         recaptcha,
         swg,
-        embed,
         account,
         ads,
         plugins = "v2.2"

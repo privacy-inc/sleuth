@@ -60,8 +60,6 @@ extension URL {
                 return [.pagead,
                         .recaptcha,
                         .swg]
-            case .youtube:
-                return []
             case .facebook:
                 return [.plugins]
             case .reddit:
