@@ -61,7 +61,7 @@ extension URL {
                         .recaptcha,
                         .swg]
             case .youtube:
-                return [.embed]
+                return []
             case .facebook:
                 return [.plugins]
             case .reddit:
