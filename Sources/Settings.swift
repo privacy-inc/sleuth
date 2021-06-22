@@ -151,7 +151,11 @@ public struct Settings: Equatable, Property {
         location = false
         third = true
         router = .secure
-        blocking = .init(Blocker.allCases)
+        blocking = .init(Blocker
+                            .allCases
+                            .filter {
+                                $0 != .third
+                            })
     }
     
     public var rules: String {

@@ -10,7 +10,11 @@ final class SettingsTests: XCTestCase {
     
     func testInitial() {
         XCTAssertTrue(Router.secure === settings.router)
-        XCTAssertEqual(.init(Blocker.allCases), settings.blocking)
+        XCTAssertEqual(.init(Blocker
+                                .allCases
+                                .filter {
+                                    $0 != .third
+                                }), settings.blocking)
     }
     
     func testEngine() {
