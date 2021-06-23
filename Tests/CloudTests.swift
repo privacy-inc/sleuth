@@ -354,7 +354,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.remove(33)
+        cloud.remove(browse: 33)
         
         waitForExpectations(timeout: 1)
     }
@@ -368,7 +368,37 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.remove(33)
+        cloud.remove(browse: 33)
+    }
+    
+    func testUnBookmark() {
+        let expect = expectation(description: "")
+        cloud.archive.value.bookmarks = [.init(title: "hello bla bla", access: .remote("aguacate.com"))]
+        
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertTrue($0.bookmarks.isEmpty)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        cloud.remove(bookmark: 0)
+        
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testUnBookmarkOutOfBounds() {
+        cloud
+            .archive
+            .dropFirst()
+            .sink { _ in
+                XCTFail()
+            }
+            .store(in: &subs)
+        
+        cloud.remove(bookmark: 0)
     }
     
     func testActivity() {

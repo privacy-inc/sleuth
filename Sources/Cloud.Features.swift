@@ -18,11 +18,18 @@ extension Cloud where A == Archive {
         }
     }
     
-    
-    
-    public func remove(_ id: Int) {
+    public func remove(bookmark: Int) {
         mutating {
-            $0.browse.remove { $0.id == id }
+            guard $0.bookmarks.count > bookmark else { return }
+            $0.bookmarks.remove(at: bookmark)
+        }
+    }
+    
+    public func remove(browse: Int) {
+        mutating {
+            $0.browse.remove {
+                $0.id == browse
+            }
         }
     }
     
