@@ -29,7 +29,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com", id: nil) {
+        cloud.browse("hello.com", browse: nil) {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual(99, $0)
             XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
@@ -56,8 +56,8 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com", id: nil) { _, _ in }
-        cloud.browse("hello2.com", id: nil) { _, _ in }
+        cloud.browse("hello.com", browse: nil) { _, _ in }
+        cloud.browse("hello2.com", browse: nil) { _, _ in }
         
         waitForExpectations(timeout: 1)
     }
@@ -82,7 +82,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com", id: 33) {
+        cloud.browse("hello.com", browse: 33) {
             XCTAssertEqual(33, $0)
             XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expectBrowse.fulfill()
@@ -108,7 +108,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("hello.com", id: 55) {
+        cloud.browse("hello.com", browse: 55) {
             XCTAssertNotEqual(55, $0)
             XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expectBrowse.fulfill()
@@ -120,10 +120,10 @@ final class CloudTests: XCTestCase {
     func testBrowseMultiple() {
         let expect = expectation(description: "")
         cloud.archive.value.counter = 99
-        cloud.browse("hello.com", id: nil) { _, _ in }
-        cloud.browse("hello.com", id: nil) { _, _ in }
+        cloud.browse("hello.com", browse: nil) { _, _ in }
+        cloud.browse("hello.com", browse: nil) { _, _ in }
         
-        cloud.browse("hello.com", id: nil) {
+        cloud.browse("hello.com", browse: nil) {
             XCTAssertEqual(101, $0)
             XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
             expect.fulfill()
@@ -143,7 +143,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("", id: nil) { _, _ in
+        cloud.browse("", browse: nil) { _, _ in
             XCTFail()
         }
     }
@@ -159,7 +159,7 @@ final class CloudTests: XCTestCase {
             }
             .store(in: &subs)
         
-        cloud.browse("", id: 22) { _, _ in
+        cloud.browse("", browse: 22) { _, _ in
             XCTFail()
         }
     }

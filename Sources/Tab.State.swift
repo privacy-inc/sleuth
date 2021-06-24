@@ -9,8 +9,8 @@ extension Tab {
         
         public var browse: Int? {
             switch self {
-            case let .browse(id), let .error(id, _):
-                return id
+            case let .browse(browse), let .error(browse, _):
+                return browse
             default:
                 return nil
             }

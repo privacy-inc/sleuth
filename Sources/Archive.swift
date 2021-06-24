@@ -93,20 +93,20 @@ public struct Archive: Archived {
         bookmarks = []
     }
     
-    public func page(_ id: Int) -> Page {
+    public func page(_ browse: Int) -> Page {
         browses
             .first {
-                $0.id == id
+                $0.id == browse
             }
             .map(\.page)
             ?? .blank
     }
     
-    mutating func browse(_ search: String, id: Int?) -> (id: Int, access: Page.Access)? {
+    mutating func browse(_ search: String, browse: Int?) -> (browse: Int, access: Page.Access)? {
         search.browse(engine: settings.engine) {
             {
                 {
-                    (id: update(id, $0) ?? add($0), access: $0)
+                    (browse: update(browse, $0) ?? add($0), access: $0)
                 } ($0)
             } (.remote($0))
         }
@@ -119,13 +119,13 @@ public struct Archive: Archived {
         return id
     }
     
-    mutating func update(_ id: Int?, _ access: Page.Access) -> Int? {
+    mutating func update(_ browse: Int?, _ access: Page.Access) -> Int? {
         guard
-            let id = id,
-            let page = browses.remove(where: { $0.id == id })?.with(access: access)
+            let browse = browse,
+            let page = browses.remove(where: { $0.id == browse })?.with(access: access)
         else { return nil }
         browses.insert(page, at: 0)
-        return id
+        return browse
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {

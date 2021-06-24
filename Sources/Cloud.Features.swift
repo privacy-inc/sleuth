@@ -2,12 +2,12 @@ import Foundation
 import Archivable
 
 extension Cloud where A == Archive {
-    public func bookmark(_ id: Int) {
+    public func bookmark(_ browse: Int) {
         mutating { archive in
             archive
                 .browses
                 .first {
-                    $0.id == id
+                    $0.id == browse
                 }
                 .map { browse in
                     archive.bookmarks.removeAll {
