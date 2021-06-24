@@ -21,24 +21,24 @@ extension Cloud where A == Archive {
     
     public func revisit(_ id: Int) {
         mutating {
-            guard let browse = $0.browse.remove(where: { $0.id == id })?.revisit else { return }
-            $0.browse.insert(browse, at: 0)
+            guard let browse = $0.browses.remove(where: { $0.id == id })?.revisit else { return }
+            $0.browses.insert(browse, at: 0)
         }
     }
     
     public func update(_ id: Int, title: String) {
         mutating {
-            guard let page = $0.browse.remove(where: { $0.id == id })?
+            guard let page = $0.browses.remove(where: { $0.id == id })?
                     .with(title: title.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
-            $0.browse.insert(page, at: 0)
+            $0.browses.insert(page, at: 0)
         }
     }
     
     public func update(_ id: Int, url: URL) {
         mutating {
-            guard let page = $0.browse.remove(where: { $0.id == id })?
+            guard let page = $0.browses.remove(where: { $0.id == id })?
                     .with(access: .init(url: url)) else { return }
-            $0.browse.insert(page, at: 0)
+            $0.browses.insert(page, at: 0)
         }
     }
     

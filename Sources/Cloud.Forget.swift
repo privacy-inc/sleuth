@@ -4,7 +4,7 @@ import Archivable
 extension Cloud where A == Archive {
     public func forget() {
         mutating {
-            $0.browse = []
+            $0.browses = []
             $0.activity = []
             $0.blocked = [:]
             $0.counter = 0
@@ -13,7 +13,7 @@ extension Cloud where A == Archive {
     
     public func forgetBrowse() {
         mutating {
-            $0.browse = []
+            $0.browses = []
             $0.counter = 0
         }
     }

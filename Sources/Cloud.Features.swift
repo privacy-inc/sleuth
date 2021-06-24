@@ -5,7 +5,7 @@ extension Cloud where A == Archive {
     public func bookmark(_ id: Int) {
         mutating { archive in
             archive
-                .browse
+                .browses
                 .first {
                     $0.id == id
                 }
@@ -27,7 +27,7 @@ extension Cloud where A == Archive {
     
     public func remove(browse: Int) {
         mutating {
-            $0.browse.remove {
+            $0.browses.remove {
                 $0.id == browse
             }
         }

@@ -24,8 +24,8 @@ final class ArchiveTests: XCTestCase {
     
     func testbrowse() {
         let browse = Browse(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
-        archive.browse = [browse]
-        XCTAssertEqual(browse, archive.data.prototype(Archive.self).browse.first)
+        archive.browses = [browse]
+        XCTAssertEqual(browse, archive.data.prototype(Archive.self).browses.first)
     }
     
     func testActivity() {

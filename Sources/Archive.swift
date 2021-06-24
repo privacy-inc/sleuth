@@ -5,7 +5,7 @@ public struct Archive: Archived {
     public static let new = Self()
     public var date: Date
     public internal(set) var settings: Settings
-    public internal(set) var browse: [Browse]
+    public internal(set) var browses: [Browse]
     public internal(set) var bookmarks: [Page]
     var blocked: [String: [Date]]
     var activity: [Date]
@@ -38,8 +38,8 @@ public struct Archive: Archived {
         Data()
             .adding(UInt16(counter))
             .adding(date)
-            .adding(UInt16(browse.count))
-            .adding(browse.flatMap(\.data))
+            .adding(UInt16(browses.count))
+            .adding(browses.flatMap(\.data))
             .adding(UInt32(activity.count))
             .adding(activity.flatMap(\.data))
             .adding(blocked.data)
@@ -54,7 +54,7 @@ public struct Archive: Archived {
         data.decompress()
         counter = .init(data.uInt16())
         date = .init(timestamp: data.uInt32())
-        browse = (0 ..< .init(data.uInt16()))
+        browses = (0 ..< .init(data.uInt16()))
             .map { _ in
                 .init(data: &data)
             }
@@ -86,7 +86,7 @@ public struct Archive: Archived {
     
     private init() {
         date = .init(timeIntervalSince1970: 0)
-        browse = .init()
+        browses = .init()
         activity = []
         blocked = [:]
         settings = .init()
@@ -94,7 +94,7 @@ public struct Archive: Archived {
     }
     
     public func page(_ id: Int) -> Page {
-        browse
+        browses
             .first {
                 $0.id == id
             }
@@ -114,7 +114,7 @@ public struct Archive: Archived {
     
     mutating func add(_ access: Page.Access) -> Int {
         let id = counter
-        browse.insert(.init(id: id, page: .init(access: access)), at: 0)
+        browses.insert(.init(id: id, page: .init(access: access)), at: 0)
         counter += 1
         return id
     }
@@ -122,15 +122,15 @@ public struct Archive: Archived {
     mutating func update(_ id: Int?, _ access: Page.Access) -> Int? {
         guard
             let id = id,
-            let page = browse.remove(where: { $0.id == id })?.with(access: access)
+            let page = browses.remove(where: { $0.id == id })?.with(access: access)
         else { return nil }
-        browse.insert(page, at: 0)
+        browses.insert(page, at: 0)
         return id
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.date.timestamp == rhs.date.timestamp
-            && lhs.browse == rhs.browse
+            && lhs.browses == rhs.browses
             && lhs.activity == rhs.activity
             && lhs.blocked == rhs.blocked
             && lhs.settings == rhs.settings
