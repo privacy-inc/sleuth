@@ -45,6 +45,10 @@ final class BrowseTests: XCTestCase {
         XCTAssertEqual("https://www.google.com/search?q=wkwebview%20site%3A%20stackoverflow.com", "wkwebview site: stackoverflow.com".browse(engine: .google) { $0 })
     }
     
+    func testAlmostURLButSearch() {
+        XCTAssertEqual("https://www.google.com/search?q=facebook.com%20cezz", "facebook.com cezz".browse(engine: .google) { $0 })
+    }
+    
     func testURLWithSpace() {
         XCTAssertEqual("https://www.google.com/search?q=hello%20world", "https://www.google.com/search?q=hello%20world".browse(engine: .google) { $0 })
     }
