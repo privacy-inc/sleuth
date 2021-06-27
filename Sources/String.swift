@@ -64,7 +64,11 @@ extension String {
     
     private var partial: Self? {
         {
-            $0.count > 1 && $0.last!.count > 1 && $0.first!.count > 1 && !components(separatedBy: "?").first!.contains(" ")
+            $0.count > 1
+                && $0.last!.count > 1
+                && $0.first!.count > 1
+                && !$0.first!.contains("/")
+                && !components(separatedBy: "?").first!.contains(" ")
                 ? URL.Scheme.https.rawValue + "://" + self
                 : nil
         } (components(separatedBy: "."))
