@@ -247,7 +247,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
-                XCTAssertEqual(file.absoluteString, $0.browses.first?.page.access.domain)
+                XCTAssertEqual("file.html", $0.browses.first?.page.access.domain)
                 XCTAssertEqual(99, $0.browses.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 if case let .local(url, bookmark) = $0.browses.first?.page.access {

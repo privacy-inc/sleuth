@@ -2,25 +2,43 @@ import Foundation
 
 extension String {
     var domain: Self {
-        components(separatedBy: "://")
-            .dropFirst()
-            .first
-            .flatMap {
-                $0
-                    .components(separatedBy: "/")
+        { comps in
+            switch comps.first {
+            case "http", "https":
+                return comps
+                    .dropFirst()
                     .first
                     .flatMap {
                         $0
-                            .components(separatedBy: ":")
+                            .components(separatedBy: "/")
                             .first
                             .flatMap {
-                                $0.isEmpty
-                                ? nil
-                                : $0
-                                    .replacingOccurrences(of: "www.", with: "")
+                                $0
+                                    .components(separatedBy: ":")
+                                    .first
+                                    .flatMap {
+                                        $0.isEmpty
+                                        ? nil
+                                        : $0
+                                            .replacingOccurrences(of: "www.", with: "")
+                                    }
                             }
                     }
-            } ?? self
+            case "file":
+                return components(separatedBy: "/")
+                    .last
+            case nil:
+                return nil
+            default:
+                return comps
+                    .first!
+                    .isEmpty
+                    || comps.count == 1
+                        ? components(separatedBy: "/")
+                            .last
+                        : comps.first!
+            }
+        } (components(separatedBy: "://")) ?? self
     }
     
     func browse<T>(engine: Engine, result: (String) -> T) -> T? {
