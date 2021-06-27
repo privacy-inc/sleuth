@@ -6,7 +6,7 @@ public struct Filtered: Hashable, Comparable {
     
     init(page: Page) {
         title = page.title
-        url = page.access.string
+        url = page.access.domain
     }
     
     public static func < (lhs: Self, rhs: Self) -> Bool {
