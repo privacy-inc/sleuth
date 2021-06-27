@@ -17,7 +17,8 @@ extension URL {
         spiegel,
         snapchat,
         linkedin,
-        nyt
+        nyt,
+        medium
         
         var tld: TLD {
             switch self {
@@ -50,6 +51,8 @@ extension URL {
             case .linkedin:
                 return .com
             case .nyt:
+                return .com
+            case .medium:
                 return .com
             }
         }

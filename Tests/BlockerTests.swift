@@ -101,6 +101,8 @@ final class BlockerTests: XCTestCase {
                         .css(url: "reddit.com", selectors: ["._3q-XSJ2vokDQrvdG6mR__k",
                                                             ".EUCookieNotice",
                                                             ".XPromoPopup"]))
+        XCTAssertTrue(Parser(content: Set([.screen]).rules)
+                        .css(url: "medium.com", selectors: [".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um"]))
     }
     
     func testAntidark() {
