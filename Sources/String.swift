@@ -2,7 +2,7 @@ import Foundation
 
 extension String {
     var domain: Self {
-        { comps in
+        ({ comps in
             switch comps.first {
             case "http", "https":
                 return comps
@@ -20,7 +20,6 @@ extension String {
                                         $0.isEmpty
                                         ? nil
                                         : $0
-                                            .replacingOccurrences(of: "www.", with: "")
                                     }
                             }
                     }
@@ -34,11 +33,12 @@ extension String {
                     .first!
                     .isEmpty
                     || comps.count == 1
-                        ? components(separatedBy: "/")
-                            .last
+                        ? {
+                            $0.first!.contains(".") ? $0.first : $0.last
+                        } (components(separatedBy: "/"))
                         : comps.first!
             }
-        } (components(separatedBy: "://")) ?? self
+        } (components(separatedBy: "://")) ?? self).replacingOccurrences(of: "www.", with: "")
     }
     
     func browse<T>(engine: Engine, result: (String) -> T) -> T? {

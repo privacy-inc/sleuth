@@ -17,4 +17,29 @@ final class FilteredTests: XCTestCase {
                            Browse(id: 2, page: .init(title: "hello3", access: .remote("www.hello3.com"))),
                            Browse(id: 3, page: .init(title: "hello4", access: .remote("www.hello4.com")))].filter("").count)
     }
+    
+    func testEmpty() {
+        XCTAssertTrue([Page
+                        .init(title: "hello", access: .remote("www.hello.com")),
+                       .init(title: "hello2", access: .remote("www.hello2.com")),
+                       .init(title: "hello3", access: .remote("www.hello3.com"))].filter("lol").isEmpty)
+    }
+    
+    func testMatchURL() {
+        let filtered = [Page
+                            .init(title: "hello", access: .remote("www.hello.com/lol")),
+                           .init(title: "hello2", access: .remote("www.hello2.com")),
+                           .init(title: "hello3", access: .remote("www.hello3.com"))].filter("lol").first
+        XCTAssertEqual("hello", filtered?.title)
+        XCTAssertEqual("hello.com", filtered?.domain)
+    }
+    
+    func testMatchTitle() {
+        let filtered = [Page
+                            .init(title: "hellolol", access: .remote("www.hello.com")),
+                           .init(title: "hello2", access: .remote("www.hello2.com")),
+                           .init(title: "hello3", access: .remote("www.hello3.com"))].filter("hellolol").first
+        XCTAssertEqual("hellolol", filtered?.title)
+        XCTAssertEqual("hello.com", filtered?.domain)
+    }
 }
