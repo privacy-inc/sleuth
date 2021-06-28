@@ -42,4 +42,10 @@ final class FilteredTests: XCTestCase {
         XCTAssertEqual("hellolol", filtered?.title)
         XCTAssertEqual("hello.com", filtered?.domain)
     }
+    
+    func testRemoveDuplicates() {
+        XCTAssertEqual(1, [Page
+                            .init(title: "hello", access: .remote("www.hello.com")),
+                           .init(title: "hello2", access: .remote("www.hello.com"))].filter("hello").count)
+    }
 }
