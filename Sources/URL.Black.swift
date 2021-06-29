@@ -79,6 +79,7 @@ extension URL {
         bluekai,
         httpbin,
         wix,
+        mathtag,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",
