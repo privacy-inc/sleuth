@@ -74,4 +74,11 @@ final class FilteredTests: XCTestCase {
                             .init(title: "abcdipsumfgh", access: .remote("www.hello.com")),
                            .init(title: "poplorempush", access: .remote("www.world.com"))].filter("lorem total ipsum").count)
     }
+    
+    func testSplitBlank() {
+        XCTAssertEqual(2, [Page
+                            .init(title: "abcdipsumfgh", access: .remote("www.hello.com")),
+                           .init(title: "poplorempush", access: .remote("www.world.com")),
+                           .init(title: "toto  ", access: .remote("www.some.com"))].filter("lorem   ipsum").count)
+    }
 }
