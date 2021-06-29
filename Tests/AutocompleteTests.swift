@@ -8,13 +8,6 @@ final class AutocompleteTests: XCTestCase {
         archive = .new
     }
     
-    func testMostRecent() {
-        archive.browses = [
-            .init(id: 0, page: .init(title: "hello4", access: .init(url: URL(string: "about:blank")!)), date: Calendar.current.date(byAdding: .day, value: -1, to: .init())!),
-            .init(id: 0, page: .init(title: "hello", access: .init(url: URL(string: "about:blank")!)), date: Calendar.current.date(byAdding: .day, value: -2, to: .init())!)]
-        XCTAssertEqual("hello4", archive.browses.filter("hello").first?.title)
-    }
-    
     func testURL() {
         archive.browses = [
             .init(id: 0, page: .init(title: "AlGol", access: .init(url: URL(string: "www.hello.com")!)), date: Calendar.current.date(byAdding: .day, value: -1, to: .init())!)]
