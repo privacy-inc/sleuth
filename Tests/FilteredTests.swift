@@ -48,4 +48,18 @@ final class FilteredTests: XCTestCase {
                             .init(title: "hello", access: .remote("www.hello.com")),
                            .init(title: "hello2", access: .remote("www.hello.com"))].filter("hello").count)
     }
+    
+    func testSorted() {
+        let filtered = [Page
+                            .init(title: "b", access: .remote("www.a.com")),
+                           .init(title: "a", access: .remote("www.z.com"))].filter("com")
+        XCTAssertEqual("a", filtered.first?.title)
+        XCTAssertEqual("b", filtered.last?.title)
+    }
+    
+    func testSplit() {
+        XCTAssertEqual(2, [Page
+                            .init(title: "abcdipsumfgh", access: .remote("www.hello.com")),
+                           .init(title: "poplorempush", access: .remote("www.world.com"))].filter("lorem total ipsum").count)
+    }
 }

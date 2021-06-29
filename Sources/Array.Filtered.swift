@@ -5,11 +5,12 @@ extension Array where Element == Filtered {
         string
             .isEmpty
             ? self
-            : Set(self
-                .filter {
-                    $0.title.localizedCaseInsensitiveContains(string)
-                        || $0.url.localizedCaseInsensitiveContains(string)
-                })
+            : Set({ components in
+                self
+                    .filter {
+                        $0.contains(components)
+                    }
+            } (string.components(separatedBy: " ")))
             .sorted()
     }
 }

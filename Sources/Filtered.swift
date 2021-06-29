@@ -12,6 +12,14 @@ public struct Filtered: Hashable, Comparable {
         url = page.access.string
     }
     
+    func contains(_ strings: [String]) -> Bool {
+        strings
+            .first {
+                title.localizedCaseInsensitiveContains($0)
+                    || url.localizedCaseInsensitiveContains($0)
+            } != nil
+    }
+    
     public func hash(into: inout Hasher) {
         into.combine(url)
     }
