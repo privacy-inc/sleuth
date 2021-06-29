@@ -8,6 +8,7 @@ extension URL.White {
         swg,
         account,
         ads,
+        tr,
         plugins = "v2.2"
     }
 }

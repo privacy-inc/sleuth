@@ -64,7 +64,8 @@ extension URL {
                         .recaptcha,
                         .swg]
             case .facebook:
-                return [.plugins]
+                return [.plugins,
+                        .tr]
             case .reddit:
                 return [.account]
             case .nyt:
