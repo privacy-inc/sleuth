@@ -65,11 +65,27 @@ final class ArchiveTests: XCTestCase {
         XCTAssertEqual([1, 0, 0, 0, 0, 0, 0, 0, 0.5, 0], archive.plotter)
     }
     
-    func testTrackers() {
+    func testTrackersAttempts() {
         archive.blocked = ["a": [.init()],
                            "b": [.init()],
                            "c": [.init(), .init()]]
-        XCTAssertEqual("c", archive.trackers.first?.name)
-        XCTAssertEqual("b", archive.trackers.last?.name)
+        XCTAssertEqual("c", archive.trackers(.attempts).first?.name)
+        XCTAssertEqual("b", archive.trackers(.attempts).last?.name)
+    }
+    
+    func testTrackersRecent() {
+        archive.blocked = ["a": [.distantPast],
+                           "b": [.init(timeIntervalSinceNow: -10)],
+                           "c": [.init(timeIntervalSinceNow: -30), .init(timeIntervalSinceNow: -50)]]
+        XCTAssertEqual("b", archive.trackers(.recent).first?.name)
+        XCTAssertEqual("a", archive.trackers(.recent).last?.name)
+    }
+    
+    func testTrackersRecentLast() {
+        archive.blocked = ["a": [.distantPast],
+                           "b": [.init(timeIntervalSinceNow: -100), .init(timeIntervalSinceNow: -10)],
+                           "c": [.init(timeIntervalSinceNow: -30), .init(timeIntervalSinceNow: -50)]]
+        XCTAssertEqual("b", archive.trackers(.recent).first?.name)
+        XCTAssertEqual("a", archive.trackers(.recent).last?.name)
     }
 }

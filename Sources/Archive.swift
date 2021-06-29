@@ -22,18 +22,6 @@ public struct Archive: Archived {
             .plotter
     }
     
-    public var trackers: [(name: String, count: [Date])] {
-        blocked
-            .sorted {
-                $0.1.count == $1.1.count
-                    ? $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending
-                    : $0.1.count > $1.1.count
-            }
-            .map {
-                (name: $0.key, count: $0.value)
-            }
-    }
-    
     public var data: Data {
         Data()
             .adding(UInt16(counter))
@@ -100,6 +88,14 @@ public struct Archive: Archived {
             }
             .map(\.page)
             ?? .blank
+    }
+    
+    public func trackers(_ sorted: Trackers) -> [(name: String, count: [Date])] {
+        sorted
+            .sort(blocked)
+            .map {
+                (name: $0.key, count: $0.value)
+            }
     }
     
     mutating func browse(_ search: String, browse: Int?) -> (browse: Int, access: Page.Access)? {
