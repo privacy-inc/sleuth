@@ -88,4 +88,12 @@ final class ArchiveTests: XCTestCase {
         XCTAssertEqual("b", archive.trackers(.recent).first?.name)
         XCTAssertEqual("a", archive.trackers(.recent).last?.name)
     }
+    
+    func testTrackersCount() {
+        archive.blocked = ["a": [.distantPast],
+                           "b": [.init(timeIntervalSinceNow: -100), .init(timeIntervalSinceNow: -10)],
+                           "c": [.init(timeIntervalSinceNow: -30), .init(timeIntervalSinceNow: -50)]]
+        XCTAssertEqual(3, archive.trackers.count)
+        XCTAssertEqual(5, archive.trackers.attempts)
+    }
 }

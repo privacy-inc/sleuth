@@ -22,6 +22,12 @@ public struct Archive: Archived {
             .plotter
     }
     
+    public var trackers: (count: Int, attempts: Int) {
+        (count: blocked.count, attempts: blocked
+            .map(\.1.count)
+            .reduce(0, +))
+    }
+    
     public var data: Data {
         Data()
             .adding(UInt16(counter))
