@@ -49,6 +49,12 @@ final class FilteredTests: XCTestCase {
                            .init(title: "hello2", access: .remote("www.hello.com"))].filter("hello").count)
     }
     
+    func testRemoveDuplicatesCase() {
+        XCTAssertEqual(1, [Page
+                            .init(title: "hello", access: .remote("www.hello.com/a")),
+                           .init(title: "hello2", access: .remote("www.hello.com/A"))].filter("hello").count)
+    }
+    
     func testSorted() {
         let filtered = [Page
                             .init(title: "b", access: .remote("www.a.com")),

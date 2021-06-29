@@ -25,7 +25,7 @@ public struct Filtered: Hashable, Comparable {
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.url == rhs.url
+        lhs.url.localizedCaseInsensitiveCompare(rhs.url) == .orderedSame
     }
     
     public static func < (lhs: Self, rhs: Self) -> Bool {
