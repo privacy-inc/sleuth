@@ -21,7 +21,7 @@ public struct Filtered: Hashable, Comparable {
     }
     
     public func hash(into: inout Hasher) {
-        into.combine(url)
+        into.combine(url.lowercased())
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
