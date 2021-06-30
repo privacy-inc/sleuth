@@ -3,7 +3,7 @@ import Foundation
 private let divisions = 10
 
 extension Array where Element == TimeInterval {
-    public var plotter: [Double] {
+    var plotter: [Double] {
         guard let first = self.first else { return [] }
         let interval = (Date().timeIntervalSince1970 - first) / .init(divisions)
         let ranges = (0 ..< divisions).map {

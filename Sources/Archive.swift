@@ -7,20 +7,9 @@ public struct Archive: Archived {
     public internal(set) var settings: Settings
     public internal(set) var browses: [Browse]
     public internal(set) var bookmarks: [Page]
+    public internal(set) var activity: [Date]
     var blocked: [String: [Date]]
-    var activity: [Date]
     var counter = 0
-    
-    public var since: Date? {
-        activity
-            .first
-    }
-    
-    public var plotter: [Double] {
-        activity
-            .map(\.timeIntervalSince1970)
-            .plotter
-    }
     
     public var trackers: (count: Int, attempts: Int) {
         (count: blocked.count, attempts: blocked

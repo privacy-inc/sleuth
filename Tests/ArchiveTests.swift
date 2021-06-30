@@ -57,12 +57,12 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testPlotter() {
-        XCTAssertEqual([], archive.plotter)
+        XCTAssertEqual([], archive.activity.plotter)
         archive.activity = [
             Calendar.current.date(byAdding: .day, value: -9, to: .init())!,
             Calendar.current.date(byAdding: .day, value: -9, to: .init())!,
             Calendar.current.date(byAdding: .day, value: -1, to: .init())!]
-        XCTAssertEqual([1, 0, 0, 0, 0, 0, 0, 0, 0.5, 0], archive.plotter)
+        XCTAssertEqual([1, 0, 0, 0, 0, 0, 0, 0, 0.5, 0], archive.activity.plotter)
     }
     
     func testTrackersAttempts() {
