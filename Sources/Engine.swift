@@ -15,10 +15,10 @@ public enum Engine: UInt8, Property {
         self.init(rawValue: data.removeFirst())!
     }
     
-    var search: String {
+    var url: URL.White {
         switch self {
-        case .ecosia: return "https://www.ecosia.org/search?q="
-        case .google: return "https://www.google.com/search?q="
+        case .ecosia: return .ecosia
+        case .google: return .google
         }
     }
 }

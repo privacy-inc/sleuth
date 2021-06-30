@@ -30,7 +30,7 @@ final class BrowseTests: XCTestCase {
     }
     
     func testPlus() {
-        XCTAssertEqual("https://www.google.com/search?q=hello%2Bworld", "hello+world".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=hello+world", "hello+world".browse(engine: .google) { $0 })
     }
     
     func testCaret() {
@@ -38,11 +38,11 @@ final class BrowseTests: XCTestCase {
     }
     
     func testSemiColon() {
-        XCTAssertEqual("https://www.google.com/search?q=hello%3Aworld", "hello:world".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=hello:world", "hello:world".browse(engine: .google) { $0 })
     }
     
     func testSemicolonWithURL() {
-        XCTAssertEqual("https://www.google.com/search?q=wkwebview%20site%3A%20stackoverflow.com", "wkwebview site: stackoverflow.com".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=wkwebview%20site:%20stackoverflow.com", "wkwebview site: stackoverflow.com".browse(engine: .google) { $0 })
     }
     
     func testAlmostURLButSearch() {
@@ -60,9 +60,9 @@ final class BrowseTests: XCTestCase {
     func testHttp() {
         XCTAssertEqual("https://www.google.com/search?q=http", "http".browse(engine: .google) { $0 })
         XCTAssertEqual("https://www.google.com/search?q=https", "https".browse(engine: .google) { $0 })
-        XCTAssertEqual("https://www.google.com/search?q=https%3A", "https:".browse(engine: .google) { $0 })
-        XCTAssertEqual("https://www.google.com/search?q=https%3A/", "https:/".browse(engine: .google) { $0 })
-        XCTAssertEqual("https://www.google.com/search?q=https%3A//", "https://".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=https:", "https:".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=https:/", "https:/".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=https://", "https://".browse(engine: .google) { $0 })
     }
     
     func testDeeplink() {

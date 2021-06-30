@@ -57,13 +57,15 @@ extension String {
     }
     
     private func query(_ engine: Engine) -> Self? {
-        var components = URLComponents(string: engine.search)
-        components?.queryItems = [.init(name: "q", value: self)]
-        return components?.string
+        var components = URLComponents(string: "//www." + engine.url.rawValue + "." + engine.url.tld.rawValue)!
+        components.scheme = "https"
+        components.path = "/search"
+        components.queryItems = [.init(name: "q", value: self)]
+        return components.string
     }
     
     private var url: Self? {
-        (URL(string: self)
+        (.init(string: self)
             ?? addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed.union(.urlFragmentAllowed))
             .flatMap(URL.init(string:)))
                 .flatMap {
@@ -83,11 +85,5 @@ extension String {
                 ? URL.Scheme.https.rawValue + "://" + self
                 : nil
         } (components(separatedBy: "."))
-    }
-    
-    private var encoded: Self? {
-        addingPercentEncoding(
-            withAllowedCharacters: .urlQueryAllowed
-                .subtracting(.init(arrayLiteral: "&", "+", ":")))
     }
 }
