@@ -50,29 +50,27 @@ extension String {
         .map(result)
     }
     
-    private func trimmed(transform: (Self) -> Self) -> Self? {
+    private func trimmed(transform: (Self) -> Self?) -> Self? {
         {
             $0.isEmpty ? nil : transform($0)
         } (trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
-    private func query(_ engine: Engine) -> Self {
-        encoded
-            .map {
-                engine.search + $0
-            }
-        ?? self
+    private func query(_ engine: Engine) -> Self? {
+        var components = URLComponents(string: engine.search)
+        components?.queryItems = [.init(name: "q", value: self)]
+        return components?.string
     }
     
     private var url: Self? {
-        {
-            $0.count == 2 ? URL(string: $0.first! + "?" + $0.last!.replacingOccurrences(of: " ", with: "%20")) : .init(string: self)
-        } (components(separatedBy: "?"))
-        .flatMap {
-            $0.scheme != nil && ($0.host != nil || $0.query != nil)
-                ? $0.absoluteString
-                : nil
-        }
+        (URL(string: self)
+            ?? addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed.union(.urlFragmentAllowed))
+            .flatMap(URL.init(string:)))
+                .flatMap {
+                    $0.scheme != nil && ($0.host != nil || $0.query != nil)
+                        ? $0.absoluteString
+                        : nil
+                }
     }
     
     private var partial: Self? {
@@ -81,7 +79,7 @@ extension String {
                 && $0.last!.count > 1
                 && $0.first!.count > 1
                 && !$0.first!.contains("/")
-                && !components(separatedBy: "?").first!.contains(" ")
+                && !contains(" ")
                 ? URL.Scheme.https.rawValue + "://" + self
                 : nil
         } (components(separatedBy: "."))

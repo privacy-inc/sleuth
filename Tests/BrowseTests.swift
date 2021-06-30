@@ -68,4 +68,8 @@ final class BrowseTests: XCTestCase {
     func testDeeplink() {
         XCTAssertEqual("macappstores://apps.apple.com/us/app/avocado-kanban/id1549855022?app=mac-app&extRefUrl2=https%3A%2F%2Favoca-do.github.io", "macappstores://apps.apple.com/us/app/avocado-kanban/id1549855022?app=mac-app&extRefUrl2=https%3A%2F%2Favoca-do.github.io".browse(engine: .google) { $0 })
     }
+    
+    func testNonEnglishCharacters() {
+        XCTAssertEqual("https://something.com/a/%C3%B1", "https://something.com/a/ñ".browse(engine: .google) { $0 })
+    }
 }
