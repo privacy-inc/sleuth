@@ -31,7 +31,9 @@ final class BlockerTests: XCTestCase {
     func testAds() {
         XCTAssertTrue(Parser(content: Set([.ads]).rules)
                         .css(url: "ecosia.org", selectors: [".card-ad",
-                                                            ".card-productads"]))
+                                                            ".card-productads",
+                                                            ".js-whitelist-notice",
+                                                            ".callout-whitelist"]))
         
         XCTAssertTrue(Parser(content: Set([.ads]).rules)
                         .css(url: "google.com", selectors: ["#taw",
