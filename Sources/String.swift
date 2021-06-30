@@ -66,16 +66,11 @@ extension String {
     
     private var url: Self? {
         {
-            $0.count > 1 ? URL(string: $0.first! + "?" + $0
-                                .dropFirst()
-                                .compactMap {
-                                    $0.encoded
-                                }
-                                .joined(separator: "?")) : .init(string: self)
+            $0.count == 2 ? URL(string: $0.first! + "?" + $0.last!.replacingOccurrences(of: " ", with: "%20")) : .init(string: self)
         } (components(separatedBy: "?"))
         .flatMap {
             $0.scheme != nil && ($0.host != nil || $0.query != nil)
-                ? self
+                ? $0.absoluteString
                 : nil
         }
     }

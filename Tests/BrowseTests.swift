@@ -50,7 +50,7 @@ final class BrowseTests: XCTestCase {
     }
     
     func testURLWithSpace() {
-        XCTAssertEqual("https://www.google.com/search?q=hello%20world", "https://www.google.com/search?q=hello%20world".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://www.google.com/search?q=hello%20world", "https://www.google.com/search?q=hello world".browse(engine: .google) { $0 })
     }
     
     func testLocalPath() {
