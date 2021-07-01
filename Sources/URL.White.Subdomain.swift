@@ -7,6 +7,7 @@ extension URL.White {
         interactive,
         tr,
         accounts,
-        tarifvergleich
+        tarifvergleich,
+        mobileads
     }
 }

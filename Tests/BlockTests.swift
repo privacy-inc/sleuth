@@ -99,6 +99,10 @@ final class BlockTests: XCTestCase {
         "https://www.facebook.com/tr/",
         "https://d.adup-tech.com/iframe?p=481057718b40bd81664172de03402f8a&r=0&s=0&a=0&f=01&id=6ynr285n&gdpr=1&gdpr_consent=CPHEY9fPHEY9fAGABCDEBcCgAP_AAAAAAAYgGnAZ5CpUTWFAUXJ8QtsAGYQUUEQEAWACAACAAiABAAEAMKQAgUAAoASAAAACAAIAIAIBAAAACAAEAUAAQAAEAAEAAAAAgAAIIABEAAAAAAAAAAoAAAAAAAAIAAABAAAAkAAAAmIEAGAIkAAQAAAHjIAoATAAuAEcAXmAz4RAGAC4AIYBDYCLwEiAM-CQIwAFgAVAAyABwADwAIAAZAA0AB5AEQARQAmABPAC4AG8AOYAhABDAClAGGANUAfoBAwCNAEcAMUAbgA4gB6AENgIvASIAocBeYDPgGnBoBAAXABDAEFALSAhsBF4CRAGfBgAIB1BUAYAJgAXACOAFpAXmAz4UABAIKOgUAALAAqABkADgAIAAZAA0AB4AD6AIgAigBMACeAFwAMQAbwA5gCEAEMAJgAUoAsQBhgDRAH6AQMAjgBaQDFAG4AOIAdQA9ACGwEXgJEAUOAvMBlgDPgGnDgBIAFwAvgEFAIQARYAuoBgQDXgIgIQDwAFgAZACYAFwAMQAbwBYgEcALSAYoA6gB6AEiALaAZ8QABABfAIKSgLAALAAyABwAHgARAAmABcADEAIQAQwApQBqgEcALSAYoA3AB1AEXgJEAXmAywBnxIAIABcAL4BdQDXlIDoACwAKgAZAA4ACAAGQANAAeQBEAEUAJgATwAuABiADmAIQAQwApQBYgDRAGqAP0AjgBuAD0AIvASIAocBeYDPigAcAC4AXwCLAE7ALqAYoA14AAA.YAAAAAAAAAAA&uid=1xwiTZbBL7BSlg3ZVOdX&surl=www.spiegel.de%2F&sref=www.spiegel.de%2Fconsent-a-%3FtargetUrl%3Dhttps%253A%252F%252Fwww.spiegel.de%252F",
         "https://tarifvergleich.spiegel.de/multiwidget1?vxcp_productType=mobile",
+        "https://widgets.outbrain.com/nanoWidget/externals/cookie/put.html",
+        "https://cdn.conative.de/libs/uu-track/uu.html",
+        "https://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354",
+        "gmsg://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354"
     ]
     
     override func setUp() {
