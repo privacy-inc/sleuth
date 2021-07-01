@@ -12,7 +12,7 @@ extension URL {
             case .http, .https:
                 return .allow
             case .gmsg:
-                return .block("Google mobile ads")
+                return .block("mobileads.google.com")
             }
         }
     }
