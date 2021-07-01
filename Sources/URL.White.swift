@@ -70,8 +70,6 @@ extension URL {
                 return [.account]
             case .nyt:
                 return [.ads]
-            case .spiegel:
-                return [.consent_a_]
             default:
                 return []
             }

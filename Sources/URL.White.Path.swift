@@ -9,7 +9,6 @@ extension URL.White {
         account,
         ads,
         tr,
-        plugins = "v2.2",
-        consent_a_ = "consent-a-"
+        plugins = "v2.2"
     }
 }
