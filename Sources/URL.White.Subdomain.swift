@@ -6,6 +6,7 @@ extension URL.White {
         platform,
         interactive,
         tr,
-        accounts
+        accounts,
+        tarifvergleich
     }
 }

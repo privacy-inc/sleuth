@@ -85,6 +85,8 @@ extension URL {
         google_analytics = "google-analytics",
         amazon_adsystem = "amazon-adsystem",
         the_ozone_project = "the-ozone-project",
-        visitor_analytics = "visitor-analytics"
+        visitor_analytics = "visitor-analytics",
+        adup_tech = "adup-tech",
+        privacy_mgmt = "privacy-mgmt"
     }
 }
