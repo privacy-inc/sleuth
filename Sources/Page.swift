@@ -34,4 +34,13 @@ public struct Page: Hashable, Property {
     func with(access: Access) -> Self {
         .init(title: title, access: access)
     }
+    
+    func matches(_ strings: [String]) -> Int {
+        strings
+            .filter {
+                title.localizedCaseInsensitiveContains($0)
+                    || access.string.localizedCaseInsensitiveContains($0)
+            }
+            .count
+    }
 }

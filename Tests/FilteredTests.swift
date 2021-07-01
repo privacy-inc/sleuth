@@ -18,6 +18,15 @@ final class FilteredTests: XCTestCase {
                            Browse(id: 3, page: .init(title: "hello4", access: .remote("www.hello4.com")))].filter("").count)
     }
     
+    func testEmptyFilter() {
+        let filtered = [Page
+                            .init(title: "c", access: .remote("www.hello.com")),
+                           .init(title: "a", access: .remote("www.hello2.com")),
+                           .init(title: "b", access: .remote("www.hello3.com"))].filter("")
+        XCTAssertEqual("c", filtered.first?.title)
+        XCTAssertEqual("a", filtered.last?.title)
+    }
+    
     func testEmpty() {
         XCTAssertTrue([Page
                         .init(title: "hello", access: .remote("www.hello.com")),
@@ -80,5 +89,15 @@ final class FilteredTests: XCTestCase {
                             .init(title: "abcdipsumfgh", access: .remote("www.hello.com")),
                            .init(title: "poplorempush", access: .remote("www.world.com")),
                            .init(title: "toto  ", access: .remote("www.some.com"))].filter("lorem   ipsum").count)
+    }
+    
+    func testSortByMatches() {
+        let filtered = [Page
+            .init(title: "x", access: .remote("www.hello.com")),
+         .init(title: "xyz", access: .remote("www.world.com")),
+         .init(title: "xy", access: .remote("www.some.com"))].filter("x y z")
+        XCTAssertEqual(2, filtered.count)
+        XCTAssertEqual("xyz", filtered.first?.title)
+        XCTAssertEqual("xy", filtered.last?.title)
     }
 }
