@@ -8,37 +8,42 @@ extension String {
                 return comps
                     .dropFirst()
                     .first
-                    .flatMap {
-                        $0
-                            .components(separatedBy: "/")
-                            .first
-                            .flatMap {
-                                $0
-                                    .components(separatedBy: ":")
-                                    .first
-                                    .flatMap {
-                                        $0.isEmpty
-                                        ? nil
-                                        : $0
-                                    }
-                            }
-                    }
+                    .flatMap(\.subdomain)
             case "file":
                 return components(separatedBy: "/")
                     .last
             case nil:
                 return nil
             default:
-                return comps
-                    .first!
-                    .isEmpty
-                    || comps.count == 1
+                return comps.count == 1
                         ? {
-                            $0.first!.contains(".") ? $0.first : $0.last
+                            $0.first!.contains(".")
+                                ? $0
+                                    .first
+                                    .flatMap(\.subdomain)
+                                : $0.last
                         } (components(separatedBy: "/"))
-                        : comps.first!
+                        : comps[0].subdomain
             }
         } (components(separatedBy: "://")) ?? self).replacingOccurrences(of: "www.", with: "")
+    }
+    
+    private var subdomain: Self? {
+        components(separatedBy: "/")
+            .first
+            .flatMap {
+                $0
+                    .components(separatedBy: ":")
+                    .first
+                    .flatMap {
+                        $0.isEmpty
+                            ? nil
+                            : $0
+                                .components(separatedBy: ".")
+                                .suffix(2)
+                                .joined(separator: ".")
+                    }
+            }
     }
     
     func browse<T>(engine: Engine, result: (String) -> T) -> T? {
