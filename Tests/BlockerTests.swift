@@ -66,7 +66,9 @@ final class BlockerTests: XCTestCase {
                                                              ".opened",
                                                              ".ytd-popup-container",
                                                              ".upsell-dialog-lightbox",
-                                                             ".consent-bump-lightbox"]))
+                                                             ".consent-bump-lightbox",
+                                                             "#lightbox",
+                                                             ".ytd-consent-bump-v2-renderer"]))
         
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "instagram.com", selectors: [".RnEpo.Yx5HN",
