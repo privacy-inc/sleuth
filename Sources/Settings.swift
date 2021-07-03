@@ -169,6 +169,7 @@ public struct Settings: Equatable, Property {
     public var end: String {
         (screen ? "" : Script.scroll)
         + (location ? Script.location : "")
+            + Script.favicon
     }
     
     public static func == (lhs: Settings, rhs: Settings) -> Bool {

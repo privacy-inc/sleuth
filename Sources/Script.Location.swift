@@ -2,7 +2,7 @@ import Foundation
 
 extension Script {
     static let location = """
-var _privacy_location_success = null;
+var _privacy_incognit_location_success = null;
 
 function _privacy_incognit_location_received(latitude, longitude, accuracy) {
     var position = {
@@ -13,16 +13,16 @@ function _privacy_incognit_location_received(latitude, longitude, accuracy) {
         }
     };
 
-    if (_privacy_location_success != null) {
-        _privacy_location_success(position);
+    if (_privacy_incognit_location_success != null) {
+        _privacy_incognit_location_success(position);
     }
 
-    _privacy_location_success = null;
+    _privacy_incognit_location_success = null;
 }
 
 navigator.geolocation.getCurrentPosition = function(success, error, options) {
-    _privacy_location_success = success;
-    webkit.messageHandlers.handler.postMessage('_privacy_incognit_location_request');
+    _privacy_incognit_location_success = success;
+    webkit.messageHandlers.location.postMessage('_privacy_incognit_location_request');
 };
 
 """

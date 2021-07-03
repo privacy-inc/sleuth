@@ -121,12 +121,12 @@ final class SettingsTests: XCTestCase {
     }
     
     func testScriptEnd() {
-        XCTAssertEqual(Script.scroll, settings.end)
+        XCTAssertEqual(Script.scroll + Script.favicon, settings.end)
         settings.location = true
-        XCTAssertEqual(Script.scroll + Script.location, settings.end)
+        XCTAssertEqual(Script.scroll + Script.location + Script.favicon, settings.end)
         settings.location = false
         settings.screen = true
-        XCTAssertTrue(settings.end.isEmpty)
+        XCTAssertEqual(Script.favicon, settings.end)
     }
     
     func testThird() {
