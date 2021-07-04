@@ -19,4 +19,17 @@ final class FaviconTests: XCTestCase {
             }
             .store(in: &subs)
     }
+    
+    func testSave() {
+        let expect = expectation(description: "")
+        
+        favicon
+            .save(domain: "aguacate.com", url: "aguacate.com/favicon.ico")
+            .sink { _ in
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
+    }
 }

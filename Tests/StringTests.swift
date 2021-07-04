@@ -13,7 +13,8 @@ final class StringTests: XCTestCase {
         XCTAssertEqual("index.html", "file:///Users/vaux/Downloads/about/index.html".domain)
         XCTAssertEqual("hello.com", "www.hello.com".domain)
         XCTAssertEqual("hello.com", "www.hello.com/lol".domain)
-        XCTAssertEqual("world.com", "www.hello.world.com/lol".domain)
-        XCTAssertEqual("world.com", "https://hello.world.com/lol".domain)
+        XCTAssertEqual("hello.world.com", "www.hello.world.com/lol".domain)
+        XCTAssertEqual("hello.world.com", "https://hello.world.com/lol".domain)
+        XCTAssertEqual("bbc.co.uk", "https://bbc.co.uk".domain)
     }
 }

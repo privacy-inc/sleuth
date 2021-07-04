@@ -39,9 +39,6 @@ extension String {
                         $0.isEmpty
                             ? nil
                             : $0
-                                .components(separatedBy: ".")
-                                .suffix(2)
-                                .joined(separator: ".")
                     }
             }
     }
