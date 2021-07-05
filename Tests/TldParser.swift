@@ -6,7 +6,7 @@ enum TldParser {
             ($0.set.serial, $0.dictionary.serial)
         } (content
             .lines
-            .reduce(into: (set: Set<String>(), dictionary: [String : [Any]]())) { result, components in
+            .reduce(into: (set: Set<String>(), dictionary: [String : Any]())) { result, components in
                 components
                     .filter {
                         $0 != "*"
@@ -26,6 +26,10 @@ enum TldParser {
                             .set
                             .insert($0)
                     }
+                
+                result
+                    .dictionary
+                    .chain(components: components)
             })
     }
 }
@@ -66,16 +70,68 @@ public enum Tld: String {
     }
 }
 
-private extension Dictionary where Key == String, Value == [Any] {
+private extension Dictionary where Key == String, Value == Any {
     var serial: String {
         """
 import Foundation
 
 extension Tld {
     static let suffix: [Tld : Mode] = [
-        ]
+\(listed(level: 1))]
 }
 
 """
+    }
+    
+    private func listed(level: Int) -> String {
+        """
+\(sorted {
+    $0.0 < $1.0
+}
+.map { (key: String, value: Any) in
+    level.indent + key + " : " + (value is Self
+        ? """
+.previous([
+\((value as! Self)
+    .listed(level: level + 1))])
+"""
+        : value as! String)
+}
+.joined(separator: """
+,
+
+"""))
+"""
+    }
+    
+    mutating func chain(components: [String]) {
+        components
+            .last
+            .map { key in
+                { remain in
+                    self[key] = remain.isEmpty
+                        ? self[key] == nil
+                            ? ".end"
+                            : self[key]
+                        : (self[key]
+                            .flatMap {
+                                $0 as? Self
+                            } ?? .init())
+                            .map {
+                                var previous = $0
+                                previous.chain(components: .init(remain))
+                                return previous
+                            }
+                } (components.dropLast())
+            }
+    }
+}
+
+private extension Int {
+    var indent: String {
+        (0 ... self)
+            .flatMap { _ in
+                "    "
+            } + "."
     }
 }
