@@ -9,6 +9,14 @@ enum TldParser {
             .reduce(into: (set: Set<String>(), dictionary: [String : [Any]]())) { result, components in
                 components
                     .filter {
+                        $0 != "*"
+                    }
+                    .map {
+                        $0.first == "!"
+                            ? .init($0.dropFirst())
+                            : $0
+                    }
+                    .filter {
                         !result
                             .set
                             .contains($0)

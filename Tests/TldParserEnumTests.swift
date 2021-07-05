@@ -20,6 +20,7 @@ import Foundation
 
 public enum Tld: String {
     case
+    abc,
     com,
     net,
     org
@@ -39,10 +40,41 @@ public enum Tld: String {
 
 // ac : https://en.wikipedia.org/wiki/.ac
 org
+org.abc
 net
+abc.net
 org
 org
 com
+""").enum)
+    }
+    
+    func testWildcard() {
+        XCTAssertEqual("""
+import Foundation
+
+public enum Tld: String {
+    case
+    ck
+}
+
+""", TldParser.parse(content: """
+*.ck
+""").enum)
+    }
+    
+    func testException() {
+        XCTAssertEqual("""
+import Foundation
+
+public enum Tld: String {
+    case
+    ck,
+    www
+}
+
+""", TldParser.parse(content: """
+!www.ck
 """).enum)
     }
 }
