@@ -52,13 +52,21 @@ import Foundation
 
 extension Tld {
     static let suffix: [Tld : Mode] = [
+        .com : .end,
         .org : .previous([
-            .abc : .end])]
+            .abc : .previous([
+                .tl : .end]),
+            .zc8 : .end])]
 }
 
 """, TldParser.parse(content: """
-//org
+org
+zc8.org
+org
 abc.org
+com
+tl.abc.org
+org
 """).suffix)
     }
 }
