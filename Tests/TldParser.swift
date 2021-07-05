@@ -6,7 +6,18 @@ enum TldParser {
             ($0.set.serial, $0.dictionary.serial)
         } (content
             .lines
-            .reduce(into: (set: Set<String>(), dictionary: [String : [Any]]())) { _, _ in
+            .reduce(into: (set: Set<String>(), dictionary: [String : [Any]]())) { result, components in
+                components
+                    .filter {
+                        !result
+                            .set
+                            .contains($0)
+                    }
+                    .forEach {
+                        result
+                            .set
+                            .insert($0)
+                    }
             })
     }
 }
@@ -35,6 +46,12 @@ import Foundation
 
 public enum Tld: String {
     case
+    \(sorted()
+        .joined(separator: """
+,
+    \
+
+"""))
 }
 
 """
