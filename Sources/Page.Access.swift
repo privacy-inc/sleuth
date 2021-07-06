@@ -17,13 +17,23 @@ extension Page {
         }
         
         public var short: String {
-            ""
+            switch self {
+            case let .remote(remote):
+                return remote
+                    .value
+                    .domain
+            case let .local(local):
+                return local
+                    .value
+                    .domain
+            }
         }
         
         public var secure: Bool {
             switch self {
             case let .remote(remote):
-                return remote.secure
+                return remote
+                    .secure
             case .local:
                 return true
             }
