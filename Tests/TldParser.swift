@@ -52,8 +52,8 @@ private extension String {
     
     var safe: Self {
         switch self {
-        case "as":
-            return "_as"
+        case "as", "case", "do", "static":
+            return "_" + self
         default:
             return {
                 $0

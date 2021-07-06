@@ -24,10 +24,13 @@ public enum Tld: String {
     _1hello_world = "1hello-world",
     abc,
     _as = "as",
+    _case = "case",
     com,
+    _do = "do",
     hello_world = "hello-world",
     net,
-    org
+    org,
+    _static = "static"
 }
 
 """, TldParser.parse(content: """
@@ -51,6 +54,9 @@ org
 org
 0.com
 as
+case
+do
+static
 hello-world.com
 1hello-world.com
 com
