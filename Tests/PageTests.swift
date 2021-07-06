@@ -16,9 +16,22 @@ final class PageTests: XCTestCase {
     }
     
     func testSecure() {
-        XCTAssertTrue(Page(title: "", access: .init(url: URL(string: "https://www.aguacate.com")!)).access.secure)
-        XCTAssertTrue(Page(title: "", access: .init(url: URL(fileURLWithPath: "aguacate"))).access.secure)
-        XCTAssertFalse(Page(title: "", access: .init(url: URL(string: "http://www.aguacate.com")!)).access.secure)
-        XCTAssertFalse(Page(title: "", access: .init(url: URL(string: "ftp://www.aguacate.com")!)).access.secure)
+        if case let .remote(remote) = Page.Access(url: URL(string: "https://www.aguacate.com")!) {
+            XCTAssertTrue(remote.secure)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .remote(remote) = Page.Access(url: URL(string: "http://www.aguacate.com")!) {
+            XCTAssertFalse(remote.secure)
+        } else {
+            XCTFail()
+        }
+        
+        if case let .remote(remote) = Page.Access(url: URL(string: "ftp://www.aguacate.com")!) {
+            XCTAssertFalse(remote.secure)
+        } else {
+            XCTFail()
+        }
     }
 }

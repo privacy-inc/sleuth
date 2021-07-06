@@ -5,7 +5,8 @@ extension Page {
     public enum Access: Hashable, Property {
         case
         remote(Remote),
-        local(Local)
+        local(Local),
+        deeplink(Deeplink)
         
         public var url: URL? {
             switch self {
@@ -13,6 +14,8 @@ extension Page {
                 return .init(string: remote.value)
             case let .local(local):
                 return .init(string: local.value)
+            case let .deeplink(deeplink):
+                return .init(string: deeplink.value)
             }
         }
         
@@ -20,22 +23,13 @@ extension Page {
             switch self {
             case let .remote(remote):
                 return remote
-                    .value
                     .domain
             case let .local(local):
                 return local
-                    .value
-                    .domain
-            }
-        }
-        
-        public var secure: Bool {
-            switch self {
-            case let .remote(remote):
-                return remote
-                    .secure
-            case .local:
-                return true
+                    .file
+            case let .deeplink(deeplink):
+                return deeplink
+                    .scheme
             }
         }
         
@@ -51,13 +45,26 @@ extension Page {
                 self = .remote(.init(value: data.string()))
             case .local:
                 self = .local(.init(value: data.string(), bookmark: data.unwrap()))
+            case .deeplink:
+                self = .deeplink(.init(value: data.string()))
             }
         }
         
         init(url: URL) {
             self = url.isFileURL
                 ? .local(.init(value: url.absoluteString, bookmark: url.deletingLastPathComponent().bookmark))
-                : .remote(.init(value: url.absoluteString))
+                : {
+                    switch $0 {
+                    case .https, .http, .ftp:
+                        return .remote(.init(value: url.absoluteString))
+                    default:
+                        return url.scheme == nil
+                            ? .remote(.init(value: url.absoluteString))
+                            : .deeplink(.init(value: url.absoluteString))
+                    }
+                } (url
+                    .scheme
+                    .map(URL.Scheme.init(rawValue:)))
         }
         
         var value: String {
@@ -66,6 +73,8 @@ extension Page {
                 return remote.value
             case let .local(local):
                 return local.value
+            case let .deeplink(deeplink):
+                return deeplink.value
             }
         }
         
@@ -78,6 +87,9 @@ extension Page {
                 return Data()
                     .adding(local.value)
                     .wrapping(local.bookmark)
+            case let .deeplink(deeplink):
+                return Data()
+                    .adding(deeplink.value)
             }
         }
     }

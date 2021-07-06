@@ -5,13 +5,14 @@ extension URL {
         case
         https,
         http,
+        ftp,
         gmsg
         
         var policy: Policy {
             switch self {
             case .http, .https:
                 return .allow
-            case .gmsg:
+            case .ftp, .gmsg:
                 return .block("mobileads.google.com")
             }
         }

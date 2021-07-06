@@ -2,13 +2,13 @@ import Foundation
 
 extension Page {
     public struct Remote: Hashable {
-        public let value: String
-        public let base: String
+        public let domain: String
         public let suffix: String
+        let value: String
         
         init(value: String) {
             self.value = value
-            base = ""
+            domain = value.domain
             suffix = ""
         }
         
