@@ -69,4 +69,19 @@ tl.abc.org
 org
 """).suffix)
     }
+    
+    func testWildcard() {
+        XCTAssertEqual("""
+import Foundation
+
+extension Tld {
+    static let suffix: [Tld : Mode] = [
+        .ck : .wildcard(.init([
+]))]
+}
+
+""", TldParser.parse(content: """
+*.ck
+""").suffix)
+    }
 }

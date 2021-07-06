@@ -68,6 +68,20 @@ public enum Tld: String {
 
 """
     }
+    
+    func wildcard(level: Int) -> String {
+        """
+.wildcard(.init([
+\(sorted()
+    .map {
+        level.indent + $0
+    }
+    .joined(separator: """
+,
+
+"""))]))
+"""
+    }
 }
 
 private extension Dictionary where Key == String, Value == Any {
@@ -83,27 +97,6 @@ extension Tld {
 """
     }
     
-    private func listed(level: Int) -> String {
-        """
-\(sorted {
-    $0.0 < $1.0
-}
-.map { (key: String, value: Any) in
-    level.indent + key + " : " + (value is Self
-        ? """
-.previous([
-\((value as! Self)
-    .listed(level: level + 1))])
-"""
-        : value as! String)
-}
-.joined(separator: """
-,
-
-"""))
-"""
-    }
-    
     mutating func chain(components: [String]) {
         components
             .last
@@ -113,17 +106,65 @@ extension Tld {
                         ? self[key] == nil
                             ? ".end"
                             : self[key]
-                        : (self[key]
-                            .flatMap {
-                                $0 as? Self
-                            } ?? .init())
-                            .map {
-                                var previous = $0
-                                previous.chain(components: .init(remain))
-                                return previous
+                        : {
+                            switch $0 {
+                            case "*":
+                                return Set<String>()
+                            default:
+                                return (self[key]
+                                    .flatMap {
+                                        $0 as? Self
+                                    } ?? .init())
+                                    .map {
+                                        var previous = $0
+                                        previous.chain(components: .init(remain))
+                                        return previous
+                                    }
                             }
+                        } (remain.last!)
                 } (components.dropLast())
             }
+    }
+    
+    func previous(level: Int) -> String {
+        """
+.previous([
+\(listed(level: level + 1))])
+"""
+    }
+    
+    private func listed(level: Int) -> String {
+        """
+\(sorted {
+    $0.0 < $1.0
+}
+.destructure(level: level)
+.joined(separator: """
+,
+
+"""))
+"""
+    }
+}
+
+private extension Array where Element == (key: String, value: Any) {
+    func destructure(level: Int) -> [String] {
+        map { (key: String, value: Any) in
+            level.indent + key + " : " + destructure(level: level, value: value)
+        }
+    }
+    
+    private func destructure(level: Int, value: Any) -> String {
+        switch value {
+        case let dictionary as [String : Any]:
+            return dictionary
+                .previous(level: level)
+        case let set as Set<String>:
+            return set
+                .wildcard(level: level)
+        default:
+            return value as! String
+        }
     }
 }
 

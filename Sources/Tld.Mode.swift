@@ -4,8 +4,7 @@ extension Tld {
     enum Mode {
         case
         previous([Tld : Mode]),
-        exception,
-        wildcard,
+        wildcard(Set<Tld>),
         end
     }
 }
