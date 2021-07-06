@@ -1,17 +1,15 @@
 import Foundation
 
 public struct Filtered: Hashable, Comparable {
-    public var domain: String {
-        url.domain
-    }
-    
     public let title: String
     public let url: String
+    public let short: String
     let matches: Int
     
     init(page: Page, matches: Int) {
         title = page.title
-        url = page.access.string
+        url = page.access.value
+        short = page.access.short
         self.matches = matches
     }
     

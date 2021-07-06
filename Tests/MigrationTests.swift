@@ -80,6 +80,6 @@ final class MigrationTests: XCTestCase {
         let unmigrated = original.compressed
         XCTAssertEqual(99, unmigrated.prototype(Archive.self).counter)
         XCTAssertEqual("hello world", unmigrated.prototype(Archive.self).bookmarks.first!.title)
-        XCTAssertEqual("https://www.google.com", unmigrated.prototype(Archive.self).bookmarks.first!.access.string)
+        XCTAssertEqual("https://www.google.com", unmigrated.prototype(Archive.self).bookmarks.first!.access.value)
     }
 }

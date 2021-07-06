@@ -23,7 +23,7 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testbrowse() {
-        let browse = Browse(id: 1234, page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
+        let browse = Browse(id: 1234, page: .init(title: "adsdasafas", access: .remote(.init(value: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))))
         archive.browses = [browse]
         XCTAssertEqual(browse, archive.data.prototype(Archive.self).browses.first)
     }
@@ -51,7 +51,7 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testBookmarks() {
-        let page = Page(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))
+        let page = Page(title: "adsdasafas", access: .remote(.init(value: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")))
         archive.bookmarks = [page]
         XCTAssertEqual(page, archive.data.prototype(Archive.self).bookmarks.first)
     }

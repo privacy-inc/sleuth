@@ -2,14 +2,9 @@ import Foundation
 import Archivable
 
 public struct Page: Hashable, Property {
-    static let blank = Page(access: .remote("about:blank"))
+    static let blank = Page(access: .remote(.init(value: "about:blank")))
     public let title: String
     public let access: Access
-    
-    public var secure: Bool {
-        access.string.hasPrefix(URL.Scheme.https.rawValue)
-            || access.string.hasPrefix("file://")
-    }
     
     public var data: Data {
         Data()
@@ -39,7 +34,7 @@ public struct Page: Hashable, Property {
         strings
             .filter {
                 title.localizedCaseInsensitiveContains($0)
-                    || access.string.localizedCaseInsensitiveContains($0)
+                    || access.value.localizedCaseInsensitiveContains($0)
             }
             .count
     }

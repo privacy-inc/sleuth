@@ -99,7 +99,7 @@ public struct Archive: Archived {
                 {
                     (browse: update(browse, $0) ?? add($0), access: $0)
                 } ($0)
-            } (.remote($0))
+            } (.remote(.init(value: $0)))
         }
     }
     

@@ -4,7 +4,7 @@ import XCTest
 final class browseTests: XCTestCase {
     func testProperty() {
         let browse = Browse(id: 1234,
-                          page: .init(title: "adsdasafas", access: .remote("https://www.aguacate.com:8080/asd/124?page=32123&lsd=1")),
+                            page: .init(title: "adsdasafas", access: .remote(.init(value: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))),
                           date: .init(timeIntervalSince1970: 10))
         XCTAssertEqual(browse, browse.data.prototype())
     }

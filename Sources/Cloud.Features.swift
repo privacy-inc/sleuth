@@ -11,7 +11,7 @@ extension Cloud where A == Archive {
                 }
                 .map { browse in
                     archive.bookmarks.removeAll {
-                        $0.access.string.lowercased() == browse.page.access.string.lowercased()
+                        $0.access.value.lowercased() == browse.page.access.value.lowercased()
                     }
                     archive.bookmarks.append(browse.page)
                 }
