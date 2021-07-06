@@ -10,7 +10,7 @@ extension Tld {
             .reduce(into: (
                         domain: nil as String?,
                         suffix: [String](),
-                        next: Self.suffix as [Tld : Tld.Mode]?,
+                        next: Self.suffix as [Tld : Mode]?,
                         exceptions: nil as Set<Tld>?))
             { result, component in
                 guard let mode = result.next?[component] else {
@@ -41,9 +41,5 @@ extension Tld {
                     result.next = nil
                 }
             })
-    }
-    
-    private func deconstruct(components: [String]) -> (domain: String?, suffix: [String]) {
-        return (nil, [])
     }
 }
