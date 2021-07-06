@@ -20,7 +20,7 @@ extension URL {
         nyt,
         medium
         
-        var tld: TLD {
+        var tld: Tld {
             switch self {
             case .ecosia:
                 return .org
