@@ -77,7 +77,7 @@ private extension Set where Element == String {
         """
 import Foundation
 
-public enum Tld: String {
+enum Tld: String {
     case
     \(sorted()
         .map(\.print)

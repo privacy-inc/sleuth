@@ -5,7 +5,7 @@ final class TldParserEnumTests: XCTestCase {
         XCTAssertEqual("""
 import Foundation
 
-public enum Tld: String {
+enum Tld: String {
     case
     \
 
@@ -18,7 +18,7 @@ public enum Tld: String {
         XCTAssertEqual("""
 import Foundation
 
-public enum Tld: String {
+enum Tld: String {
     case
     _0 = "0",
     _1hello_world = "1hello-world",
@@ -77,7 +77,7 @@ com
         XCTAssertEqual("""
 import Foundation
 
-public enum Tld: String {
+enum Tld: String {
     case
     ck
 }
@@ -91,7 +91,7 @@ public enum Tld: String {
         XCTAssertEqual("""
 import Foundation
 
-public enum Tld: String {
+enum Tld: String {
     case
     ck,
     www
