@@ -19,6 +19,7 @@ import Foundation
 
 extension Tld {
     static let suffix: [Tld : Mode] = [
+        ._0 : .end,
         .com : .end,
         .net : .end,
         .org : .end]
@@ -39,10 +40,10 @@ extension Tld {
 // ac : https://en.wikipedia.org/wiki/.ac
 org
 net
-//abc.net
 org
 org
 com
+0
 """).suffix)
     }
     
@@ -54,8 +55,11 @@ extension Tld {
     static let suffix: [Tld : Mode] = [
         .com : .end,
         .org : .previous([
+            ._0 : .end,
+            ._1hello_world : .end,
             .abc : .previous([
                 .tl : .end]),
+            .hello_world : .end,
             .zc8 : .end])]
 }
 
@@ -66,6 +70,9 @@ org
 abc.org
 com
 tl.abc.org
+0.org
+hello-world.org
+1hello-world.org
 org
 """).suffix)
     }
@@ -125,6 +132,7 @@ import Foundation
 extension Tld {
     static let suffix: [Tld : Mode] = [
         .ck : .wildcard(.init([
+            ._0,
             .asd,
             .www]))]
 }
@@ -132,6 +140,7 @@ extension Tld {
 """, TldParser.parse(content: """
 !www.ck
 !asd.ck
+!0.ck
 *.ck
 """).suffix)
     }

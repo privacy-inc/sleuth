@@ -35,7 +35,7 @@ enum TldParser {
 }
 
 private extension String {
-    var lines: [[String]] {
+    var lines: [[Self]] {
         trimmingCharacters(in: .whitespacesAndNewlines)
             .components(separatedBy: "\n")
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -49,6 +49,22 @@ private extension String {
                 $0.components(separatedBy: ".")
             }
     }
+    
+    var safe: Self {
+        {
+            $0
+                .first?
+                .isNumber == true
+                    ? "_" + $0
+                    : $0
+        } (self.replacingOccurrences(of: "-", with: "_"))
+    }
+    
+    var print: Self {
+        safe == self
+        ? self
+        : safe + " = \"\(self)\""
+    }
 }
 
 private extension Set where Element == String {
@@ -59,6 +75,7 @@ import Foundation
 public enum Tld: String {
     case
     \(sorted()
+        .map(\.print)
         .joined(separator: """
 ,
     \
@@ -74,7 +91,7 @@ public enum Tld: String {
 .wildcard(.init([
 \(sorted()
     .map {
-        level.indent + $0
+        level.indent + $0.safe
     }
     .joined(separator: """
 ,
@@ -163,7 +180,7 @@ extension Tld {
 private extension Array where Element == (key: String, value: Any) {
     func destructure(level: Int) -> [String] {
         map { (key: String, value: Any) in
-            level.indent + key + " : " + destructure(level: level, value: value)
+            level.indent + key.safe + " : " + destructure(level: level, value: value)
         }
     }
     

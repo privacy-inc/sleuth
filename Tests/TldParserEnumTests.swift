@@ -20,8 +20,11 @@ import Foundation
 
 public enum Tld: String {
     case
+    _0 = "0",
+    _1hello_world = "1hello-world",
     abc,
     com,
+    hello_world = "hello-world",
     net,
     org
 }
@@ -45,6 +48,9 @@ net
 abc.net
 org
 org
+0.com
+hello-world.com
+1hello-world.com
 com
 """).enum)
     }
