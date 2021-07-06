@@ -8,8 +8,17 @@ extension Page {
         
         init(value: String) {
             self.value = value
-            domain = value.domain
-            suffix = ""
+            let base = value
+                .replacingOccurrences(of: "https://", with: "")
+                .replacingOccurrences(of: "http://", with: "")
+                .components(separatedBy: "/")
+                .first!
+                .components(separatedBy: ":")
+                .first!
+            
+            let tld = Tld.deconstruct(url: base)
+            domain = tld.domain
+            suffix = tld.suffix
         }
         
         var secure: Bool {

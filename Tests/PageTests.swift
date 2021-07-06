@@ -12,7 +12,7 @@ final class PageTests: XCTestCase {
     }
     
     func testShort() {
-        XCTAssertEqual("aguacate.com", Page(title: "adsdasafas", access: .remote(.init(value: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))).access.short)
+        XCTAssertEqual("aguacate", Page(title: "adsdasafas", access: .remote(.init(value: "https://www.aguacate.com:8080/asd/124?page=32123&lsd=1"))).access.short)
     }
     
     func testSecure() {

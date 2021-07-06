@@ -40,7 +40,7 @@ final class FilteredTests: XCTestCase {
                            .init(title: "hello2", access: .remote(.init(value: "www.hello2.com"))),
                            .init(title: "hello3", access: .remote(.init(value: "www.hello3.com")))].filter("lol").first
         XCTAssertEqual("hello", filtered?.title)
-        XCTAssertEqual("hello.com", filtered?.short)
+        XCTAssertEqual("hello", filtered?.short)
     }
     
     func testMatchTitle() {
@@ -49,7 +49,7 @@ final class FilteredTests: XCTestCase {
                            .init(title: "hello2", access: .remote(.init(value: "www.hello2.com"))),
                            .init(title: "hello3", access: .remote(.init(value: "www.hello3.com")))].filter("hellolol").first
         XCTAssertEqual("hellolol", filtered?.title)
-        XCTAssertEqual("hello.com", filtered?.short)
+        XCTAssertEqual("hello", filtered?.short)
     }
     
     func testRemoveDuplicates() {

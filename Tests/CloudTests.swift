@@ -22,7 +22,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
-                XCTAssertEqual("hello.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("hello", $0.browses.first?.page.access.short)
                 XCTAssertEqual(99, $0.browses.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 expectSave.fulfill()
@@ -49,7 +49,7 @@ final class CloudTests: XCTestCase {
             .dropFirst(2)
             .sink {
                 XCTAssertEqual(2, $0.browses.count)
-                XCTAssertEqual("hello2.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("hello2", $0.browses.first?.page.access.short)
                 XCTAssertEqual(100, $0.browses.first?.id)
                 XCTAssertEqual(101, $0.counter)
                 expect.fulfill()
@@ -74,7 +74,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
-                XCTAssertEqual("hello.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("hello", $0.browses.first?.page.access.short)
                 XCTAssertEqual(33, $0.browses.first?.id)
                 XCTAssertEqual(99, $0.counter)
                 XCTAssertGreaterThan($0.browses.first!.date, date)
@@ -101,7 +101,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
-                XCTAssertEqual("hello.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("hello", $0.browses.first?.page.access.short)
                 XCTAssertEqual(99, $0.browses.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 expectArchive.fulfill()
@@ -210,7 +210,7 @@ final class CloudTests: XCTestCase {
             .dropFirst()
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
-                XCTAssertEqual("hello.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("hello", $0.browses.first?.page.access.short)
                 XCTAssertEqual(99, $0.browses.first?.id)
                 XCTAssertEqual(100, $0.counter)
                 if case .remote = $0.browses.first?.page.access { } else {
@@ -285,7 +285,7 @@ final class CloudTests: XCTestCase {
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
                 XCTAssertEqual("hello world", $0.browses.first?.page.title)
-                XCTAssertEqual("aguacate.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("aguacate", $0.browses.first?.page.access.short)
                 XCTAssertEqual(33, $0.browses.first?.id)
                 XCTAssertEqual(0, $0.counter)
                 XCTAssertGreaterThan($0.browses.first!.date, date)
@@ -312,7 +312,7 @@ final class CloudTests: XCTestCase {
             .sink {
                 XCTAssertEqual(1, $0.browses.count)
                 XCTAssertEqual("hello bla bla", $0.browses.first?.page.title)
-                XCTAssertEqual("avocado.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("avocado", $0.browses.first?.page.access.short)
                 XCTAssertEqual(33, $0.browses.first?.id)
                 XCTAssertEqual(0, $0.counter)
                 XCTAssertGreaterThan($0.browses.first!.date, date)
@@ -684,7 +684,7 @@ final class CloudTests: XCTestCase {
             .archive
             .dropFirst()
             .sink {
-                XCTAssertEqual("aguacate.com", $0.browses.first?.page.access.short)
+                XCTAssertEqual("aguacate", $0.browses.first?.page.access.short)
                 XCTAssertEqual(1, $0.counter)
                 expectArchive.fulfill()
             }
