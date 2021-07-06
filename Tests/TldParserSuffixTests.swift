@@ -84,4 +84,55 @@ extension Tld {
 *.ck
 """).suffix)
     }
+    
+    func testException() {
+        XCTAssertEqual("""
+import Foundation
+
+extension Tld {
+    static let suffix: [Tld : Mode] = [
+        .ck : .wildcard(.init([
+            .www]))]
+}
+
+""", TldParser.parse(content: """
+!www.ck
+""").suffix)
+    }
+    
+    func testWildCardAndException() {
+        XCTAssertEqual("""
+import Foundation
+
+extension Tld {
+    static let suffix: [Tld : Mode] = [
+        .ck : .wildcard(.init([
+            .asd,
+            .www]))]
+}
+
+""", TldParser.parse(content: """
+*.ck
+!www.ck
+!asd.ck
+""").suffix)
+    }
+    
+    func testWildCardAndExceptionInversed() {
+        XCTAssertEqual("""
+import Foundation
+
+extension Tld {
+    static let suffix: [Tld : Mode] = [
+        .ck : .wildcard(.init([
+            .asd,
+            .www]))]
+}
+
+""", TldParser.parse(content: """
+!www.ck
+!asd.ck
+*.ck
+""").suffix)
+    }
 }

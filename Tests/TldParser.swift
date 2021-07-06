@@ -106,12 +106,25 @@ extension Tld {
                         ? self[key] == nil
                             ? ".end"
                             : self[key]
-                        : {
-                            switch $0 {
+                        : { next in
+                            switch next {
                             case "*":
-                                return Set<String>()
+                                return self[key]
+                                    .flatMap {
+                                        $0 as? Set<String>
+                                    } ?? .init()
                             default:
-                                return (self[key]
+                                return next.first == "!"
+                                ? (self[key]
+                                    .flatMap {
+                                        $0 as? Set<String>
+                                    } ?? .init())
+                                    .map {
+                                        var exceptions = $0
+                                        exceptions.insert(.init(next.dropFirst()))
+                                        return exceptions
+                                    }
+                                : (self[key]
                                     .flatMap {
                                         $0 as? Self
                                     } ?? .init())
@@ -161,7 +174,7 @@ private extension Array where Element == (key: String, value: Any) {
                 .previous(level: level)
         case let set as Set<String>:
             return set
-                .wildcard(level: level)
+                .wildcard(level: level + 1)
         default:
             return value as! String
         }
