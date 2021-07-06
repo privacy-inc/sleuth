@@ -11,9 +11,9 @@ try! Data(result
         .enum
         .utf8)
     .write(to: def, options: .atomic)
-try! Data(result
-        .suffix
-        .utf8)
-    .write(to: suffix, options: .atomic)
+//try! Data(result
+//        .suffix
+//        .utf8)
+//    .write(to: suffix, options: .atomic)
 
 print("Updated enum and suffix!")

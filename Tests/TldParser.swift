@@ -51,13 +51,18 @@ private extension String {
     }
     
     var safe: Self {
-        {
-            $0
-                .first?
-                .isNumber == true
-                    ? "_" + $0
-                    : $0
-        } (self.replacingOccurrences(of: "-", with: "_"))
+        switch self {
+        case "as":
+            return "_as"
+        default:
+            return {
+                $0
+                    .first?
+                    .isNumber == true
+                        ? "_" + $0
+                        : $0
+            } (self.replacingOccurrences(of: "-", with: "_"))
+        }
     }
     
     var print: Self {

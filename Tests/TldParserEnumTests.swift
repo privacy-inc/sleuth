@@ -23,6 +23,7 @@ public enum Tld: String {
     _0 = "0",
     _1hello_world = "1hello-world",
     abc,
+    _as = "as",
     com,
     hello_world = "hello-world",
     net,
@@ -49,6 +50,7 @@ abc.net
 org
 org
 0.com
+as
 hello-world.com
 1hello-world.com
 com
