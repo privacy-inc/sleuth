@@ -30,6 +30,7 @@ public enum Tld: String {
     _for = "for",
     hello_world = "hello-world",
     _if = "if",
+    _in = "in",
     net,
     org,
     _static = "static"
@@ -61,6 +62,7 @@ do
 static
 for
 if
+in
 hello-world.com
 1hello-world.com
 com
