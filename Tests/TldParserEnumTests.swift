@@ -27,6 +27,7 @@ public enum Tld: String {
     _case = "case",
     com,
     _do = "do",
+    _for = "for",
     hello_world = "hello-world",
     net,
     org,
@@ -57,6 +58,7 @@ as
 case
 do
 static
+for
 hello-world.com
 1hello-world.com
 com

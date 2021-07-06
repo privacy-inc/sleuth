@@ -52,7 +52,7 @@ private extension String {
     
     var safe: Self {
         switch self {
-        case "as", "case", "do", "static":
+        case "as", "case", "do", "static", "for":
             return "_" + self
         default:
             return {
