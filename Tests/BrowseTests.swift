@@ -79,4 +79,8 @@ final class BrowseTests: XCTestCase {
     func testUsingTld() {
         XCTAssertEqual("https://www.google.com/search?q=total.12", "total.12".browse(engine: .google) { $0 })
     }
+    
+    func testIsFirstLevelTld() {
+        XCTAssertEqual("https://www.google.com/search?q=total.0", "total.0".browse(engine: .google) { $0 })
+    }
 }

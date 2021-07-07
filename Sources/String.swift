@@ -58,7 +58,11 @@ extension String {
     private var partial: Self? {
         {
             $0.count > 1
-                && $0.last.flatMap(Tld.init(rawValue:)) != nil
+                && $0
+                    .last
+                    .flatMap {
+                        Tld.suffix[$0]
+                    } != nil
                 && !$0.first!.isEmpty
                 && !$0.first!.contains("/")
                 && !contains(" ")
