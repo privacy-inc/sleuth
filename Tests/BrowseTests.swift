@@ -55,6 +55,9 @@ final class BrowseTests: XCTestCase {
     
     func testLocalPath() {
         XCTAssertEqual("https://www.google.com/search?q=/private/var/mobile/Containers/Data/Application/74C82CFA-C973-4CDD-ADDF-8DC95C6E3B11/tmp/image.png", "/private/var/mobile/Containers/Data/Application/74C82CFA-C973-4CDD-ADDF-8DC95C6E3B11/tmp/image.png".browse(engine: .google) { $0 })
+        
+        XCTAssertEqual("file:///Users/vaux/Downloads/about/index.html", "file:///Users/vaux/Downloads/about/index.html".browse(engine: .google) { $0 })
+        
     }
     
     func testHttp() {

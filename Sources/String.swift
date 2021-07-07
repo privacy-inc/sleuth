@@ -14,6 +14,7 @@ extension String {
     func browse<Result>(engine: Engine, result: (Self) -> Result) -> Result? {
         trimmed {
             $0.url
+                ?? $0.file
                 ?? $0.partial
                 ?? $0.query(engine)
         }
@@ -43,6 +44,15 @@ extension String {
                         ? $0.absoluteString
                         : nil
                 }
+    }
+    
+    private var file: Self? {
+        {
+            $0
+                .flatMap {
+                    $0.isFileURL ? self : nil
+                }
+        } (URL(string: self))
     }
     
     private var partial: Self? {
