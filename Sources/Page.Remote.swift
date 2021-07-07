@@ -21,6 +21,10 @@ extension Page {
             suffix = tld.suffix
         }
         
+        public var url: URL? {
+            .init(string: value)
+        }
+        
         public var secure: Bool {
             value
                 .hasPrefix(URL

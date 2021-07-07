@@ -3,8 +3,8 @@ import XCTest
 
 final class AccessTests: XCTestCase {
     func testRemote() {
-        XCTAssertEqual("https://www.aguacate.com", Page.Access(url: URL(string: "https://www.aguacate.com")!).url?.absoluteString)
-        XCTAssertEqual("https://www.aguacate.com", Page.Access.remote(.init(value: "https://www.aguacate.com")).url?.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", Page.Access(url: URL(string: "https://www.aguacate.com")!).value)
+        XCTAssertEqual("https://www.aguacate.com", Page.Access.remote(.init(value: "https://www.aguacate.com")).value)
         
         if case .remote = Page.Access(url: URL(string: "https://goprivacy.app")!) {
 
@@ -16,7 +16,7 @@ final class AccessTests: XCTestCase {
     func testLocal() {
         let file = URL(fileURLWithPath: NSTemporaryDirectory() + "file.html")
         try! Data("hello world".utf8).write(to: file)
-        XCTAssertEqual(URL(fileURLWithPath: NSTemporaryDirectory()).absoluteString + "file.html", Page.Access(url: file).url?.absoluteString)
+        XCTAssertEqual(URL(fileURLWithPath: NSTemporaryDirectory()).absoluteString + "file.html", Page.Access(url: file).value)
         
         if case let .local(local) = Page.Access(url: file) {
             local

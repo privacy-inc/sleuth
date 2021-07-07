@@ -8,17 +8,6 @@ extension Page {
         local(Local),
         deeplink(Deeplink)
         
-        public var url: URL? {
-            switch self {
-            case let .remote(remote):
-                return .init(string: remote.value)
-            case let .local(local):
-                return .init(string: local.value)
-            case let .deeplink(deeplink):
-                return .init(string: deeplink.value)
-            }
-        }
-        
         public var short: String {
             switch self {
             case let .remote(remote):

@@ -5,6 +5,10 @@ extension Page {
         let scheme: String
         let value: String
         
+        public var url: URL? {
+            .init(string: value)
+        }
+        
         init(value: String) {
             self.value = value
             scheme = value

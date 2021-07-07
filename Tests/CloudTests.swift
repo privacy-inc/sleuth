@@ -32,7 +32,7 @@ final class CloudTests: XCTestCase {
         cloud.browse("hello.com", browse: nil) {
             XCTAssertTrue(Thread.current.isMainThread)
             XCTAssertEqual(99, $0)
-            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.value)
             XCTAssertEqual(100, self.cloud.archive.value.counter)
             expectBrowse.fulfill()
         }
@@ -84,7 +84,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", browse: 33) {
             XCTAssertEqual(33, $0)
-            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.value)
             expectBrowse.fulfill()
         }
         
@@ -110,7 +110,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", browse: 55) {
             XCTAssertNotEqual(55, $0)
-            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.value)
             expectBrowse.fulfill()
         }
         
@@ -125,7 +125,7 @@ final class CloudTests: XCTestCase {
         
         cloud.browse("hello.com", browse: nil) {
             XCTAssertEqual(101, $0)
-            XCTAssertEqual("https://hello.com", $1.url?.absoluteString)
+            XCTAssertEqual("https://hello.com", $1.value)
             expect.fulfill()
         }
         

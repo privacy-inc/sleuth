@@ -18,6 +18,10 @@ extension Page {
                 .last ?? ""
         }
         
+        public var url: URL? {
+            .init(string: value)
+        }
+        
         public func open(completion: (URL) -> Void) {
             bookmark
                 .url

@@ -47,7 +47,7 @@ final class MigrationTests: XCTestCase {
         XCTAssertEqual(34, migrated.id)
         XCTAssertEqual(date.timestamp, migrated.date.timestamp)
         XCTAssertEqual("hello world", migrated.page.title)
-        XCTAssertEqual("https://www.aguacate.com", migrated.page.access.url?.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", migrated.page.access.value)
     }
     
     func testSettingsV1() {

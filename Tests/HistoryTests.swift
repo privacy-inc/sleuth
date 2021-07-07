@@ -10,6 +10,6 @@ final class browseTests: XCTestCase {
     }
     
     func testAccess() {
-        XCTAssertEqual("https://www.aguacate.com", Browse(id: 0, page: .init(access: .init(url: URL(string: "https://www.aguacate.com")!))).page.access.url?.absoluteString)
+        XCTAssertEqual("https://www.aguacate.com", Browse(id: 0, page: .init(access: .init(url: URL(string: "https://www.aguacate.com")!))).page.access.value)
     }
 }
