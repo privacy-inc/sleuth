@@ -1,15 +1,6 @@
 import Foundation
 
 extension String {
-    func browse<Result>(engine: Engine, result: (Self) -> Result) -> Result? {
-        trimmed {
-            $0.url
-                ?? $0.partial
-                ?? $0.query(engine)
-        }
-        .map(result)
-    }
-    
     func components<Result>(transform: ([Self]) -> Result) -> Result {
         transform(replacingOccurrences(of: "https://", with: "")
                     .replacingOccurrences(of: "http://", with: "")
@@ -18,6 +9,15 @@ extension String {
                     .components(separatedBy: ":")
                     .first!
                     .components(separatedBy: "."))
+    }
+    
+    func browse<Result>(engine: Engine, result: (Self) -> Result) -> Result? {
+        trimmed {
+            $0.url
+                ?? $0.partial
+                ?? $0.query(engine)
+        }
+        .map(result)
     }
     
     private func trimmed(transform: (Self) -> Self?) -> Self? {
@@ -48,8 +48,8 @@ extension String {
     private var partial: Self? {
         {
             $0.count > 1
-                && $0.last!.count > 1
-                && $0.first!.count > 1
+                && $0.last.flatMap(Tld.init(rawValue:)) != nil
+                && !$0.first!.isEmpty
                 && !$0.first!.contains("/")
                 && !contains(" ")
                 ? URL.Scheme.https.rawValue + "://" + self

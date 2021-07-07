@@ -72,4 +72,8 @@ final class BrowseTests: XCTestCase {
     func testNonEnglishCharacters() {
         XCTAssertEqual("https://something.com/a/%C3%B1", "https://something.com/a/ñ".browse(engine: .google) { $0 })
     }
+    
+    func testUsingTld() {
+        XCTAssertEqual("https://www.google.com/search?q=total.12", "total.12".browse(engine: .google) { $0 })
+    }
 }
