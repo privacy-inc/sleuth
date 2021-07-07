@@ -1,55 +1,23 @@
 import Foundation
 
 extension String {
-    var domain: Self {
-        ({ comps in
-            switch comps.first {
-            case "http", "https":
-                return comps
-                    .dropFirst()
-                    .first
-                    .flatMap(\.subdomain)
-            case "file":
-                return components(separatedBy: "/")
-                    .last
-            case nil:
-                return nil
-            default:
-                return comps.count == 1
-                        ? {
-                            $0.first!.contains(".")
-                                ? $0
-                                    .first
-                                    .flatMap(\.subdomain)
-                                : $0.last
-                        } (components(separatedBy: "/"))
-                        : comps[0].subdomain
-            }
-        } (components(separatedBy: "://")) ?? self).replacingOccurrences(of: "www.", with: "")
-    }
-    
-    private var subdomain: Self? {
-        components(separatedBy: "/")
-            .first
-            .flatMap {
-                $0
-                    .components(separatedBy: ":")
-                    .first
-                    .flatMap {
-                        $0.isEmpty
-                            ? nil
-                            : $0
-                    }
-            }
-    }
-    
-    func browse<T>(engine: Engine, result: (String) -> T) -> T? {
+    func browse<Result>(engine: Engine, result: (Self) -> Result) -> Result? {
         trimmed {
             $0.url
                 ?? $0.partial
                 ?? $0.query(engine)
         }
         .map(result)
+    }
+    
+    func components<Result>(transform: ([Self]) -> Result) -> Result {
+        transform(replacingOccurrences(of: "https://", with: "")
+                    .replacingOccurrences(of: "http://", with: "")
+                    .components(separatedBy: "/")
+                    .first!
+                    .components(separatedBy: ":")
+                    .first!
+                    .components(separatedBy: "."))
     }
     
     private func trimmed(transform: (Self) -> Self?) -> Self? {

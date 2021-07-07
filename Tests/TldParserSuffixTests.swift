@@ -58,6 +58,7 @@ extension Tld {
             ._0 : .end,
             ._1hello_world : .end,
             .abc : .previous([
+                .nan : .end,
                 .tl : .end]),
             .hello_world : .end,
             .zc8 : .end])]
@@ -71,6 +72,7 @@ abc.org
 com
 tl.abc.org
 0.org
+nan.abc.org
 hello-world.org
 1hello-world.org
 org

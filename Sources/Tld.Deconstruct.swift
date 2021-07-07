@@ -2,44 +2,64 @@ import Foundation
 
 extension Tld {
     static func deconstruct(url: String) -> (domain: String, suffix: String) {
-        {
-            (domain: $0.domain ?? "", suffix: ($0.suffix.isEmpty ? "" : ".") + $0.suffix.joined(separator: "."))
-        } (url
-            .components(separatedBy: ".")
-            .reversed()
-            .reduce(into: (
-                        domain: nil as String?,
-                        suffix: [String](),
-                        next: Self.suffix as [Tld : Mode]?,
-                        exceptions: nil as Set<Tld>?))
-            { result, component in
-                guard let mode = result.next?[component] else {
-                    if result.domain == nil {
-                        if let exceptions = result.exceptions {
-                            if let tld = Tld(rawValue: component), exceptions.contains(tld) {
-                                result.domain = component
-                            } else {
-                                result.suffix.insert(component, at: 0)
-                                result.exceptions = nil
-                            }
-                        } else {
-                            result.domain = component
-                        }
+        url
+            .components {
+                var components = $0
+                var suffix = [String]()
+                var domain = ""
+                var next = components
+                    .popLast()
+                var context: [Tld : Tld.Mode]?
+                
+                while next != nil {
+                    var mode: Tld.Mode?
+                    if context == nil {
+                        mode = Tld.suffix[next!]
+                    } else {
+                        mode = context![next!]
                     }
-                    return
+                    
+                    switch mode {
+                    case let .previous(previous):
+                        context = previous
+                        suffix.insert(next!, at: 0)
+                        next = components
+                            .popLast()
+                    case let .wildcard(wildcard):
+                        suffix.insert(next!, at: 0)
+                        components
+                            .popLast()
+                            .map {
+                                if wildcard.contains($0) {
+                                    domain = $0
+                                } else {
+                                    suffix.insert($0, at: 0)
+                                    components
+                                        .last
+                                        .map {
+                                            domain = $0
+                                        }
+                                }
+                            }
+                        next = nil
+                    case .end:
+                        suffix.insert(next!, at: 0)
+                        components
+                            .last
+                            .map {
+                                domain = $0
+                            }
+                        next = nil
+                        break
+                    case nil:
+                        domain = next!
+                        next = nil
+                    }
                 }
-                switch mode {
-                case let .previous(previous):
-                    result.suffix.insert(component, at: 0)
-                    result.next = previous
-                case let .wildcard(wildcard):
-                    result.suffix.insert(component, at: 0)
-                    result.next = nil
-                    result.exceptions = wildcard
-                case .end:
-                    result.suffix.insert(component, at: 0)
-                    result.next = nil
-                }
-            })
+                
+                return (domain: domain, suffix: suffix.isEmpty
+                            ? ""
+                            : "." + suffix.joined(separator: "."))
+            }
     }
 }
