@@ -21,7 +21,7 @@ final class AccessTests: XCTestCase {
         if case let .local(local) = Page.Access(url: file) {
             local
                 .open {
-                    XCTAssertEqual(URL(fileURLWithPath: NSTemporaryDirectory()).absoluteString.replacingOccurrences(of: "var/", with: "private/var/"), $0.absoluteString)
+                    XCTAssertEqual(URL(fileURLWithPath: NSTemporaryDirectory()).absoluteString.replacingOccurrences(of: "var/", with: "private/var/"), $1.absoluteString)
                 }
         } else {
             XCTFail()

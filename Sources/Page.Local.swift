@@ -18,13 +18,15 @@ extension Page {
                 .last ?? ""
         }
         
-        public var url: URL? {
-            .init(string: value)
-        }
-        
-        public func open(completion: (URL) -> Void) {
+        public func open(completion: (URL, URL) -> Void) {
             bookmark
                 .url
+                .flatMap { directory in
+                    URL(string: value)
+                        .map {
+                            ($0, directory)
+                        }
+                }
                 .map(completion)
         }
     }
