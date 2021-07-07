@@ -33,6 +33,17 @@ extension Page {
             }
         }
         
+        public var value: String {
+            switch self {
+            case let .remote(remote):
+                return remote.value
+            case let .local(local):
+                return local.value
+            case let .deeplink(deeplink):
+                return deeplink.value
+            }
+        }
+        
         public var data: Data {
             Data()
                 .adding(key.rawValue)
@@ -65,17 +76,6 @@ extension Page {
                 } (url
                     .scheme
                     .map(URL.Scheme.init(rawValue:)))
-        }
-        
-        var value: String {
-            switch self {
-            case let .remote(remote):
-                return remote.value
-            case let .local(local):
-                return local.value
-            case let .deeplink(deeplink):
-                return deeplink.value
-            }
         }
         
         private var content: Data {
