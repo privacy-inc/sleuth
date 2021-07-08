@@ -8,6 +8,8 @@ function _privacy_incognit_make_dark(element) {
     const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
     const text_color = element.style.color;
     const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
+    const before = getComputedStyle(element, ":before").getPropertyValue("background").includes("gradient");
+    const after = getComputedStyle(element, ":after").getPropertyValue("background").includes("gradient");
 
     if (element.tagName != "A" && text_color != "") {
         element.style.setProperty("color", "#cecccf", "important");
@@ -17,7 +19,7 @@ function _privacy_incognit_make_dark(element) {
         element.style.setProperty("box-shadow", "none", "important");
     }
 
-    if (gradient) {
+    if (gradient || before || after) {
         element.style.setProperty("background", "none", "important");
         element.style.setProperty("background-color", "rgba(37, 34, 40)", "important");
     } else if (parts.length > 3) {
