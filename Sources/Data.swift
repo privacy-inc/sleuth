@@ -24,7 +24,8 @@ extension Data {
         var stale = false
         return (try? URL(resolvingBookmarkData: self, bookmarkDataIsStale: &stale))
             .flatMap {
-                $0.startAccessingSecurityScopedResource() ? $0 : nil
+                _ = $0.startAccessingSecurityScopedResource()
+                return $0
             }
     }
     
