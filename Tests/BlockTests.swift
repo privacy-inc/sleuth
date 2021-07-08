@@ -102,7 +102,8 @@ final class BlockTests: XCTestCase {
         "https://widgets.outbrain.com/nanoWidget/externals/cookie/put.html",
         "https://cdn.conative.de/libs/uu-track/uu.html",
         "https://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354",
-        "gmsg://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354"
+        "gmsg://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354",
+        "https://insight.adsrvr.org/track/up?adv=vygbing&ref=https%3A%2F%2Fwww.meetup.com%2F%3F_xtd%3DgatlbWFpbF9jbGlja9oAJDQ4MGZmOTU2LTQxZDItNGE3NS05NmQ4LTU5YjBiZTlhM2Q5NA%26utm_campaign%3Devent-announce%26utm_medium%3Demail%26utm_source%3Dpromo%2F&upid=u4wwibb&upv=1.1.0"
     ]
     
     override func setUp() {
