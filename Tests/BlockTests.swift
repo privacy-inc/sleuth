@@ -105,7 +105,9 @@ final class BlockTests: XCTestCase {
         "gmsg://mobileads.google.com/appEvent?name=sitedefault&info=true&google.afma.Notify_dt=1625136586354",
         "https://insight.adsrvr.org/track/up?adv=vygbing&ref=https%3A%2F%2Fwww.meetup.com%2F%3F_xtd%3DgatlbWFpbF9jbGlja9oAJDQ4MGZmOTU2LTQxZDItNGE3NS05NmQ4LTU5YjBiZTlhM2Q5NA%26utm_campaign%3Devent-announce%26utm_medium%3Demail%26utm_source%3Dpromo%2F&upid=u4wwibb&upv=1.1.0",
         "https://api.bam-x.com/api/v0/session.html",
-        "https://sync.teads.tv/iframe?pid=144161&gdprIab=%7B%22reason%22:240,%22status%22:24,%22consent%22:%22%22,%22apiVersion%22:null,%22cmpId%22:null%7D&fromFormat=true&env=js-web&hb_provider=prebid&auctid=55745f18-6bd9-4498-b9fb-6ccf9ea10aba_843008a2-5269-49c7-af97-0bddb2e0cce9&vid=254bd22eb05c23ee9f6d36b0ccb9023b2553f0bd&1625830986258"
+        "https://sync.teads.tv/iframe?pid=144161&gdprIab=%7B%22reason%22:240,%22status%22:24,%22consent%22:%22%22,%22apiVersion%22:null,%22cmpId%22:null%7D&fromFormat=true&env=js-web&hb_provider=prebid&auctid=55745f18-6bd9-4498-b9fb-6ccf9ea10aba_843008a2-5269-49c7-af97-0bddb2e0cce9&vid=254bd22eb05c23ee9f6d36b0ccb9023b2553f0bd&1625830986258",
+        "https://gdpr-consent-tool.privacymanager.io/1/index.html#/notice?theme=blueLagoon&useSystemFonts=false",
+        "https://s0.2mdn.net/ads/richmedia/studio/pv2/61692991/20210611014527589/300x250.html?e=69&leftOffset=0&topOffset=0&c=gzv2mTFCSu&t=1&renderingType=2"
     ]
     
     override func setUp() {
