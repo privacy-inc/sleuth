@@ -83,12 +83,14 @@ extension URL {
         outbrain,
         conative,
         adsrvr,
+        teads,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",
         amazon_adsystem = "amazon-adsystem",
         the_ozone_project = "the-ozone-project",
         visitor_analytics = "visitor-analytics",
-        adup_tech = "adup-tech"
+        adup_tech = "adup-tech",
+        bam_x = "bam-x"
     }
 }
