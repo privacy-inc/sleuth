@@ -8,6 +8,7 @@ extension URL.White {
         tr,
         accounts,
         tarifvergleich,
-        mobileads
+        mobileads,
+        sourcepointcmp
     }
 }

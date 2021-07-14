@@ -18,7 +18,8 @@ extension URL {
         snapchat,
         linkedin,
         nyt,
-        medium
+        medium,
+        bloomberg
         
         var tld: Tld {
             switch self {
@@ -54,6 +55,8 @@ extension URL {
                 return .com
             case .medium:
                 return .com
+            case .bloomberg:
+                return .com
             }
         }
         
@@ -70,6 +73,8 @@ extension URL {
                 return [.account]
             case .nyt:
                 return [.ads]
+            case .bloomberg:
+                return [.subscription_offer]
             default:
                 return []
             }
@@ -89,6 +94,8 @@ extension URL {
             case .google:
                 return [.accounts,
                         .mobileads]
+            case .bloomberg:
+                return [.sourcepointcmp]
             default:
                 return []
             }
