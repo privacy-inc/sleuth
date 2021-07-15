@@ -32,6 +32,10 @@ extension Script {
         var style = document.createElement('style');
         style.innerHTML = "body, .scroll-disabled { overflow: unset !important; }";
         document.head.appendChild(style);
+    } else if (location.hostname.endsWith("bloomberg.com")) {
+        var style = document.createElement('style');
+        style.innerHTML = "body { overflow: unset !important; }";
+        document.head.appendChild(style);
     }
 """
 }

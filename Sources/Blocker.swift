@@ -66,7 +66,10 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.reddit), action: .css(["._3q-XSJ2vokDQrvdG6mR__k",
                                                                 ".EUCookieNotice",
                                                                 ".XPromoPopup"])),
-                    .init(trigger: .url(.medium), action: .css([".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um"]))]
+                    .init(trigger: .url(.medium), action: .css([".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um"])),
+                    .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
+                                                                   ".leaderboard-wrapper",
+                                                                   ".overlay-container"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         case .third:
