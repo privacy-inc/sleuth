@@ -113,6 +113,9 @@ final class BlockerTests: XCTestCase {
                                                                ".leaderboard-wrapper",
                                                                ".overlay-container",
                                                                "#fortress-preblocked-container-root"]))
+        
+        XCTAssertTrue(Parser(content: Set([.screen]).rules)
+                        .css(url: "forbes.com", selectors: ["#consent_blackbar"]))
     }
     
     func testAntidark() {

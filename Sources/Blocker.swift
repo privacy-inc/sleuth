@@ -70,7 +70,8 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
                                                                    ".leaderboard-wrapper",
                                                                    ".overlay-container",
-                                                                   "#fortress-preblocked-container-root"]))]
+                                                                   "#fortress-preblocked-container-root"])),
+                    .init(trigger: .url(.forbes), action: .css(["#consent_blackbar"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         case .third:

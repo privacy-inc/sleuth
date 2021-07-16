@@ -19,7 +19,8 @@ extension URL {
         linkedin,
         nyt,
         medium,
-        bloomberg
+        bloomberg,
+        forbes
         
         var tld: Tld {
             switch self {
@@ -56,6 +57,8 @@ extension URL {
             case .medium:
                 return .com
             case .bloomberg:
+                return .com
+            case .forbes:
                 return .com
             }
         }

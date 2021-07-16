@@ -109,7 +109,8 @@ final class BlockTests: XCTestCase {
         "https://gdpr-consent-tool.privacymanager.io/1/index.html#/notice?theme=blueLagoon&useSystemFonts=false",
         "https://s0.2mdn.net/ads/richmedia/studio/pv2/61692991/20210611014527589/300x250.html?e=69&leftOffset=0&topOffset=0&c=gzv2mTFCSu&t=1&renderingType=2",
         "https://sourcepointcmp.bloomberg.com/index.html?message_id=484987&consentUUID=7a978bad-c3e3-4ef1-84e0-5c3d6fc3d870&requestUUID=2b8b2e96-9038-439c-95dd-a404ce50beaf&preload_message=true",
-        "https://www.bloomberg.com/subscription-offer?ledeText=&curationPage=&digitalRatePlanId1=2c92a0086614a669016615eb9d965f86&digitalRatePlanId2=2c92a0ff682d0657016833ee12df011d&allAccessRatePlanId1=&allAccessRatePlanId2=&inSource=article-wall"
+        "https://www.bloomberg.com/subscription-offer?ledeText=&curationPage=&digitalRatePlanId1=2c92a0086614a669016615eb9d965f86&digitalRatePlanId2=2c92a0ff682d0657016833ee12df011d&allAccessRatePlanId1=&allAccessRatePlanId2=&inSource=article-wall",
+        "https://trustarc.mgr.consensu.org/asset/cmpcookie.v2.html"
     ]
     
     override func setUp() {
