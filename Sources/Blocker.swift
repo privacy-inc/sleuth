@@ -29,7 +29,9 @@ enum Blocker: CaseIterable {
                                                                 ".isv-r.PNCib.BC7Tfc",
                                                                 ".isv-r.PNCib.o05QGe"])),
                     .init(trigger: .url(.youtube), action: .css([".ytd-search-pyv-renderer",
-                                                                 ".video-ads.ytp-ad-module"]))]
+                                                                 ".video-ads.ytp-ad-module"])),
+                    .init(trigger: .url(.bloomberg), action: .css([".leaderboard-wrapper"])),
+                    .init(trigger: .url(.forbes), action: .css([".top-ad-container"]))]
         case .screen:
             return [.init(trigger: .url(.google), action: .css(["#consent-bump",
                                                                 "#lb",
@@ -68,7 +70,6 @@ enum Blocker: CaseIterable {
                                                                 ".XPromoPopup"])),
                     .init(trigger: .url(.medium), action: .css([".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um"])),
                     .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
-                                                                   ".leaderboard-wrapper",
                                                                    ".overlay-container",
                                                                    "#fortress-preblocked-container-root"])),
                     .init(trigger: .url(.forbes), action: .css(["#consent_blackbar"]))]

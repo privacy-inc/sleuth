@@ -48,6 +48,12 @@ final class BlockerTests: XCTestCase {
         XCTAssertTrue(Parser(content: Set([.ads]).rules)
                         .css(url: "youtube.com", selectors: [".ytd-search-pyv-renderer",
                                                              ".video-ads.ytp-ad-module"]))
+        
+        XCTAssertTrue(Parser(content: Set([.ads]).rules)
+                        .css(url: "bloomberg.com", selectors: [".leaderboard-wrapper"]))
+        
+        XCTAssertTrue(Parser(content: Set([.ads]).rules)
+                        .css(url: "forbes.com", selectors: [".top-ad-container"]))
     }
     
     func testScreen() {
@@ -110,7 +116,6 @@ final class BlockerTests: XCTestCase {
         
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "bloomberg.com", selectors: ["#fortress-paywall-container-root",
-                                                               ".leaderboard-wrapper",
                                                                ".overlay-container",
                                                                "#fortress-preblocked-container-root"]))
         
