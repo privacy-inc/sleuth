@@ -20,7 +20,8 @@ extension URL {
         nyt,
         medium,
         bloomberg,
-        forbes
+        forbes,
+        immobilienscout24
         
         var tld: Tld {
             switch self {
@@ -60,6 +61,8 @@ extension URL {
                 return .com
             case .forbes:
                 return .com
+            case .immobilienscout24:
+                return .de
             }
         }
         
@@ -99,6 +102,8 @@ extension URL {
                         .mobileads]
             case .bloomberg:
                 return [.sourcepointcmp]
+            case .immobilienscout24:
+                return [.tracking]
             default:
                 return []
             }
