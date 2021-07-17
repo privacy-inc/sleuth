@@ -130,7 +130,11 @@ final class BlockTests: XCTestCase {
         "https://p.getadcdn.com/prebidlink/18825/j.html?i=11601",
         "https://p.nodcdn.com/prebidlink/18825/j.html?i=11599",
         "https://p.medocdn.com/prebidlink/18825/j.html?i=11596",
-        "https://p.annocdn.com/prebidlink/18825/j.html?i=11594"
+        "https://p.annocdn.com/prebidlink/18825/j.html?i=11594",
+        "https://p.safeservingcdn.com/prebidlink/18825/j.html?i=11598",
+        "https://p.jcontentcdn.com/prebidlink/18825/j.html?i=11595",
+        "https://p.deliveryapis.com/prebidlink/18825/j.html?i=11597",
+        "https://p.midserved.com/prebidlink/18825/j.html?i=11602"
     ]
     
     override func setUp() {
