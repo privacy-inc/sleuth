@@ -10,7 +10,7 @@ extension Array where Element == Blocker.Rule {
             .filter {
                 $0.trigger != .all && $0.trigger != .script
             }
-            .reduce(into: [URL.White : Set<String>]()) {
+            .reduce(into: [URL.Allow : Set<String>]()) {
                 if case let .css(css) = $1.action,
                    case let .url(url) = $1.trigger {
                     $0[url, default: []].formUnion(css)

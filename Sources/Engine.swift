@@ -15,7 +15,7 @@ public enum Engine: UInt8, Property {
         self.init(rawValue: data.removeFirst())!
     }
     
-    var url: URL.White {
+    var url: URL.Allow {
         switch self {
         case .ecosia: return .ecosia
         case .google: return .google

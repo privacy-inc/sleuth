@@ -5,6 +5,6 @@ extension Blocker.Rule {
         case
         all,
         script,
-        url(URL.White)
+        url(URL.Allow)
     }
 }

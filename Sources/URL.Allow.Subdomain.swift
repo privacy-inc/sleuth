@@ -1,6 +1,6 @@
 import Foundation
 
-extension URL.White {
+extension URL.Allow {
     enum Subdomain: String {
         case
         platform,

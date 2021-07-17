@@ -1,6 +1,6 @@
 import Foundation
 
-extension URL.White {
+extension URL.Allow {
     enum Path: String {
         case
         pagead,

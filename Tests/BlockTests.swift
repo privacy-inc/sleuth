@@ -112,7 +112,23 @@ final class BlockTests: XCTestCase {
         "https://www.bloomberg.com/subscription-offer?ledeText=&curationPage=&digitalRatePlanId1=2c92a0086614a669016615eb9d965f86&digitalRatePlanId2=2c92a0ff682d0657016833ee12df011d&allAccessRatePlanId1=&allAccessRatePlanId2=&inSource=article-wall",
         "https://trustarc.mgr.consensu.org/asset/cmpcookie.v2.html",
         "https://synchroscript.deliveryengine.adswizz.com/www/delivery/afr.php?zoneid=9&aw_0_req.gdpr=false",
-        "https://tracking.immobilienscout24.de/consent.html"
+        "https://tracking.immobilienscout24.de/consent.html",
+        "https://www.buzzfeed.com/destination-sync.html#%7B%22namespace%22%3A%22bf-xdomain-tracking%22%2C%22windowOrigin%22%3A%22https%3A%2F%2Fwww.huffpost.com%22%7D",
+//        "https://eb2.3lift.com/sync?max=10&cb=21386",
+//        "https://cdn-ssl.vidible.tv/prod/player/ad-time/local-storage.html",
+//        "https://s.adtelligent.com/sync.html?aid=572165",
+//        "https://p.jsapicdn.com/prebidlink/18825/j.html?i=11593",
+//        "https://pixel.advertising.com/ups/58268/sync?&gdpr=1&gdpr_consent=CPJewGtPJewGtAKAaAENBjCsAP_AAH_AAAwIIEtf_X__bX9j-_59f_t0eY1P99r_v-Qzjhfdt-4N2L_W_L0X42E7NF36pq4KuR4Eu3LBIQNlHMHUTUmw6okVrzPsak2Mr7NKJ7LEmnMZO2dYGHtfn91TuZKY7_78_9fz3z-v_v___df3r-3_3__59X---_e_V399zLv9_____9nN__4ICAEmGpfQBdiWODJtGlUKIEYVhIdAKACigGFomoIGBwU7KwCPUELABCagIwIgQYgoxYBAAIBAEhEQEgB4IBEARAIAAQAqQEIACJgEFgBYGAQACgGhYgRQBCBIQZHBUcpgQESLRQT2VgCUXexphCGUWAFAo_oqMBEoQQLAyEhYOY4AkAAA.d5gACGAAAAAA&redir=true",
+//        "https://sync.search.spotxchange.com/partner?adv_id=8721&redir=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D2%26key%3D%24SPOTX_USER_ID",
+//        "https://pixel-sync.sitescout.com/dmp/pixelSync?nid=117&redir=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D72%26pid%3D5e0e296628a061270b21ccab%26key%3D%7BuserId%7D",
+//        "https://sync.1rx.io/usersync2/rmpssp?sub=aniview&redir=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D200%26key%3D%5BRX_UUID%5D",
+//        "https://onetag-sys.com/usync/?pubId=57e618150c70d90&gdpr=1&gdpr_consent=CPJewGtPJewGtAKAaAENBjCsAP_AAH_AAAwIIEtf_X__bX9j-_59f_t0eY1P99r_v-Qzjhfdt-4N2L_W_L0X42E7NF36pq4KuR4Eu3LBIQNlHMHUTUmw6okVrzPsak2Mr7NKJ7LEmnMZO2dYGHtfn91TuZKY7_78_9fz3z-v_v___df3r-3_3__59X---_e_V399zLv9_____9nN__4ICAEmGpfQBdiWODJtGlUKIEYVhIdAKACigGFomoIGBwU7KwCPUELABCagIwIgQYgoxYBAAIBAEhEQEgB4IBEARAIAAQAqQEIACJgEFgBYGAQACgGhYgRQBCBIQZHBUcpgQESLRQT2VgCUXexphCGUWAFAo_oqMBEoQQLAyEhYOY4AkAAA.d5gACGAAAAAA&us_privacy=1---",
+//        "https://ad.360yield.com/server_match?partner_id=1581&r=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D22%26key%3D%7BPUB_USER_ID%7D",
+//        "https://sync.technoratimedia.com/services?srv=cs&pid=70&uid=1626518377827-993336963462-008076-001-003491&cb=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D3%26key%3D%5BUSER_ID%5D",
+//        "https://sync.aniview.com/cookiesyncendpoint?auid=1626518377827-993336963462-008076-001-003491&biddername=72&pid=5e0e296628a061270b21ccab&key=no-consent",
+//        "https://onetag-sys.com/usync/?cb=1626518378288",
+//        "https://csync.loopme.me/?redirect=https%3A%2F%2Fsync.adtelligent.com%2Fcsync%3Ft%3Da%26ep%3D319130%26extuid%3D%7Bdevice_id%7D",
+//        "https://sync.adtelligent.com/csync?t=a&ep=319130&extuid=0a3d7f5b-0236-427e-8a9a-47562676aad5"
     ]
     
     override func setUp() {

@@ -1,7 +1,7 @@
 import Foundation
 
 extension URL {
-    enum White: String, CaseIterable {
+    enum Allow: String, CaseIterable {
         case
         ecosia,
         google,

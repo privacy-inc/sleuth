@@ -1,7 +1,7 @@
 import Foundation
 
 extension URL {
-    enum Black: String, CaseIterable {
+    enum Deny: String, CaseIterable {
         case
         pubmatic,
         dianomi,
@@ -87,6 +87,7 @@ extension URL {
         privacymanager,
         consensu,
         adswizz,
+        buzzfeed,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",

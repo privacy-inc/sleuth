@@ -4,7 +4,7 @@ extension Router {
     final class Secure: Router {
         override func route(host: [String], path: String?) -> Policy {
             URL
-                .White
+                .Allow
                 .init(rawValue: host.last!)
                 .map { white in
                     white
@@ -26,7 +26,7 @@ extension Router {
                     ?? .allow
                 }
             ?? URL
-                .Black
+                .Deny
                 .init(rawValue: host.last!)
                 .map(\.rawValue)
                 .map(Policy.block)
