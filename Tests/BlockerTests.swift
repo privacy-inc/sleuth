@@ -54,6 +54,9 @@ final class BlockerTests: XCTestCase {
         
         XCTAssertTrue(Parser(content: Set([.ads]).rules)
                         .css(url: "forbes.com", selectors: [".top-ad-container"]))
+        
+        XCTAssertTrue(Parser(content: Set([.ads]).rules)
+                        .css(url: "huffpost.com", selectors: ["#advertisement-thamba"]))
     }
     
     func testScreen() {
@@ -121,6 +124,9 @@ final class BlockerTests: XCTestCase {
         
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "forbes.com", selectors: ["#consent_blackbar"]))
+        
+        XCTAssertTrue(Parser(content: Set([.screen]).rules)
+                        .css(url: "huffpost.com", selectors: ["#qc-cmp2-container"]))
     }
     
     func testAntidark() {

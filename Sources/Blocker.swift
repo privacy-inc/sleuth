@@ -31,7 +31,8 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.youtube), action: .css([".ytd-search-pyv-renderer",
                                                                  ".video-ads.ytp-ad-module"])),
                     .init(trigger: .url(.bloomberg), action: .css([".leaderboard-wrapper"])),
-                    .init(trigger: .url(.forbes), action: .css([".top-ad-container"]))]
+                    .init(trigger: .url(.forbes), action: .css([".top-ad-container"])),
+                    .init(trigger: .url(.huffpost), action: .css(["#advertisement-thamba"]))]
         case .screen:
             return [.init(trigger: .url(.google), action: .css(["#consent-bump",
                                                                 "#lb",
@@ -72,7 +73,8 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
                                                                    ".overlay-container",
                                                                    "#fortress-preblocked-container-root"])),
-                    .init(trigger: .url(.forbes), action: .css(["#consent_blackbar"]))]
+                    .init(trigger: .url(.forbes), action: .css(["#consent_blackbar"])),
+                    .init(trigger: .url(.huffpost), action: .css(["#qc-cmp2-container"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         case .third:

@@ -127,7 +127,8 @@ final class BlockTests: XCTestCase {
         "https://sync.technoratimedia.com/services?srv=cs&pid=70&uid=1626518377827-993336963462-008076-001-003491&cb=https%3A%2F%2Fsync.aniview.com%2Fcookiesyncendpoint%3Fauid%3D1626518377827-993336963462-008076-001-003491%26biddername%3D3%26key%3D%5BUSER_ID%5D",
         "https://sync.aniview.com/cookiesyncendpoint?auid=1626518377827-993336963462-008076-001-003491&biddername=72&pid=5e0e296628a061270b21ccab&key=no-consent",
         "https://csync.loopme.me/?redirect=https%3A%2F%2Fsync.adtelligent.com%2Fcsync%3Ft%3Da%26ep%3D319130%26extuid%3D%7Bdevice_id%7D",
-        "https://p.getadcdn.com/prebidlink/18825/j.html?i=11601"
+        "https://p.getadcdn.com/prebidlink/18825/j.html?i=11601",
+        "https://p.nodcdn.com/prebidlink/18825/j.html?i=11599"
     ]
     
     override func setUp() {

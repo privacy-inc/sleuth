@@ -21,7 +21,8 @@ extension URL {
         medium,
         bloomberg,
         forbes,
-        immobilienscout24
+        immobilienscout24,
+        huffpost
         
         var tld: Tld {
             switch self {
@@ -63,6 +64,8 @@ extension URL {
                 return .com
             case .immobilienscout24:
                 return .de
+            case .huffpost:
+                return .com
             }
         }
         
