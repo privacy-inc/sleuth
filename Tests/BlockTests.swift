@@ -129,7 +129,8 @@ final class BlockTests: XCTestCase {
         "https://csync.loopme.me/?redirect=https%3A%2F%2Fsync.adtelligent.com%2Fcsync%3Ft%3Da%26ep%3D319130%26extuid%3D%7Bdevice_id%7D",
         "https://p.getadcdn.com/prebidlink/18825/j.html?i=11601",
         "https://p.nodcdn.com/prebidlink/18825/j.html?i=11599",
-        "https://p.medocdn.com/prebidlink/18825/j.html?i=11596"
+        "https://p.medocdn.com/prebidlink/18825/j.html?i=11596",
+        "https://p.annocdn.com/prebidlink/18825/j.html?i=11594"
     ]
     
     override func setUp() {
