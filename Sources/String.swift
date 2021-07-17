@@ -64,10 +64,11 @@ extension String {
                         Tld.suffix[$0]
                     } != nil
                 && !$0.first!.isEmpty
-                && !$0.first!.contains("/")
                 && !contains(" ")
                 ? URL.Scheme.https.rawValue + "://" + self
                 : nil
-        } (components(separatedBy: "."))
+        } (components(separatedBy: "/")
+            .first!
+            .components(separatedBy: "."))
     }
 }
