@@ -88,6 +88,15 @@ extension URL {
         consensu,
         adswizz,
         buzzfeed,
+        vidible,
+        adtelligent,
+        jsapicdn,
+        advertising,
+        spotxchange,
+        sitescout,
+        technoratimedia,
+        aniview,
+        loopme,
         cedexis_radar = "cedexis-radar",
         user_shield = "user-shield",
         google_analytics = "google-analytics",
@@ -96,6 +105,10 @@ extension URL {
         visitor_analytics = "visitor-analytics",
         adup_tech = "adup-tech",
         bam_x = "bam-x",
-        _2mdn = "2mdn"
+        _2mdn = "2mdn",
+        _3lift = "3lift",
+        _1rx = "1rx",
+        onetag_sys = "onetag-sys",
+        _360yield = "360yield"
     }
 }
