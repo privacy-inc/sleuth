@@ -134,7 +134,9 @@ final class BlockTests: XCTestCase {
         "https://p.safeservingcdn.com/prebidlink/18825/j.html?i=11598",
         "https://p.jcontentcdn.com/prebidlink/18825/j.html?i=11595",
         "https://p.deliveryapis.com/prebidlink/18825/j.html?i=11597",
-        "https://p.midserved.com/prebidlink/18825/j.html?i=11602"
+        "https://p.midserved.com/prebidlink/18825/j.html?i=11602",
+        "https://user-sync.adxpremium.services/load-cookie.html?gdpr=0&gdpr_consent=",
+        "https://p.adservd.com/prebidlink/18825/j.html?i=6961"
     ]
     
     override func setUp() {
