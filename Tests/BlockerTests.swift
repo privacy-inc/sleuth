@@ -24,7 +24,6 @@ final class BlockerTests: XCTestCase {
     }
     
     func testThird() {
-        print(Set([Blocker.third]).rules)
         XCTAssertTrue(Parser(content: Set([Blocker.third]).rules).third)
     }
     
