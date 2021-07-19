@@ -7,14 +7,25 @@ public struct Tab {
     public init() { }
     
     public func new() -> UUID {
-        items
-            .value
-            .first(where: \.state.isNew)
-            .map(\.id)
+        newId
             ?? {
                 items.value.insert($0, at: 0)
                 return $0.id
             } (Item())
+    }
+    
+    public func browse(_ browse: Int) -> UUID {
+        newId
+            .map {
+                self.browse($0, browse)
+                return $0
+            }
+            ?? {
+                items.value.insert($0, at: 0)
+                return $0.id
+            } (Item()
+                .with(state:
+                        .browse(browse)))
     }
     
     public func browse(_ id: UUID, _ browse: Int) {
@@ -114,5 +125,12 @@ public struct Tab {
             .mutate(id) {
                 $0.with(snapshot: snapshot)
             }
+    }
+    
+    private var newId: UUID? {
+        items
+            .value
+            .first(where: \.state.isNew)
+            .map(\.id)
     }
 }

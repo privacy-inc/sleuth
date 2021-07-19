@@ -32,11 +32,34 @@ final class TabTests: XCTestCase {
         XCTAssertEqual(tab.items.value.last?.id, id)
     }
     
-    func testbrowse() {
+    func testBrowse() {
         tab.browse(tab.items.value.first!.id, 33)
         XCTAssertEqual(1, tab.items.value.count)
         if case let .browse(browse) = tab.items.value.first?.state {
             XCTAssertEqual(33, browse)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testNewBrowse() {
+        tab.items.value = [.init().with(state: .browse(33))]
+        let id = tab.browse(34)
+        XCTAssertEqual(id, tab.items.value.first?.id)
+        XCTAssertEqual(2, tab.items.value.count)
+        XCTAssertNotEqual(tab.items.value.first?.id, tab.items.value.last?.id)
+        if case let .browse(browse) = tab.items.value.first?.state {
+            XCTAssertEqual(34, browse)
+        } else {
+            XCTFail()
+        }
+    }
+    
+    func testBrowseTakesNew() {
+        tab.browse(34)
+        XCTAssertEqual(1, tab.items.value.count)
+        if case let .browse(browse) = tab.items.value.first?.state {
+            XCTAssertEqual(34, browse)
         } else {
             XCTFail()
         }
