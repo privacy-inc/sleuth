@@ -56,7 +56,9 @@ final class TabTests: XCTestCase {
     }
     
     func testBrowseTakesNew() {
-        tab.browse(34)
+        let new = tab.items.value.first?.id
+        let id = tab.browse(34)
+        XCTAssertEqual(new, id)
         XCTAssertEqual(1, tab.items.value.count)
         if case let .browse(browse) = tab.items.value.first?.state {
             XCTAssertEqual(34, browse)

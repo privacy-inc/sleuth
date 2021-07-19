@@ -2,9 +2,17 @@ import Foundation
 import Combine
 
 public struct Tab {
-    public let items = CurrentValueSubject<[Item], Never>([.init()])
+    public let items: CurrentValueSubject<[Item], Never>
     
-    public init() { }
+    public init() {
+        items = .init([.init()])
+    }
+    
+    public init(browse: Int) {
+        items = .init([.init()
+                        .with(state:
+                                .browse(browse))])
+    }
     
     public func new() -> UUID {
         newId
