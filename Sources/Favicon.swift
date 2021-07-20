@@ -3,6 +3,7 @@ import Combine
 
 public final class Favicon {
     public let icons = CurrentValueSubject<[String : Data], Never>([:])
+    private var requested = Set<String>()
     private var subs = Set<AnyCancellable>()
     private let queue = DispatchQueue(label: "", qos: .utility)
     
@@ -20,10 +21,29 @@ public final class Favicon {
     } ()
     
     public func load(domain: String) {
+        guard icons.value[domain] == nil else { return }
         
+        queue
+            .async {
+                let url = self.path.appendingPathComponent(domain)
+                if FileManager.default.fileExists(atPath: url.path) {
+                    (try? Data(contentsOf: url))
+                        .map { data in
+                            DispatchQueue
+                                .main
+                                .async {
+                                    self.icons.value[domain] = data
+                                }
+                        }
+                }
+            }
     }
     
     public func save(domain: String, url: String) {
+        guard !requested.contains(domain) || icons.value[domain] == nil else { return }
+        requested.insert(domain)
+        load(domain: domain)
+        
         URL(string: url)
             .map {
                 URLSession
