@@ -22,7 +22,7 @@ function _privacy_incognit_location_received(latitude, longitude, accuracy) {
 
 navigator.geolocation.getCurrentPosition = function(success, error, options) {
     _privacy_incognit_location_success = success;
-    webkit.messageHandlers.location.postMessage('_privacy_incognit_location_request');
+    webkit.messageHandlers.\(Message.location.rawValue).postMessage('_privacy_incognit_location_request');
 };
 
 """
