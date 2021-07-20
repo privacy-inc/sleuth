@@ -44,7 +44,12 @@ public final class Favicon {
     }
     
     public func save(domain: String, url: String) {
-        guard !requested.contains(domain) || icons.value[domain] == nil else { return }
+        guard
+            !domain.isEmpty,
+            !url.isEmpty,
+            !requested.contains(domain) || icons.value[domain] == nil
+        else { return }
+        
         requested.insert(domain)
         load(domain: domain)
         
