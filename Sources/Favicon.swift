@@ -20,6 +20,10 @@ public final class Favicon {
         return url
     } ()
     
+    public init() {
+        
+    }
+    
     public func load(domain: String) {
         guard icons.value[domain] == nil else { return }
         
