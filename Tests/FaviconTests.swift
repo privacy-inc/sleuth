@@ -11,9 +11,12 @@ final class FaviconTests: XCTestCase {
         subs = .init()
     }
     
-    func testGet() {
+    func testLoadUnknown() {
+        favicon.load(domain: "aguacate")
+        
         favicon
-            .get(domain: "aguacate.com")
+            .icons
+            .dropFirst()
             .sink { _ in
                 XCTFail()
             }
@@ -21,15 +24,31 @@ final class FaviconTests: XCTestCase {
     }
     
     func testSave() {
-//        let expect = expectation(description: "")
-//        
-//        favicon
-//            .save(domain: "aguacate.com", url: "aguacate.com/favicon.ico")
-//            .sink { _ in
-//                expect.fulfill()
-//            }
-//            .store(in: &subs)
-//        
-//        waitForExpectations(timeout: 1)
+        let expect = expectation(description: "")
+        let data = Data("hello world".utf8)
+        
+        favicon
+            .icons
+            .map {
+                $0["aguacate"]
+            }
+            .compactMap {
+                $0
+            }
+            .sink {
+                XCTAssertEqual(Thread.main, Thread.current)
+                XCTAssertEqual(data, $0)
+                XCTAssertEqual(data, try? Data(contentsOf: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("icons/aguacate")))
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        DispatchQueue
+            .global(qos: .utility)
+            .async {
+                self.favicon.save(domain: "aguacate", data: data)
+            }
+        
+        waitForExpectations(timeout: 1)
     }
 }
