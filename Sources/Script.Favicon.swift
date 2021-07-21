@@ -2,28 +2,49 @@ import Foundation
 
 extension Script {
     static let favicon = """
-    var _privacy_incognit_favicon = document.querySelector("link[rel='shortcut icon']");
+function _privacy_incognit_favicon() {
+    var list = document.getElementsByTagName("link");
+    var icon = null;
+    
+    for (var i = 0; i < list.length; i++) {
+        if(list[i].getAttribute("rel") == "icon" && !list[i].href.endsWith('.svg')) {
+            icon = list[i].href;
+            break;
+        }
+    }
 
-    if (_privacy_incognit_favicon == null) {
-        _privacy_incognit_favicon = document.querySelector("link[rel='icon']");
-        
-        if (_privacy_incognit_favicon == null) {
-            _privacy_incognit_favicon = document.querySelector("link[rel='shortcut icon']");
+    if (icon == null) {
+        for (var i = 0; i < list.length; i++) {
+            if(list[i].getAttribute("rel") == "shortcut icon" && !list[i].href.endsWith('.svg')) {
+                icon = list[i].href;
+                break;
+            }
+        }
 
-            if (_privacy_incognit_favicon == null) {
-                _privacy_incognit_favicon = document.querySelector("link[rel='apple-touch-icon']");
+        if (icon == null) {
+            for (var i = 0; i < list.length; i++) {
+                if(list[i].getAttribute("rel") == "alternate icon" && !list[i].href.endsWith('.svg')) {
+                    icon = list[i].href;
+                    break;
+                }
+            }
 
-                if (_privacy_incognit_favicon == null) {
-                    _privacy_incognit_favicon = document.querySelector("link[rel*='icon']");
+            if (icon == null) {
+                for (var i = 0; i < list.length; i++) {
+                    if(list[i].getAttribute("rel") == "apple-touch-icon" && !list[i].href.endsWith('.svg')) {
+                        icon = list[i].href;
+                        break;
+                    }
+                }
+
+                if (icon == null) {
+                    icon = window.location.origin + "/favicon.ico"
                 }
             }
         }
     }
-    
-    if (_privacy_incognit_favicon != null && !_privacy_incognit_favicon.href.endsWith('.svg')) {
-        webkit.messageHandlers.\(Message.favicon.rawValue).postMessage(_privacy_incognit_favicon.href);
-    } else {
-        webkit.messageHandlers.\(Message.favicon.rawValue).postMessage(location.origin + "/favicon.ico");
-    }
+
+    webkit.messageHandlers.\(Message.favicon.rawValue).postMessage(icon);
+}
 """
 }
