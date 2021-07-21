@@ -24,6 +24,10 @@ public final class Favicon {
         
     }
     
+    public func needs(domain: String) -> Bool {
+        !requested.contains(domain)
+    }
+    
     public func load(domain: String) {
         guard icons.value[domain] == nil else { return }
         

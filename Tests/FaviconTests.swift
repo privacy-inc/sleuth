@@ -104,4 +104,10 @@ final class FaviconTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testNeeds() {
+        XCTAssertTrue(favicon.needs(domain: "sombras"))
+        favicon.save(domain: "sombras", url: " ")
+        XCTAssertFalse(favicon.needs(domain: "sombras"))
+    }
 }
