@@ -6,7 +6,8 @@ extension Page {
         case
         remote(Remote),
         local(Local),
-        deeplink(Deeplink)
+        deeplink(Deeplink),
+        embed(Embed)
         
         public var short: String {
             switch self {
@@ -19,17 +20,27 @@ extension Page {
             case let .deeplink(deeplink):
                 return deeplink
                     .scheme
+            case let .embed(embed):
+                return embed
+                    .prefix
             }
+            
         }
         
         public var value: String {
             switch self {
             case let .remote(remote):
-                return remote.value
+                return remote
+                    .value
             case let .local(local):
-                return local.value
+                return local
+                    .value
             case let .deeplink(deeplink):
-                return deeplink.value
+                return deeplink
+                    .value
+            case let .embed(embed):
+                return embed
+                    .value
             }
         }
         
@@ -47,24 +58,32 @@ extension Page {
                 self = .local(.init(value: data.string(), bookmark: data.unwrap()))
             case .deeplink:
                 self = .deeplink(.init(value: data.string()))
+            case .embed:
+                self = .embed(.init(value: data.string()))
             }
         }
         
         init(url: URL) {
             self = url.isFileURL
                 ? .local(.init(value: url.absoluteString, bookmark: url.deletingLastPathComponent().bookmark))
-                : {
-                    switch $0 {
-                    case .https, .http, .ftp:
-                        return .remote(.init(value: url.absoluteString))
-                    default:
-                        return url.scheme == nil
-                            ? .remote(.init(value: url.absoluteString))
-                            : .deeplink(.init(value: url.absoluteString))
-                    }
-                } (url
+                : url
                     .scheme
-                    .map(URL.Scheme.init(rawValue:)))
+                    .flatMap(URL.Embed.init(rawValue:))
+                    .map { _ in
+                        .embed(.init(value: url.absoluteString))
+                    }
+                    ?? {
+                        switch $0 {
+                        case .https, .http, .ftp:
+                            return .remote(.init(value: url.absoluteString))
+                        default:
+                            return url.scheme == nil
+                                ? .remote(.init(value: url.absoluteString))
+                                : .deeplink(.init(value: url.absoluteString))
+                        }
+                    } (url
+                        .scheme
+                        .map(URL.Scheme.init(rawValue:)))
         }
         
         private var content: Data {
@@ -79,6 +98,9 @@ extension Page {
             case let .deeplink(deeplink):
                 return Data()
                     .adding(deeplink.value)
+            case let .embed(embed):
+                return Data()
+                    .adding(embed.value)
             }
         }
     }

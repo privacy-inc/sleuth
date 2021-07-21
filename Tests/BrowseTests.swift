@@ -14,7 +14,7 @@ final class BrowseTests: XCTestCase {
     }
     
     func testURL() {
-//        XCTAssertEqual("https://github.com", "https://github.com".browse(engine: .google) { $0 })
+        XCTAssertEqual("https://github.com", "https://github.com".browse(engine: .google) { $0 })
         XCTAssertEqual("https://hello.com/aguacate", "hello.com/aguacate".browse(engine: .google) { $0 })
     }
     

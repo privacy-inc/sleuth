@@ -5,7 +5,8 @@ extension Page.Access {
         case
         remote,
         local,
-        deeplink
+        deeplink,
+        embed
     }
     
     var key: Key {
@@ -13,6 +14,7 @@ extension Page.Access {
         case .remote: return .remote
         case .local: return .local
         case .deeplink: return .deeplink
+        case .embed: return .embed
         }
     }
 }
