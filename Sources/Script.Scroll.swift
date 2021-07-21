@@ -4,7 +4,7 @@ extension Script {
     static let scroll = """
 const _privacy_incognit_splitted = location.hostname.split(".");
 if (_privacy_incognit_splitted.length > 1) {
-    switch (_privacy_incognit_splitted[_privacy_incognit_splitted.length - 1]) {
+    switch (_privacy_incognit_splitted[_privacy_incognit_splitted.length - 2]) {
     case "google":
             var style = document.createElement('style');
             style.innerHTML = ":root, body { overflow-y: visible !important; }";
