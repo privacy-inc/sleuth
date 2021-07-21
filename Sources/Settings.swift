@@ -163,13 +163,14 @@ public struct Settings: Equatable, Property {
     }
     
     public var start: String {
-        dark ? Script.dark : ""
+        dark
+            ? Script.dark + Script.favicon
+            : Script.favicon
     }
     
     public var end: String {
         (screen ? "" : Script.scroll)
         + (location ? Script.location : "")
-            + Script.favicon
     }
     
     public static func == (lhs: Settings, rhs: Settings) -> Bool {
