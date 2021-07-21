@@ -38,7 +38,7 @@ function _privacy_incognit_favicon() {
                 }
 
                 if (icon == null) {
-                    icon = window.location.origin + "/favicon.ico"
+                    icon = window.location.origin + "/favicon.ico";
                 }
             }
         }
