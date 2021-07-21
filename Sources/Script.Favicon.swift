@@ -3,7 +3,7 @@ import Foundation
 extension Script {
     static let favicon = """
 function _privacy_incognit_favicon() {
-    var list = document.getElementsByTagName("link");
+    const list = document.querySelectorAll("link[rel*='icon']");
     var icon = null;
     
     for (var i = 0; i < list.length; i++) {
