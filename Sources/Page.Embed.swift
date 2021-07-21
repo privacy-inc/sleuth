@@ -3,7 +3,7 @@ import Foundation
 extension Page {
     public struct Embed: Hashable {
         public let prefix: String
-        let value: String
+        public let value: String
         
         init(value: String) {
             self.value = value
