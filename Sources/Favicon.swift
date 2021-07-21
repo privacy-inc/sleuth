@@ -3,7 +3,7 @@ import Combine
 
 public final class Favicon {
     public let icons = CurrentValueSubject<[String : Data], Never>([:])
-    private var requested = Set<String>()
+    var requested = Set<String>()
     private var subs = Set<AnyCancellable>()
     private let queue = DispatchQueue(label: "", qos: .utility)
     
@@ -72,6 +72,19 @@ public final class Favicon {
                         self.save(domain: domain, data: $0)
                     }
                     .store(in: &subs)
+            }
+    }
+    
+    public func clear() {
+        queue
+            .async {
+                try? FileManager.default.removeItem(at: self.path)
+                DispatchQueue
+                    .main
+                    .async {
+                        self.requested = []
+                        self.icons.value = [:]
+                    }
             }
     }
     

@@ -107,7 +107,35 @@ final class FaviconTests: XCTestCase {
     
     func testNeeds() {
         XCTAssertTrue(favicon.needs(domain: "sombras"))
-        favicon.save(domain: "sombras", url: " ")
+        favicon.requested.insert("sombras")
         XCTAssertFalse(favicon.needs(domain: "sombras"))
+    }
+    
+    func testClear() {
+        let expect = expectation(description: "")
+        
+        favicon.requested.insert("clearing")
+        let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("icons")
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try! Data("hello world".utf8).write(to: folder.appendingPathComponent("clearing"), options: .atomic)
+        
+        XCTAssertFalse(favicon.needs(domain: "clearing"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: folder.path))
+        
+        favicon.clear()
+
+        favicon
+            .icons
+            .dropFirst()
+            .sink {
+                XCTAssertEqual(Thread.main, Thread.current)
+                XCTAssertTrue($0.isEmpty)
+                XCTAssertTrue(self.favicon.needs(domain: "clearing"))
+                XCTAssertFalse(FileManager.default.fileExists(atPath: folder.path))
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        
+        waitForExpectations(timeout: 1)
     }
 }
