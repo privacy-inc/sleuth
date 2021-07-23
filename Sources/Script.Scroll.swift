@@ -49,6 +49,7 @@ if (_privacy_incognit_splitted.length > 1) {
             document.head.appendChild(style);
             break;
     case "medium":
+            console.log("debugger");
             debugger;
             break
     default:
