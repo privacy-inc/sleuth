@@ -49,8 +49,17 @@ if (_privacy_incognit_splitted.length > 1) {
             document.head.appendChild(style);
             break;
     case "medium":
-            console.log("debugger");
-            debugger;
+            var oldTimeout = setTimeout;
+            setTimeout = function(x, y) {
+                console.log("Prevented Medium from loading malicious scripts!");
+                return -1;
+            }
+
+            var id = oldTimeout(function() {}, 0);
+
+            while (id--) {
+                clearTimeout(id);
+            }
             break
     default:
             break;
