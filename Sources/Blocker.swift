@@ -69,7 +69,9 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.reddit), action: .css(["._3q-XSJ2vokDQrvdG6mR__k",
                                                                 ".EUCookieNotice",
                                                                 ".XPromoPopup"])),
-                    .init(trigger: .url(.medium), action: .css([".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um"])),
+                    .init(trigger: .url(.medium), action: .css([
+                                                                ".lz.u.mb.ti.aj.tj.tk.tl.tm.tn.to.tp.tq.tr.ts.tt.tu.tv.tw.tx.ty.tz.ua.do.ub.uc.ud.ue.uf.ug.uh.ui.uj.uk.ul.um",
+                                                                ".ev.ex.lc.ld.w.le.lf.lg.lh.li.lj.lk.ll.lm.ln.lo.lp.lq.lr.ls.lt.lu.lv.lw.lx.ly.lz.ma.mb.mc.md.me.mf.mg.mh.mi"])),
                     .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
                                                                    ".overlay-container",
                                                                    "#fortress-preblocked-container-root"])),
