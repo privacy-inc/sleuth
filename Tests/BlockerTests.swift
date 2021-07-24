@@ -114,7 +114,7 @@ final class BlockerTests: XCTestCase {
                                                             ".EUCookieNotice",
                                                             ".XPromoPopup"]))
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
-                        .css(url: "medium.com", selectors: [".mb",
+                        .css(url: "medium.com", selectors: [".branch-journeys-top",
                                                             "#lo-highlight-meter-1-highlight-box"]))
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "bloomberg.com", selectors: ["#fortress-paywall-container-root",

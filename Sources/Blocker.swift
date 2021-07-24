@@ -69,7 +69,7 @@ enum Blocker: CaseIterable {
                     .init(trigger: .url(.reddit), action: .css(["._3q-XSJ2vokDQrvdG6mR__k",
                                                                 ".EUCookieNotice",
                                                                 ".XPromoPopup"])),
-                    .init(trigger: .url(.medium), action: .css([".mb",
+                    .init(trigger: .url(.medium), action: .css([".branch-journeys-top",
                                                                 "#lo-highlight-meter-1-highlight-box"])),
                     .init(trigger: .url(.bloomberg), action: .css(["#fortress-paywall-container-root",
                                                                    ".overlay-container",
