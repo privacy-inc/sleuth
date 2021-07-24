@@ -18,6 +18,7 @@ extension URL {
         snapchat,
         linkedin,
         nyt,
+        nytimes,
         medium,
         bloomberg,
         forbes,
@@ -28,44 +29,28 @@ extension URL {
             switch self {
             case .ecosia:
                 return .org
-            case .google:
+            case .google,
+                 .youtube,
+                 .instagram,
+                 .twitter,
+                 .reuters,
+                 .pinterest,
+                 .facebook,
+                 .bbc,
+                 .reddit,
+                 .snapchat,
+                 .linkedin,
+                 .nyt,
+                 .nytimes,
+                 .medium,
+                 .bloomberg,
+                 .forbes,
+                 .huffpost:
                 return .com
-            case .youtube:
-                return .com
-            case .instagram:
-                return .com
-            case .twitter:
-                return .com
-            case .reuters:
-                return .com
-            case .thelocal:
+            case .thelocal,
+                 .spiegel,
+                 .immobilienscout24:
                 return .de
-            case .pinterest:
-                return .com
-            case .facebook:
-                return .com
-            case .bbc:
-                return .com
-            case .reddit:
-                return .com
-            case .spiegel:
-                return .de
-            case .snapchat:
-                return .com
-            case .linkedin:
-                return .com
-            case .nyt:
-                return .com
-            case .medium:
-                return .com
-            case .bloomberg:
-                return .com
-            case .forbes:
-                return .com
-            case .immobilienscout24:
-                return .de
-            case .huffpost:
-                return .com
             }
         }
         

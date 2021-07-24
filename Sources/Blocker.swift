@@ -75,7 +75,8 @@ enum Blocker: CaseIterable {
                                                                    ".overlay-container",
                                                                    "#fortress-preblocked-container-root"])),
                     .init(trigger: .url(.forbes), action: .css(["#consent_blackbar"])),
-                    .init(trigger: .url(.huffpost), action: .css(["#qc-cmp2-container"]))]
+                    .init(trigger: .url(.huffpost), action: .css(["#qc-cmp2-container"])),
+                    .init(trigger: .url(.nytimes), action: .css([".expanded-dock"]))]
         case .antidark:
             return [.init(trigger: .url(.google), action: .css([".P1Ycoe"]))]
         case .third:

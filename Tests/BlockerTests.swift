@@ -126,6 +126,9 @@ final class BlockerTests: XCTestCase {
         
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "huffpost.com", selectors: ["#qc-cmp2-container"]))
+        
+        XCTAssertTrue(Parser(content: Set([.screen]).rules)
+                        .css(url: "nytimes.com", selectors: [".expanded-dock"]))
     }
     
     func testAntidark() {
