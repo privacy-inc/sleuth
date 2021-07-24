@@ -52,19 +52,14 @@ public struct Archive: Archived {
                         .init(timestamp: data.uInt32())
                     }
             }
-        if !data.isEmpty {
-            let pre = data.prefix(10)
-            data.removeFirst(10)
-            bookmarks = (0 ..< (data.isEmpty ? 0 : .init(data.uInt16())))
-                .map { _ in
-                    .init(data: &data)
-                }
-            data = pre + data
-            settings = .init(data: &data)
-        } else {
-            settings = .init()
-            bookmarks = []
-        }
+        let pre = data.prefix(10)
+        data.removeFirst(10)
+        bookmarks = (0 ..< (data.isEmpty ? 0 : .init(data.uInt16())))
+            .map { _ in
+                .init(data: &data)
+            }
+        data = pre + data
+        settings = .init(data: &data)
     }
     
     private init() {

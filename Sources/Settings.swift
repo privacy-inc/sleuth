@@ -109,7 +109,7 @@ public struct Settings: Equatable, Property {
         cookies = data.bool()
         http = data.bool()
         location = data.bool()
-        third = data.isEmpty ? true : data.bool()
+        third = data.bool()
         router = trackers.router
         blocking = []
         
