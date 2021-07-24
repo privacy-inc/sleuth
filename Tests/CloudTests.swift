@@ -866,4 +866,19 @@ final class CloudTests: XCTestCase {
         cloud.third(false)
         waitForExpectations(timeout: 1)
     }
+    
+    func testTimers() {
+        let expect = expectation(description: "")
+        cloud
+            .archive
+            .dropFirst()
+            .sink {
+                XCTAssertFalse($0.settings.timers)
+                expect.fulfill()
+            }
+            .store(in: &subs)
+        XCTAssertTrue(cloud.archive.value.settings.timers)
+        cloud.timers(false)
+        waitForExpectations(timeout: 1)
+    }
 }

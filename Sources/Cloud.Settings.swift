@@ -67,4 +67,10 @@ extension Cloud where A == Archive {
             $0.settings.third = allowed
         }
     }
+    
+    public func timers(_ allowed: Bool) {
+        mutating {
+            $0.settings.timers = allowed
+        }
+    }
 }
