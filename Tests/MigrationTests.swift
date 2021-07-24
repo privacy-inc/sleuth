@@ -2,11 +2,7 @@ import XCTest
 @testable import Sleuth
 
 final class MigrationTests: XCTestCase {
-    private var archive: Archive!
-    
-    override func setUp() {
-        archive = .new
+    func testSettingsWithoutTimers() {
+        XCTAssertFalse((Settings().pre + [0]).prototype(Settings.self).third)
     }
-    
-    
 }

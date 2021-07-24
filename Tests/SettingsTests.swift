@@ -114,33 +114,31 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual([.third], settings.blocking)
     }
     
-    func testScriptBegin() {
-        XCTAssertEqual(Script.dark + Script.favicon, settings.start)
-        settings.dark = false
-        XCTAssertEqual(Script.favicon, settings.start)
-    }
-    
-    func testScriptEnd() {
-        XCTAssertEqual(Script.scroll, settings.end)
-        settings.location = true
-        XCTAssertEqual(Script.scroll + Script.location, settings.end)
-        settings.location = false
-        settings.screen = true
-        XCTAssertTrue(settings.end.isEmpty)
-    }
-    
     func testThird() {
         settings.engine = .ecosia
-        settings.third = true
         XCTAssertTrue((settings.pre + settings.post).prototype(Settings.self).third)
         XCTAssertEqual(.ecosia, (settings.pre + settings.post).prototype(Settings.self).engine)
     }
     
-    func testCombined() {
+    func testThirdCombined() {
         var archive = Archive.new
         archive.settings.engine = .ecosia
-        archive.settings.third = true
-        XCTAssertTrue(archive.data.prototype(Archive.self).settings.third)
+        archive.settings.third = false
+        XCTAssertFalse(archive.data.prototype(Archive.self).settings.third)
+        XCTAssertEqual(.ecosia, archive.data.prototype(Archive.self).settings.engine)
+    }
+    
+    func testTimers() {
+        settings.engine = .ecosia
+        XCTAssertTrue((settings.pre + settings.post).prototype(Settings.self).timers)
+        XCTAssertEqual(.ecosia, (settings.pre + settings.post).prototype(Settings.self).engine)
+    }
+    
+    func testTimersCombined() {
+        var archive = Archive.new
+        archive.settings.engine = .ecosia
+        archive.settings.timers = false
+        XCTAssertFalse(archive.data.prototype(Archive.self).settings.timers)
         XCTAssertEqual(.ecosia, archive.data.prototype(Archive.self).settings.engine)
     }
 }

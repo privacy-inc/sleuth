@@ -6,6 +6,7 @@ public struct Settings: Equatable, Property {
     public internal(set) var javascript: Bool
     public internal(set) var popups: Bool
     public internal(set) var location: Bool
+    public internal(set) var timers: Bool
     private(set) var router: Router
     private(set) var blocking: Set<Blocker>
     
@@ -96,6 +97,7 @@ public struct Settings: Equatable, Property {
     var post: Data {
         Data()
             .adding(third)
+            .adding(timers)
     }
     
     public init(data: inout Data) {
@@ -110,6 +112,7 @@ public struct Settings: Equatable, Property {
         http = data.bool()
         location = data.bool()
         third = data.bool()
+        timers = data.isEmpty ? true : data.bool()
         router = trackers.router
         blocking = []
         
@@ -150,6 +153,7 @@ public struct Settings: Equatable, Property {
         http = false
         location = false
         third = true
+        timers = true
         router = .secure
         blocking = .init(Blocker
                             .allCases
@@ -171,6 +175,7 @@ public struct Settings: Equatable, Property {
     public var end: String {
         (screen ? "" : Script.scroll)
         + (location ? Script.location : "")
+            + (timers ? "" : Script.timers)
     }
     
     public static func == (lhs: Settings, rhs: Settings) -> Bool {
@@ -185,6 +190,7 @@ public struct Settings: Equatable, Property {
             && lhs.http == rhs.http
             && lhs.location == rhs.location
             && lhs.third == rhs.third
+            && lhs.timers == rhs.timers
     }
 }
 
