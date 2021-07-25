@@ -2,9 +2,6 @@ import Foundation
 
 extension Script {
     static let timers = """
-Promise = null;
-Worker = null;
-
 function _privacy_incognit_timers(w) {
     const timeout = w.setTimeout;
     const interval = w.setInterval;
@@ -34,6 +31,10 @@ _privacy_incognit_timers(window);
 for (var index = 0; index < window.frames.length; index++) {
     _privacy_incognit_timers(window.frames[index]);
 }
+
+Promise = null;
+Worker = null;
+
 
 """
 }
