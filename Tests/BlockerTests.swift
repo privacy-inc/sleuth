@@ -116,7 +116,8 @@ final class BlockerTests: XCTestCase {
                                                             ".XPromoPopup"]))
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "medium.com", selectors: [".branch-journeys-top",
-                                                            "#lo-highlight-meter-1-highlight-box"]))
+                                                            "#lo-highlight-meter-1-highlight-box",
+                                                            "#branch-banner-iframe"]))
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "bloomberg.com", selectors: ["#fortress-paywall-container-root",
                                                                ".overlay-container",
