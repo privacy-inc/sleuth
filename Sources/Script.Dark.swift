@@ -93,7 +93,7 @@ document.addEventListener('readystatechange', event => {
 
 setTimeout(function() {
     document.head.appendChild(_privacy_incognit_style);
-}, 100);
+}, 1);
 
 """
 }
