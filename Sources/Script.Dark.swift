@@ -75,10 +75,6 @@ a, a *, :not(a p) {\
     }\
 }";
 
-setTimeout(function() {
-    document.head.appendChild(_privacy_incognit_style);
-}, 1);
-
 document.addEventListener('readystatechange', event => {
     switch (event.target.readyState) {
         case "interactive":
@@ -94,6 +90,10 @@ document.addEventListener('readystatechange', event => {
             break;
     }
 });
+
+setTimeout(function() {
+    document.head.appendChild(_privacy_incognit_style);
+}, 100);
 
 """
 }
