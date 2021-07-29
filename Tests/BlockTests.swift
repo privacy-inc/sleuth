@@ -136,7 +136,8 @@ final class BlockTests: XCTestCase {
         "https://p.deliveryapis.com/prebidlink/18825/j.html?i=11597",
         "https://p.midserved.com/prebidlink/18825/j.html?i=11602",
         "https://user-sync.adxpremium.services/load-cookie.html?gdpr=0&gdpr_consent=",
-        "https://p.adservd.com/prebidlink/18825/j.html?i=6961"
+        "https://p.adservd.com/prebidlink/18825/j.html?i=6961",
+        "https://cdn.appdynamics.com/adrum-xd.64575a4f0ccc435ef3de4778c280c647.html"
     ]
     
     override func setUp() {

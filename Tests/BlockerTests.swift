@@ -97,7 +97,6 @@ final class BlockerTests: XCTestCase {
                         .css(url: "reuters.com", selectors: ["#onetrust-consent-sdk",
                                                              "#newReutersModal"]))
         
-        
         XCTAssertTrue(Parser(content: Set([.screen]).rules)
                         .css(url: "thelocal.de", selectors: ["#qc-cmp2-container",
                                                              ".tp-modal",
