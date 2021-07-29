@@ -3,29 +3,36 @@ import Foundation
 extension Script {
     static let dark = """
 function _privacy_incognit_make_dark(element) {
-    const background_color = getComputedStyle(element).getPropertyValue("background-color");
-    const parts = background_color.match(/[\\d.]+/g);
-    const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
-    const text_color = element.style.color;
-    const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
+    if (!element.hasAttribute('_privacy_incognit_dark_mode')) {
+        element.setAttribute('_privacy_incognit_dark_mode', 1);
 
-    if (element.tagName != "A" && text_color != "") {
-        element.style.setProperty("color", "#cecccf", "important");
-    }
+        const text_color = getComputedStyle(element).getPropertyValue("color");
+        const background_color = getComputedStyle(element).getPropertyValue("background-color");
 
-    if (shadow != "none") {
-        element.style.setProperty("box-shadow", "none", "important");
-    }
-
-    if (gradient) {
-        element.style.setProperty("background", "none", "important");
-        element.style.setProperty("background-color", "rgba(37, 34, 40)", "important");
-    } else if (parts.length > 3) {
-        if (parts[3] > 0) {
-            element.style.setProperty("background-color", "rgba(37, 34, 40, ${ parts[3] })", "important");
+        if (text_color != "rgb(206, 204, 207)" && text_color != "rgb(124, 170, 223)") {
+            if (element.tagName == "A") {
+                element.style.setProperty("color", "#7caadf", "important");
+            } else {
+                element.style.setProperty("color", "#cecccf", "important");
+            }
         }
-    } else {
-        element.style.setProperty("background-color", "rgba(37, 34, 40)", "important");
+
+        if (getComputedStyle(element).getPropertyValue("box-shadow") != "none") {
+            element.style.setProperty("box-shadow", "none", "important");
+        }
+
+        if (getComputedStyle(element).getPropertyValue("background").includes("gradient")) {
+            element.style.setProperty("background", "none", "important");
+        }
+
+        if (background_color != "rgb(37, 34, 40)" && background_color != "rgba(0, 0, 0, 0)" && background_color != "rgb(0, 0, 0)") {
+            let alpha = 1;
+            const rgba = background_color.match(/[\\d.]+/g);
+            if (rgba.length > 3) {
+               alpha = rgba[3];
+            }
+            element.style.setProperty("background-color", "rgba(37, 34, 40, " + alpha + ")", "important");
+        }
     }
 }
 
@@ -43,10 +50,10 @@ _privacy_incognit_style.innerHTML = "\
 :root, html, body {\
     background-color: #252228 !important;\
 }\
-a, a *, a:link *, a:visited *, a:hover *, a:active * {\
+a, a *, :not(a p) {\
     color: #7caadf !important;\
 }\
-:root, * :not(a, a *, a:link *, a:visited *, a:hover *, a:active *), a p, a:link p, a:visited p, a:hover p, a:active p {\
+:root :not(a, a *), a p {\
     color: #cecccf !important;\
 }\
 * {\
@@ -68,7 +75,25 @@ a, a *, a:link *, a:visited *, a:hover *, a:active * {\
     }\
 }";
 
-document.head.appendChild(_privacy_incognit_style);
-setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 25);
+setTimeout(function() {
+    document.head.appendChild(_privacy_incognit_style);
+}, 1);
+
+document.addEventListener('readystatechange', event => {
+    switch (event.target.readyState) {
+        case "interactive":
+            document.head.appendChild(_privacy_incognit_style);
+            break;
+        case "complete":
+            let nodes = document.querySelectorAll(":not([_privacy_incognit_dark_mode])");
+            for (let c = 0; c < nodes.length; c++) {
+                _privacy_incognit_make_dark(nodes[c]);
+            }
+            break;
+        default:
+            break;
+    }
+});
+
 """
 }
