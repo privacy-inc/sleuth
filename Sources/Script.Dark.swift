@@ -68,6 +68,7 @@ a, a *, a:link *, a:visited *, a:hover *, a:active * {\
     }\
 }";
 
-setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 5);
+document.head.appendChild(_privacy_incognit_style);
+setTimeout(function() { document.head.appendChild(_privacy_incognit_style); }, 25);
 """
 }
