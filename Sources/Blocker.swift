@@ -17,9 +17,7 @@ enum Blocker: CaseIterable {
             return [.init(trigger: .all, action: .http)]
         case .ads:
             return [.init(trigger: .url(.ecosia), action: .css([".card-ad",
-                                                                ".card-productads",
-                                                                ".js-whitelist-notice",
-                                                                ".callout-whitelist"])),
+                                                                ".card-productads"])),
                     .init(trigger: .url(.google), action: .css(["#taw",
                                                                 "#rhs",
                                                                 "#tadsb",
@@ -43,6 +41,9 @@ enum Blocker: CaseIterable {
                                                                 ".QzsnAe.crIj3e",
                                                                 ".ml-promotion-container",
                                                                 ".USRMqe"])),
+                    .init(trigger: .url(.ecosia), action: .css([".serp-cta-wrapper",
+                                                                ".js-whitelist-notice",
+                                                                ".callout-whitelist"])),
                     .init(trigger: .url(.youtube), action: .css(["#consent-bump",
                                                                  ".opened",
                                                                  ".ytd-popup-container",
