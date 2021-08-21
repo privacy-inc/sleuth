@@ -113,13 +113,4 @@ public struct Archive: Archived {
         browses.insert(page, at: 0)
         return browse
     }
-    
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.timestamp == rhs.timestamp
-            && lhs.browses == rhs.browses
-            && lhs.activity == rhs.activity
-            && lhs.blocked == rhs.blocked
-            && lhs.settings == rhs.settings
-            && lhs.bookmarks == rhs.bookmarks
-    }
 }
