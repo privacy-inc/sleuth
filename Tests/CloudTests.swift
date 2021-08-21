@@ -476,7 +476,7 @@ final class CloudTests: XCTestCase {
         
         cloud.archive.value.counter = 99
         cloud.archive.value.browses = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote(.init(value: "aguacate.com"))), date: date)]
-        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.timestamp = 10
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
         
@@ -488,7 +488,7 @@ final class CloudTests: XCTestCase {
                 XCTAssertTrue($0.blocked.isEmpty)
                 XCTAssertTrue($0.activity.isEmpty)
                 XCTAssertEqual(0, $0.counter)
-                XCTAssertGreaterThan($0.date, date)
+                XCTAssertGreaterThanOrEqual($0.timestamp, date.timestamp)
                 expect.fulfill()
             }
             .store(in: &subs)
@@ -504,7 +504,7 @@ final class CloudTests: XCTestCase {
         
         cloud.archive.value.counter = 99
         cloud.archive.value.browses = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote(.init(value: "aguacate.com"))), date: date)]
-        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.timestamp = 10
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
         
@@ -516,7 +516,7 @@ final class CloudTests: XCTestCase {
                 XCTAssertFalse($0.blocked.isEmpty)
                 XCTAssertFalse($0.activity.isEmpty)
                 XCTAssertEqual(0, $0.counter)
-                XCTAssertGreaterThan($0.date, date)
+                XCTAssertGreaterThanOrEqual($0.timestamp, date.timestamp)
                 expect.fulfill()
             }
             .store(in: &subs)
@@ -532,7 +532,7 @@ final class CloudTests: XCTestCase {
         
         cloud.archive.value.counter = 99
         cloud.archive.value.browses = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote(.init(value: "aguacate.com"))), date: date)]
-        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.timestamp = 10
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
         
@@ -544,7 +544,7 @@ final class CloudTests: XCTestCase {
                 XCTAssertTrue($0.blocked.isEmpty)
                 XCTAssertFalse($0.activity.isEmpty)
                 XCTAssertEqual(99, $0.counter)
-                XCTAssertGreaterThan($0.date, date)
+                XCTAssertGreaterThanOrEqual($0.timestamp, date.timestamp)
                 expect.fulfill()
             }
             .store(in: &subs)
@@ -560,7 +560,7 @@ final class CloudTests: XCTestCase {
         
         cloud.archive.value.counter = 99
         cloud.archive.value.browses = [.init(id: 33, page: .init(title: "hello bla bla", access: .remote(.init(value: "aguacate.com"))), date: date)]
-        cloud.archive.value.date = .init(timeIntervalSince1970: 10)
+        cloud.archive.value.timestamp = 10
         cloud.archive.value.blocked = ["some" : [.init()]]
         cloud.archive.value.activity = [.init()]
         
@@ -572,7 +572,7 @@ final class CloudTests: XCTestCase {
                 XCTAssertFalse($0.blocked.isEmpty)
                 XCTAssertTrue($0.activity.isEmpty)
                 XCTAssertEqual(99, $0.counter)
-                XCTAssertGreaterThan($0.date, date)
+                XCTAssertGreaterThanOrEqual($0.timestamp, date.timestamp)
                 expect.fulfill()
             }
             .store(in: &subs)

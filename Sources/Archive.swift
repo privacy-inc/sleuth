@@ -3,7 +3,7 @@ import Archivable
 
 public struct Archive: Archived {
     public static let new = Self()
-    public var date: Date
+    public var timestamp: UInt32
     public internal(set) var settings: Settings
     public internal(set) var browses: [Browse]
     public internal(set) var bookmarks: [Page]
@@ -20,7 +20,7 @@ public struct Archive: Archived {
     public var data: Data {
         Data()
             .adding(UInt16(counter))
-            .adding(date)
+            .adding(timestamp)
             .adding(UInt16(browses.count))
             .adding(browses.flatMap(\.data))
             .adding(UInt32(activity.count))
@@ -36,7 +36,7 @@ public struct Archive: Archived {
     public init(data: inout Data) {
         data.decompress()
         counter = .init(data.uInt16())
-        date = .init(timestamp: data.uInt32())
+        timestamp = data.uInt32()
         browses = (0 ..< .init(data.uInt16()))
             .map { _ in
                 .init(data: &data)
@@ -63,7 +63,7 @@ public struct Archive: Archived {
     }
     
     private init() {
-        date = .init(timeIntervalSince1970: 0)
+        timestamp = 0
         browses = .init()
         activity = []
         blocked = [:]
@@ -115,7 +115,7 @@ public struct Archive: Archived {
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.date.timestamp == rhs.date.timestamp
+        lhs.timestamp == rhs.timestamp
             && lhs.browses == rhs.browses
             && lhs.activity == rhs.activity
             && lhs.blocked == rhs.blocked

@@ -9,12 +9,10 @@ final class ArchiveTests: XCTestCase {
     }
     
     func testDate() {
-        let date0 = Date(timeIntervalSince1970: 0)
         archive = .new
-        XCTAssertGreaterThanOrEqual(archive.data.prototype(Archive.self).date.timestamp, date0.timestamp)
-        let date1 = Date(timeIntervalSince1970: 1)
-        archive.date = date1
-        XCTAssertGreaterThanOrEqual(archive.data.prototype(Archive.self).date.timestamp, date1.timestamp)
+        XCTAssertGreaterThanOrEqual(archive.data.prototype(Archive.self).timestamp, 0)
+        archive.timestamp = 1
+        XCTAssertGreaterThanOrEqual(archive.data.prototype(Archive.self).timestamp, 1)
     }
     
     func testCounter() {
