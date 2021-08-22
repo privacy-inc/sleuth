@@ -6,8 +6,7 @@ extension Cloud where A == Archive {
         .init(manifest: .init(
                 file: file,
                 container: "iCloud.privacy",
-                prefix: "privacy_",
-                title: "Privacy"))
+                prefix: "privacy_"))
     }
 }
 
